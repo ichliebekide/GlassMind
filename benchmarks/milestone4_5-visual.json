@@ -1,0 +1,211 @@
+{
+  "created": "2026-09-03T17:47:27.818988+00:00",
+  "milestone": "4.5",
+  "settings": {
+    "nodes": [
+      1000,
+      10000,
+      50000,
+      100000
+    ],
+    "repeats": 4,
+    "frames": 12,
+    "length": 64,
+    "d_model": 64,
+    "layers": 2,
+    "sections": [
+      "pipeline",
+      "lod",
+      "render",
+      "live"
+    ]
+  },
+  "note": "Die Netzstrukturen im Abschnitt render/pipeline/lod sind synthetische Lasttests, keine Modelltelemetrie. Der Abschnitt live misst echten Modellcode.",
+  "sections": {
+    "pipeline": {
+      "levels": [
+        {
+          "requested_nodes": 1000,
+          "actual_nodes": 984,
+          "drawn_nodes": 984,
+          "drawn_edges": 656,
+          "seconds_per_scene": 0.002893843499805371,
+          "scenes_per_second": 345.56118880210914,
+          "filtered_nodes": 984,
+          "filtered_seconds_per_scene": 0.0032722994999403454
+        },
+        {
+          "requested_nodes": 10000,
+          "actual_nodes": 9984,
+          "drawn_nodes": 9984,
+          "drawn_edges": 6656,
+          "seconds_per_scene": 0.03377828349994161,
+          "scenes_per_second": 29.60481991341356,
+          "filtered_nodes": 2000,
+          "filtered_seconds_per_scene": 0.03764901100021234
+        },
+        {
+          "requested_nodes": 50000,
+          "actual_nodes": 49992,
+          "drawn_nodes": 49992,
+          "drawn_edges": 33328,
+          "seconds_per_scene": 0.22161697199999253,
+          "scenes_per_second": 4.512289789791161,
+          "filtered_nodes": 2000,
+          "filtered_seconds_per_scene": 0.23639135899975372
+        },
+        {
+          "requested_nodes": 100000,
+          "actual_nodes": 99984,
+          "drawn_nodes": 99984,
+          "drawn_edges": 66656,
+          "seconds_per_scene": 0.5092664690000674,
+          "scenes_per_second": 1.9636085642227263,
+          "filtered_nodes": 2000,
+          "filtered_seconds_per_scene": 0.5348096899999746
+        }
+      ]
+    },
+    "lod": {
+      "source_nodes": 99984,
+      "levels": [
+        {
+          "level": "model",
+          "nodes": 1,
+          "edges": 0,
+          "seconds_per_scene": 0.09438491350010736,
+          "total_flow": 16750.824197297326
+        },
+        {
+          "level": "layer",
+          "nodes": 8,
+          "edges": 0,
+          "seconds_per_scene": 0.15276143400024011,
+          "total_flow": 16750.824197297432
+        },
+        {
+          "level": "state",
+          "nodes": 24,
+          "edges": 16,
+          "seconds_per_scene": 0.22617467299983218,
+          "total_flow": 16750.824197297443
+        },
+        {
+          "level": "cluster",
+          "nodes": 99984,
+          "edges": 66656,
+          "seconds_per_scene": 0.5352209225000024,
+          "total_flow": 16750.82419729745
+        }
+      ]
+    },
+    "render": {
+      "levels": [
+        {
+          "nodes": 984,
+          "edges": 656,
+          "seconds_per_frame": 0.007525954499897125,
+          "fps": 132.87351126208236,
+          "draw_calls": 5,
+          "process_rss_bytes": 822202368
+        },
+        {
+          "nodes": 9984,
+          "edges": 6656,
+          "seconds_per_frame": 0.03233703249998143,
+          "fps": 30.92429708881216,
+          "draw_calls": 5,
+          "process_rss_bytes": 833503232
+        },
+        {
+          "nodes": 49992,
+          "edges": 33328,
+          "seconds_per_frame": 0.14705036800000926,
+          "fps": 6.800391006161488,
+          "draw_calls": 5,
+          "process_rss_bytes": 855683072
+        },
+        {
+          "nodes": 99984,
+          "edges": 66656,
+          "seconds_per_frame": 0.2918614960001378,
+          "fps": 3.426282718702737,
+          "draw_calls": 5,
+          "process_rss_bytes": 967233536
+        }
+      ]
+    },
+    "live": {
+      "baseline_tokens_per_second": 6391.266015446572,
+      "modes": [
+        {
+          "mode": "ohne Bus",
+          "tokens_per_second": 6391.266015446572,
+          "tokens_per_second_spread": 1629.7197896272664,
+          "overhead_percent": 0.0
+        },
+        {
+          "mode": "off",
+          "tokens_per_second": 6933.735186603626,
+          "tokens_per_second_spread": 1004.8816613108465,
+          "overhead_percent": -8.487663787518795,
+          "events": 0,
+          "dropped": 0
+        },
+        {
+          "mode": "summary",
+          "tokens_per_second": 6524.100127779568,
+          "tokens_per_second_spread": 784.2680749422298,
+          "overhead_percent": -2.078369324824836,
+          "events": 8,
+          "dropped": 0
+        },
+        {
+          "mode": "trace",
+          "tokens_per_second": 802.0631570848328,
+          "tokens_per_second_spread": 19.72874283264082,
+          "overhead_percent": 87.45063724234939,
+          "events": 768,
+          "dropped": 0
+        },
+        {
+          "mode": "full",
+          "tokens_per_second": 632.8876591174288,
+          "tokens_per_second_spread": 171.39621361371405,
+          "overhead_percent": 90.09761669146849,
+          "events": 768,
+          "dropped": 0
+        }
+      ],
+      "rounds": 5,
+      "config": {
+        "vocab_size": 64,
+        "d_model": 64,
+        "n_layers": 2,
+        "local_kernel_size": 3,
+        "dropout": 0.0,
+        "telemetry_clusters": 4,
+        "tie_embeddings": true,
+        "activity_activation_weight": 0.35,
+        "activity_delta_weight": 0.35,
+        "activity_gate_weight": 0.15,
+        "activity_flow_weight": 0.15,
+        "activity_update_threshold": 0.02,
+        "state_interactions": true,
+        "recurrent_autocast": false,
+        "memory_slots": 0,
+        "memory_width": 64,
+        "memory_key_dim": 32,
+        "memory_read_k": 2,
+        "memory_write_k": 1,
+        "memory_layer": -1,
+        "memory_query_source": "output",
+        "memory_replacement": "lru_strength",
+        "memory_routing": "cosine_strength",
+        "memory_track_usage": false,
+        "memory_decay": 1.0
+      },
+      "length": 64
+    }
+  }
+}

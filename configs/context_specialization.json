@@ -1,0 +1,47 @@
+{
+  "model": {
+    "vocab_size": 69,
+    "d_model": 64,
+    "n_layers": 2,
+    "local_kernel_size": 3,
+    "dropout": 0.0,
+    "telemetry_clusters": 4,
+    "tie_embeddings": true,
+    "activity_activation_weight": 0.35,
+    "activity_delta_weight": 0.35,
+    "activity_gate_weight": 0.15,
+    "activity_flow_weight": 0.15,
+    "activity_update_threshold": 0.02,
+    "state_interactions": true
+  },
+  "tokenizer": {
+    "section_count": 4
+  },
+  "training": {
+    "steps": 2400,
+    "batch_size": 96,
+    "learning_rate": 0.003,
+    "weight_decay": 0.0,
+    "grad_clip": 1.0,
+    "log_every": 50,
+    "seed": 41,
+    "train_distances": [0, 16, 64, 256],
+    "associations": 3,
+    "copy_items": 2,
+    "tokens_per_batch": 8192,
+    "tasks": [
+      "associative_recall",
+      "sectioned_recall",
+      "selective_copy",
+      "topic_resumption",
+      "hierarchical_scope"
+    ],
+    "sections": 3,
+    "facts_per_section": 2
+  },
+  "evaluation": {
+    "distances": [16, 64, 256],
+    "batch_size": 32,
+    "repeats": 2
+  }
+}

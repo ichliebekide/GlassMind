@@ -1,0 +1,760 @@
+{
+  "created": "2026-09-03T17:09:21.264746+00:00",
+  "milestone": "3",
+  "environment": {
+    "seed": 41,
+    "git_commit": null,
+    "python": "3.13.7",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "pytorch": "2.13.0+cu130",
+    "cuda": "13.0",
+    "rocm": null,
+    "device": {
+      "backend": "cuda",
+      "device": "cuda",
+      "name": "NVIDIA GeForce RTX 3070",
+      "precision": "bfloat16",
+      "amp": true,
+      "compile_available": true,
+      "total_memory_bytes": 8220901376,
+      "pytorch_version": "2.13.0+cu130",
+      "cuda_version": "13.0",
+      "rocm_version": null,
+      "optimizations": [
+        "AMP"
+      ]
+    },
+    "process_id": 11621
+  },
+  "tokenizer": {
+    "kind": "state_task",
+    "version": 1,
+    "vocab_size": 120,
+    "key_start": 8,
+    "key_count": 48,
+    "value_count": 32,
+    "noise_count": 32,
+    "section_count": 0
+  },
+  "settings": {
+    "device": "auto",
+    "steps": 900,
+    "seed": 41,
+    "d_model": 64,
+    "layers": 2,
+    "slots": 64,
+    "memory_width": 64,
+    "memory_key_dim": 32,
+    "read_k": 2,
+    "write_k": 1,
+    "query_source": "output",
+    "replacement": "lru_strength",
+    "distances": [
+      1024,
+      4096,
+      8192,
+      16384
+    ],
+    "train_distances": [
+      0,
+      64,
+      256,
+      1024
+    ],
+    "slot_sweep": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "eval_batch_size": 16,
+    "slot_ablations": 5,
+    "merge": false,
+    "sections": [
+      "compare",
+      "ablation"
+    ]
+  },
+  "sections": {
+    "compare": {
+      "variants": [
+        {
+          "label": "ohne Memory",
+          "config": {
+            "vocab_size": 120,
+            "d_model": 64,
+            "n_layers": 2,
+            "local_kernel_size": 3,
+            "dropout": 0.0,
+            "telemetry_clusters": 4,
+            "tie_embeddings": true,
+            "activity_activation_weight": 0.35,
+            "activity_delta_weight": 0.35,
+            "activity_gate_weight": 0.15,
+            "activity_flow_weight": 0.15,
+            "activity_update_threshold": 0.02,
+            "state_interactions": true,
+            "recurrent_autocast": false,
+            "memory_slots": 0,
+            "memory_width": 64,
+            "memory_key_dim": 32,
+            "memory_read_k": 2,
+            "memory_write_k": 1,
+            "memory_layer": -1,
+            "memory_query_source": "output",
+            "memory_replacement": "lru_strength",
+            "memory_routing": "cosine_strength",
+            "memory_track_usage": false,
+            "memory_decay": 1.0
+          },
+          "training": {
+            "steps": 900,
+            "final_loss": 0.003023791126906872,
+            "best_loss": 0.0014957062667235732,
+            "final_accuracy": 1.0,
+            "tokens_per_second": 11445.45499266333
+          },
+          "training_seconds": 463.344496754,
+          "accuracy": {
+            "delayed_binding": {
+              "1024": 1.0,
+              "4096": 0.9791666666666666,
+              "8192": 0.9583333333333334,
+              "16384": 0.6666666666666666
+            },
+            "multiple_bindings": {
+              "1024": 0.2708333333333333,
+              "4096": 0.2708333333333333,
+              "8192": 0.16666666666666666,
+              "16384": 0.08333333333333333
+            },
+            "distractor_recall": {
+              "1024": 0.125,
+              "4096": 0.1875,
+              "8192": 0.08333333333333333,
+              "16384": 0.16666666666666666
+            },
+            "memory_replacement": {
+              "1024": 1.0,
+              "4096": 1.0,
+              "8192": 1.0,
+              "16384": 0.9166666666666666
+            },
+            "repeated_retrieval": {
+              "1024": 1.0,
+              "4096": 1.0,
+              "8192": 1.0,
+              "16384": 0.9166666666666666
+            }
+          },
+          "mean_accuracy": 0.6395833333333333,
+          "cost": {
+            "tokens_per_second": 2249.5901106222564,
+            "streaming_ms_per_token": 1.2484073203120616,
+            "peak_memory_bytes": 18381312,
+            "trace_tokens_per_second": 358.83441767267414,
+            "observation_overhead_percent": 84.04889779794517,
+            "parameter_count": 111042,
+            "memory_parameter_count": 0
+          },
+          "memory_utilisation": null
+        },
+        {
+          "label": "Memory 64 Slots",
+          "config": {
+            "vocab_size": 120,
+            "d_model": 64,
+            "n_layers": 2,
+            "local_kernel_size": 3,
+            "dropout": 0.0,
+            "telemetry_clusters": 4,
+            "tie_embeddings": true,
+            "activity_activation_weight": 0.35,
+            "activity_delta_weight": 0.35,
+            "activity_gate_weight": 0.15,
+            "activity_flow_weight": 0.15,
+            "activity_update_threshold": 0.02,
+            "state_interactions": true,
+            "recurrent_autocast": false,
+            "memory_slots": 64,
+            "memory_width": 64,
+            "memory_key_dim": 32,
+            "memory_read_k": 2,
+            "memory_write_k": 1,
+            "memory_layer": -1,
+            "memory_query_source": "output",
+            "memory_replacement": "lru_strength",
+            "memory_routing": "cosine_strength",
+            "memory_track_usage": true,
+            "memory_decay": 1.0
+          },
+          "training": {
+            "steps": 900,
+            "final_loss": 0.006380934733897448,
+            "best_loss": 0.0019268037285655737,
+            "final_accuracy": 1.0,
+            "tokens_per_second": 4644.652645008406
+          },
+          "training_seconds": 1499.720470001,
+          "accuracy": {
+            "delayed_binding": {
+              "1024": 1.0,
+              "4096": 0.8541666666666666,
+              "8192": 0.625,
+              "16384": 0.6666666666666666
+            },
+            "multiple_bindings": {
+              "1024": 0.3541666666666667,
+              "4096": 0.2708333333333333,
+              "8192": 0.08333333333333333,
+              "16384": 0.0
+            },
+            "distractor_recall": {
+              "1024": 0.4166666666666667,
+              "4096": 0.22916666666666666,
+              "8192": 0.16666666666666666,
+              "16384": 0.08333333333333333
+            },
+            "memory_replacement": {
+              "1024": 0.8958333333333334,
+              "4096": 0.9166666666666666,
+              "8192": 0.75,
+              "16384": 0.75
+            },
+            "repeated_retrieval": {
+              "1024": 1.0,
+              "4096": 1.0,
+              "8192": 0.9722222288449606,
+              "16384": 1.0
+            }
+          },
+          "mean_accuracy": 0.601736111442248,
+          "cost": {
+            "tokens_per_second": 647.247549254545,
+            "streaming_ms_per_token": 2.7176943828131073,
+            "peak_memory_bytes": 18514432,
+            "trace_tokens_per_second": 233.75827194432634,
+            "observation_overhead_percent": 63.884255380564525,
+            "parameter_count": 123591,
+            "memory_parameter_count": 12549
+          },
+          "memory_utilisation": {
+            "counters_tracked": true,
+            "slots": 64,
+            "occupied_slots": 64,
+            "occupancy_rate": 1.0,
+            "slots_ever_read": 7,
+            "total_reads": 32922.0,
+            "total_writes": 16461.0,
+            "mean_strength": 0.06954152882099152,
+            "max_strength": 0.14771966636180878,
+            "mean_age": 16207.005859375,
+            "read_distribution": [
+              7.0,
+              3.0,
+              1438.0,
+              0.0,
+              0.0,
+              15710.0,
+              683.0,
+              0.0,
+              0.0,
+              2055.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              13026.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "write_distribution": [
+              301.0,
+              299.0,
+              302.0,
+              299.0,
+              298.0,
+              162.0,
+              246.0,
+              192.0,
+              123.0,
+              265.0,
+              292.0,
+              66.0,
+              219.0,
+              269.0,
+              313.0,
+              229.0,
+              113.0,
+              302.0,
+              299.0,
+              111.0,
+              213.0,
+              181.0,
+              248.0,
+              103.0,
+              246.0,
+              304.0,
+              284.0,
+              192.0,
+              292.0,
+              303.0,
+              303.0,
+              240.0,
+              300.0,
+              308.0,
+              306.0,
+              244.0,
+              287.0,
+              299.0,
+              247.0,
+              297.0,
+              305.0,
+              303.0,
+              308.0,
+              150.0,
+              314.0,
+              304.0,
+              305.0,
+              129.0,
+              274.0,
+              305.0,
+              198.0,
+              134.0,
+              313.0,
+              305.0,
+              285.0,
+              311.0,
+              294.0,
+              308.0,
+              268.0,
+              241.0,
+              314.0,
+              300.0,
+              311.0,
+              285.0
+            ]
+          }
+        }
+      ]
+    },
+    "ablation": {
+      "modes": [
+        {
+          "label": "vollständig aktiv",
+          "options": {},
+          "accuracy": {
+            "delayed_binding": {
+              "1024": 1.0,
+              "4096": 0.8541666666666666,
+              "8192": 0.625,
+              "16384": 0.6666666666666666
+            },
+            "multiple_bindings": {
+              "1024": 0.3541666666666667,
+              "4096": 0.2708333333333333,
+              "8192": 0.08333333333333333,
+              "16384": 0.0
+            },
+            "distractor_recall": {
+              "1024": 0.4166666666666667,
+              "4096": 0.22916666666666666,
+              "8192": 0.16666666666666666,
+              "16384": 0.08333333333333333
+            },
+            "memory_replacement": {
+              "1024": 0.8958333333333334,
+              "4096": 0.9166666666666666,
+              "8192": 0.75,
+              "16384": 0.75
+            },
+            "repeated_retrieval": {
+              "1024": 1.0,
+              "4096": 1.0,
+              "8192": 0.9722222288449606,
+              "16384": 1.0
+            }
+          },
+          "mean_accuracy": 0.601736111442248,
+          "logit_difference": null
+        },
+        {
+          "label": "--disable-memory",
+          "options": {
+            "disable_memory": true
+          },
+          "accuracy": {
+            "delayed_binding": {
+              "1024": 1.0,
+              "4096": 0.7916666666666666,
+              "8192": 0.5,
+              "16384": 0.3333333333333333
+            },
+            "multiple_bindings": {
+              "1024": 0.4166666666666667,
+              "4096": 0.2708333333333333,
+              "8192": 0.08333333333333333,
+              "16384": 0.0
+            },
+            "distractor_recall": {
+              "1024": 0.3958333333333333,
+              "4096": 0.22916666666666666,
+              "8192": 0.25,
+              "16384": 0.08333333333333333
+            },
+            "memory_replacement": {
+              "1024": 0.8958333333333334,
+              "4096": 0.9375,
+              "8192": 0.7916666666666666,
+              "16384": 0.75
+            },
+            "repeated_retrieval": {
+              "1024": 1.0,
+              "4096": 1.0,
+              "8192": 0.9583333532015482,
+              "16384": 0.944444457689921
+            }
+          },
+          "mean_accuracy": 0.5815972238779068,
+          "logit_difference": {
+            "logit_rms_difference": 0.36001697182655334,
+            "logit_max_difference": 1.53125,
+            "prediction_change_rate": 0.125,
+            "accuracy_reference": 0.0625,
+            "accuracy_altered": 0.0625
+          }
+        },
+        {
+          "label": "--disable-memory-read",
+          "options": {
+            "disable_memory_read": true
+          },
+          "accuracy": {
+            "delayed_binding": {
+              "1024": 1.0,
+              "4096": 0.7916666666666666,
+              "8192": 0.5,
+              "16384": 0.3333333333333333
+            },
+            "multiple_bindings": {
+              "1024": 0.4166666666666667,
+              "4096": 0.2708333333333333,
+              "8192": 0.08333333333333333,
+              "16384": 0.0
+            },
+            "distractor_recall": {
+              "1024": 0.3958333333333333,
+              "4096": 0.22916666666666666,
+              "8192": 0.25,
+              "16384": 0.08333333333333333
+            },
+            "memory_replacement": {
+              "1024": 0.8958333333333334,
+              "4096": 0.9375,
+              "8192": 0.7916666666666666,
+              "16384": 0.75
+            },
+            "repeated_retrieval": {
+              "1024": 1.0,
+              "4096": 1.0,
+              "8192": 0.9583333532015482,
+              "16384": 0.944444457689921
+            }
+          },
+          "mean_accuracy": 0.5815972238779068,
+          "logit_difference": {
+            "logit_rms_difference": 0.36001697182655334,
+            "logit_max_difference": 1.53125,
+            "prediction_change_rate": 0.125,
+            "accuracy_reference": 0.0625,
+            "accuracy_altered": 0.0625
+          }
+        },
+        {
+          "label": "--disable-memory-write",
+          "options": {
+            "disable_memory_write": true
+          },
+          "accuracy": {
+            "delayed_binding": {
+              "1024": 1.0,
+              "4096": 0.7916666666666666,
+              "8192": 0.5,
+              "16384": 0.3333333333333333
+            },
+            "multiple_bindings": {
+              "1024": 0.4166666666666667,
+              "4096": 0.2708333333333333,
+              "8192": 0.08333333333333333,
+              "16384": 0.0
+            },
+            "distractor_recall": {
+              "1024": 0.3958333333333333,
+              "4096": 0.22916666666666666,
+              "8192": 0.25,
+              "16384": 0.08333333333333333
+            },
+            "memory_replacement": {
+              "1024": 0.8958333333333334,
+              "4096": 0.9375,
+              "8192": 0.7916666666666666,
+              "16384": 0.75
+            },
+            "repeated_retrieval": {
+              "1024": 1.0,
+              "4096": 1.0,
+              "8192": 0.9583333532015482,
+              "16384": 0.944444457689921
+            }
+          },
+          "mean_accuracy": 0.5815972238779068,
+          "logit_difference": {
+            "logit_rms_difference": 0.36001697182655334,
+            "logit_max_difference": 1.53125,
+            "prediction_change_rate": 0.125,
+            "accuracy_reference": 0.0625,
+            "accuracy_altered": 0.0625
+          }
+        }
+      ],
+      "slots": [
+        {
+          "slot": 4,
+          "reads": 8204.0,
+          "logit_rms_difference": 0.00750996358692646,
+          "logit_max_difference": 0.03125,
+          "prediction_change_rate": 0.0,
+          "accuracy_reference": 0.0625,
+          "accuracy_altered": 0.0625
+        },
+        {
+          "slot": 9,
+          "reads": 8199.0,
+          "logit_rms_difference": 0.00750996358692646,
+          "logit_max_difference": 0.03125,
+          "prediction_change_rate": 0.0,
+          "accuracy_reference": 0.0625,
+          "accuracy_altered": 0.0625
+        },
+        {
+          "slot": 3,
+          "reads": 5.0,
+          "logit_rms_difference": 0.00750996358692646,
+          "logit_max_difference": 0.03125,
+          "prediction_change_rate": 0.0,
+          "accuracy_reference": 0.0625,
+          "accuracy_altered": 0.0625
+        },
+        {
+          "slot": 0,
+          "reads": 4.0,
+          "logit_rms_difference": 0.00750996358692646,
+          "logit_max_difference": 0.03125,
+          "prediction_change_rate": 0.0,
+          "accuracy_reference": 0.0625,
+          "accuracy_altered": 0.0625
+        },
+        {
+          "slot": 1,
+          "reads": 3.0,
+          "logit_rms_difference": 0.00750996358692646,
+          "logit_max_difference": 0.03125,
+          "prediction_change_rate": 0.0,
+          "accuracy_reference": 0.0625,
+          "accuracy_altered": 0.0625
+        }
+      ],
+      "utilisation": {
+        "counters_tracked": true,
+        "slots": 64,
+        "occupied_slots": 64,
+        "occupancy_rate": 1.0,
+        "slots_ever_read": 7,
+        "total_reads": 16418.0,
+        "total_writes": 8209.0,
+        "mean_strength": 0.05943608656525612,
+        "max_strength": 0.11641516536474228,
+        "mean_age": 7987.87548828125,
+        "read_distribution": [
+          4.0,
+          3.0,
+          2.0,
+          5.0,
+          8204.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          8199.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "write_distribution": [
+          122.0,
+          126.0,
+          121.0,
+          128.0,
+          126.0,
+          121.0,
+          122.0,
+          125.0,
+          126.0,
+          120.0,
+          130.0,
+          122.0,
+          117.0,
+          130.0,
+          126.0,
+          128.0,
+          128.0,
+          136.0,
+          128.0,
+          132.0,
+          134.0,
+          127.0,
+          126.0,
+          128.0,
+          127.0,
+          130.0,
+          129.0,
+          131.0,
+          131.0,
+          132.0,
+          130.0,
+          130.0,
+          128.0,
+          128.0,
+          131.0,
+          136.0,
+          129.0,
+          126.0,
+          126.0,
+          132.0,
+          132.0,
+          133.0,
+          128.0,
+          126.0,
+          128.0,
+          134.0,
+          133.0,
+          136.0,
+          127.0,
+          129.0,
+          126.0,
+          125.0,
+          129.0,
+          130.0,
+          125.0,
+          130.0,
+          133.0,
+          126.0,
+          126.0,
+          132.0,
+          132.0,
+          126.0,
+          128.0,
+          130.0
+        ]
+      }
+    }
+  }
+}

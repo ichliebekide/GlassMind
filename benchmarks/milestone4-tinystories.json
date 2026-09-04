@@ -1,0 +1,4136 @@
+{
+  "created": "2026-09-04T07:45:34.026256+00:00",
+  "milestone": "4",
+  "corpus": "tinystories",
+  "environment": {
+    "seed": 4,
+    "git_commit": null,
+    "python": "3.13.7",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "pytorch": "2.13.0+cu130",
+    "cuda": "13.0",
+    "rocm": null,
+    "device": {
+      "backend": "cuda",
+      "device": "cuda",
+      "name": "NVIDIA GeForce RTX 3070",
+      "precision": "bfloat16",
+      "amp": true,
+      "compile_available": true,
+      "total_memory_bytes": 8220901376,
+      "pytorch_version": "2.13.0+cu130",
+      "cuda_version": "13.0",
+      "rocm_version": null,
+      "optimizations": [
+        "AMP"
+      ]
+    },
+    "process_id": 490198
+  },
+  "corpora": {
+    "train": {
+      "spec": {
+        "name": "tinystories",
+        "split": "train",
+        "repo_id": "roneneldan/TinyStories",
+        "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+        "files": [
+          "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+        ],
+        "text_column": "text",
+        "license": "CDLA-Sharing-1.0",
+        "url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+        "join": "document",
+        "description": "Kurze, synthetisch erzeugte Kindergeschichten mit stark begrenztem Wortschatz. Gewählt, weil kleine Modelle darauf nachweisbar zusammenhängende Sprache lernen – die Frage 'lernt GlassMind stabile Sprache?' wird damit überhaupt beantwortbar, statt an der Schwierigkeit des Korpus zu scheitern. Es wird nur der erste von vier Trainings-Shards verwendet; mehr Text als die Skalierungsleiter verbraucht bringt keinen zusätzlichen Erkenntniswert."
+      },
+      "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+      "tokenizer": {
+        "kind": "byte",
+        "version": 1,
+        "vocab_size": 260,
+        "pad_id": 0,
+        "bos_id": 1,
+        "eos_id": 2,
+        "unk_id": 3
+      },
+      "tokens": 478332312,
+      "documents": 529875,
+      "characters": 477073891,
+      "raw_bytes": 477802437,
+      "source_bytes": 248731111,
+      "cache_bytes": 956664624,
+      "max_tokens": null,
+      "token_dtype": "uint16"
+    },
+    "validation": {
+      "spec": {
+        "name": "tinystories",
+        "split": "validation",
+        "repo_id": "roneneldan/TinyStories",
+        "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+        "files": [
+          "data/validation-00000-of-00001-869c898b519ad725.parquet"
+        ],
+        "text_column": "text",
+        "license": "CDLA-Sharing-1.0",
+        "url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+        "join": "document",
+        "description": "Offizieller Validierungssplit von TinyStories."
+      },
+      "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+      "tokenizer": {
+        "kind": "byte",
+        "version": 1,
+        "vocab_size": 260,
+        "pad_id": 0,
+        "bos_id": 1,
+        "eos_id": 2,
+        "unk_id": 3
+      },
+      "tokens": 19240340,
+      "documents": 21990,
+      "characters": 19190318,
+      "raw_bytes": 19218350,
+      "source_bytes": 9989127,
+      "cache_bytes": 38480680,
+      "max_tokens": null,
+      "token_dtype": "uint16"
+    },
+    "cross_validation": {
+      "spec": {
+        "name": "wikitext103",
+        "split": "validation",
+        "repo_id": "Salesforce/wikitext",
+        "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+        "files": [
+          "wikitext-103-raw-v1/validation-00000-of-00001.parquet"
+        ],
+        "text_column": "text",
+        "license": "CC BY-SA 3.0 / GFDL",
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext",
+        "join": "line",
+        "description": "Offizieller Validierungssplit von WikiText-103."
+      },
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "tokenizer": {
+        "kind": "byte",
+        "version": 1,
+        "vocab_size": 260,
+        "pad_id": 0,
+        "bos_id": 1,
+        "eos_id": 2,
+        "unk_id": 3
+      },
+      "tokens": 1144248,
+      "documents": 2461,
+      "characters": 1142150,
+      "raw_bytes": 1144248,
+      "source_bytes": 657209,
+      "cache_bytes": 2288496,
+      "max_tokens": null,
+      "token_dtype": "uint16"
+    }
+  },
+  "vocabulary_words": 7829,
+  "size_classes": [
+    {
+      "name": "tiny",
+      "target": "~120K",
+      "d_model": 64,
+      "n_layers": 2,
+      "learning_rate": 0.003,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "xs",
+      "target": "~1,24M",
+      "d_model": 160,
+      "n_layers": 4,
+      "learning_rate": 0.002,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "small",
+      "target": "~10,2M",
+      "d_model": 384,
+      "n_layers": 6,
+      "learning_rate": 0.0012,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "medium",
+      "target": "~37,4M",
+      "d_model": 640,
+      "n_layers": 8,
+      "learning_rate": 0.0008,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "large",
+      "target": "~90,5M",
+      "d_model": 896,
+      "n_layers": 10,
+      "learning_rate": 0.0006,
+      "sequence_length": 512,
+      "micro_batch_size": 8,
+      "gradient_accumulation": 2,
+      "effective_batch_size": 16
+    }
+  ],
+  "settings": {
+    "device": "auto",
+    "seed": 4,
+    "corpus": "tinystories",
+    "token_budget": 4000000,
+    "capacity_factor": 2.0,
+    "classes": [
+      "tiny",
+      "xs",
+      "small",
+      "medium",
+      "large"
+    ],
+    "capacity_classes": [
+      "tiny",
+      "xs",
+      "small",
+      "medium",
+      "large"
+    ],
+    "sequence_classes": [
+      "tiny",
+      "small",
+      "large"
+    ],
+    "precision_classes": [
+      "tiny",
+      "small",
+      "medium",
+      "large"
+    ],
+    "profile_classes": [
+      "tiny",
+      "xs",
+      "small",
+      "medium",
+      "large"
+    ],
+    "quantization_class": "medium",
+    "trace_class": "small",
+    "group_size": 64,
+    "profile_length": 128,
+    "benchmark_steps": 6,
+    "budget_hours": 0.4,
+    "budget_candidates": [
+      2000000,
+      4000000,
+      8000000,
+      16000000
+    ],
+    "lengths": [
+      1024,
+      4096,
+      8192,
+      16384,
+      32768
+    ],
+    "latency_positions": [
+      0,
+      4096,
+      16384,
+      65536
+    ],
+    "latency_steps": 1024,
+    "eval_batches": 16,
+    "ablation_batches": 8,
+    "generate_tokens": 400,
+    "trace_tokens": 64,
+    "checkpoint_dir": "runs/milestone4",
+    "trace_dir": "runs/milestone4/traces",
+    "merge": true,
+    "reuse_checkpoints": true,
+    "sections": [
+      "fixed",
+      "benchmark",
+      "profile",
+      "sequence",
+      "precision",
+      "trace"
+    ]
+  },
+  "sections": {
+    "capacity": {
+      "base_token_budget": 4000000,
+      "capacity_factor": 1.2,
+      "corpus": "tinystories",
+      "classes": [
+        {
+          "size_class": "small",
+          "study": "capacity",
+          "target": "~10,2M",
+          "d_model": 384,
+          "n_layers": 6,
+          "parameter_count": 10235526,
+          "documentation": {
+            "studie": "capacity",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 5758976,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0012,
+            "warmup_schritte": 70,
+            "schritte": 703,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 384,
+              "n_layers": 6,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 10235526
+          },
+          "training": {
+            "steps_completed": 703,
+            "diverged": false,
+            "final_loss": 0.8337105512619019,
+            "final_loss_mean_tail": 0.8478080630302429,
+            "best_loss": 0.7914550304412842,
+            "final_bits_per_byte": 1.2027900778423497,
+            "tokens_per_second": 2435.087073401405,
+            "seen_tokens": 5758976,
+            "training_seconds": 2364.997976008999,
+            "peak_memory_bytes": 1469776896,
+            "grad_norm_mean": 0.7928259461736611,
+            "grad_norm_median": 0.39587628841400146,
+            "grad_norm_max": 19.587825775146484,
+            "grad_norm_final": 0.292466402053833,
+            "grad_clip_hit_rate": 0.1422475106685633,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.569188117980957,
+                "bits_per_byte": 8.034640079588867,
+                "learning_rate": 1.7142857142857142e-05,
+                "grad_norm": 17.329570770263672,
+                "tokens_per_second": 2138.160326041631
+              },
+              {
+                "step": 117,
+                "loss": 1.6715259552001953,
+                "bits_per_byte": 2.4115022062845095,
+                "learning_rate": 0.0011853754771320208,
+                "grad_norm": 0.9281887412071228,
+                "tokens_per_second": 2434.5717818822077
+              },
+              {
+                "step": 234,
+                "loss": 1.153442621231079,
+                "bits_per_byte": 1.664065949600045,
+                "learning_rate": 0.0010307870263584194,
+                "grad_norm": 0.5833523273468018,
+                "tokens_per_second": 2434.7896249216324
+              },
+              {
+                "step": 351,
+                "loss": 1.0261626243591309,
+                "bits_per_byte": 1.4804397293085223,
+                "learning_rate": 0.0007546496592036154,
+                "grad_norm": 0.4345685839653015,
+                "tokens_per_second": 2435.3985065331044
+              },
+              {
+                "step": 468,
+                "loss": 0.9270176291465759,
+                "bits_per_byte": 1.3374037363864093,
+                "learning_rate": 0.00044748487551528695,
+                "grad_norm": 0.3689805865287781,
+                "tokens_per_second": 2435.9692270855
+              },
+              {
+                "step": 585,
+                "loss": 0.8993071913719177,
+                "bits_per_byte": 1.2974260252280476,
+                "learning_rate": 0.0002099853747507571,
+                "grad_norm": 0.3327060639858246,
+                "tokens_per_second": 2435.1380953758503
+              },
+              {
+                "step": 702,
+                "loss": 0.8212136030197144,
+                "bits_per_byte": 1.1847607925870998,
+                "learning_rate": 0.00012000665051378618,
+                "grad_norm": 0.3062264621257782,
+                "tokens_per_second": 2435.126685237365
+              },
+              {
+                "step": 703,
+                "loss": 0.8337105512619019,
+                "bits_per_byte": 1.2027900778423497,
+                "learning_rate": 0.00011999999999999999,
+                "grad_norm": 0.292466402053833,
+                "tokens_per_second": 2435.087223183594
+              }
+            ],
+            "config": {
+              "steps": 703,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.0012,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 70,
+              "log_every": 117,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 5758976
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 0.8578719794750214,
+              "perplexity": 2.3581371862050347,
+              "bits_per_byte": 1.237647650506212,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.8273997753858566,
+              "perplexity": 16.90145605614164,
+              "bits_per_byte": 4.079075634559745,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.7334747314453125,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 721.6169630975442,
+            "streaming_ms_per_token": 2.9959112578126224,
+            "peak_memory_bytes": 112246272,
+            "process_rss_bytes": 2447036416,
+            "plain_tokens_per_second": 720.7077255262694,
+            "summary_tokens_per_second": 712.8331589344232,
+            "trace_tokens_per_second": 78.2048436258856,
+            "summary_overhead_percent": 1.092615815391207,
+            "trace_overhead_percent": 89.14888229222471
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.7324429750442505,
+                  "fast_absmax": 0.9983077645301819,
+                  "fast_dead_fraction": 0.0013020833721384406,
+                  "context_rms": 0.748573362827301,
+                  "context_absmax": 0.9991841912269592,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.3336905241012573,
+                  "semantic_absmax": 0.4814465045928955,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.513894259929657,
+                  "fast_absmax": 0.9896339178085327,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5132908225059509,
+                  "context_absmax": 0.9843063950538635,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.10372865200042725,
+                  "semantic_absmax": 0.19201433658599854,
+                  "semantic_dead_fraction": 0.0013850415125489235
+                },
+                {
+                  "fast_rms": 0.5751137733459473,
+                  "fast_absmax": 0.9941815137863159,
+                  "fast_dead_fraction": 0.0013020833721384406,
+                  "context_rms": 0.5782280564308167,
+                  "context_absmax": 0.9987038373947144,
+                  "context_dead_fraction": 0.0013020833721384406,
+                  "semantic_rms": 0.07424075901508331,
+                  "semantic_absmax": 0.14172209799289703,
+                  "semantic_dead_fraction": 0.012465373612940311
+                },
+                {
+                  "fast_rms": 0.5968281030654907,
+                  "fast_absmax": 0.9905369281768799,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.6357975006103516,
+                  "context_absmax": 0.9994540810585022,
+                  "context_dead_fraction": 0.0013020833721384406,
+                  "semantic_rms": 0.1267940104007721,
+                  "semantic_absmax": 0.21524496376514435,
+                  "semantic_dead_fraction": 0.002770083025097847
+                },
+                {
+                  "fast_rms": 0.5352986454963684,
+                  "fast_absmax": 0.994134247303009,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5694166421890259,
+                  "context_absmax": 0.9986452460289001,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.12344210594892502,
+                  "semantic_absmax": 0.21753911674022675,
+                  "semantic_dead_fraction": 0.0013850415125489235
+                },
+                {
+                  "fast_rms": 0.5708070993423462,
+                  "fast_absmax": 0.9892961382865906,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5701726078987122,
+                  "context_absmax": 0.9999765157699585,
+                  "context_dead_fraction": 0.0013020833721384406,
+                  "semantic_rms": 0.12537920475006104,
+                  "semantic_absmax": 0.2390405386686325,
+                  "semantic_dead_fraction": 0.0069252075627446175
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.992681751648585,
+                "semantic_dead_fraction": 0.0041551245376467705,
+                "context_rms": 0.6025798320770264,
+                "semantic_absmax": 0.24783459305763245,
+                "fast_rms": 0.5873974760373434,
+                "context_dead_fraction": 0.0006510416860692203,
+                "fast_dead_fraction": 0.00043402779071281355,
+                "semantic_rms": 0.147879209369421,
+                "context_absmax": 0.9967117110888163
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 0.8581613823771477,
+                "perplexity": 2.3588197367116193,
+                "bits_per_byte": 1.2380651706379284,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.359081119298935,
+                  "delta_loss": 1.5009197369217873,
+                  "delta_bits_per_byte": 2.1653694612294303,
+                  "relative_increase": 1.7489947319281234
+                },
+                {
+                  "state": "context",
+                  "loss": 1.8278913050889969,
+                  "delta_loss": 0.9697299227118492,
+                  "delta_bits_per_byte": 1.3990245504980225,
+                  "relative_increase": 1.1300088102608992
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.0746184438467026,
+                  "delta_loss": 0.2164570614695549,
+                  "delta_bits_per_byte": 0.3122815291475245,
+                  "relative_increase": 0.2522335144818083
+                }
+              ],
+              "delta_spread": 1.2844626754522324,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 2.465053081512451,
+                "logit_max_difference": 11.849609375,
+                "prediction_change_rate": 0.5947265625,
+                "accuracy_reference": 0.7578125,
+                "accuracy_ablated": 0.3662109375
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 1.9834288358688354,
+                "logit_max_difference": 10.203125,
+                "prediction_change_rate": 0.447265625,
+                "accuracy_reference": 0.7578125,
+                "accuracy_ablated": 0.490234375
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.264713168144226,
+                "logit_max_difference": 6.25,
+                "prediction_change_rate": 0.1865234375,
+                "accuracy_reference": 0.7578125,
+                "accuracy_ablated": 0.68359375
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 24,
+                  "mean_activity": 0.503902466143942,
+                  "mean_delta": 0.4497532847065789,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 24,
+                  "mean_activity": 0.6992884420035503,
+                  "mean_delta": 0.7122055826863894,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 24,
+                  "mean_activity": 0.0849894756130349,
+                  "mean_delta": 0.012173000657043076,
+                  "mean_persistence": 0.5126953125,
+                  "reactivations": 351.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 72
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She loved to play with her toys and play with her toys. One day, she went to the park with her mom and dad. She was so excited to see what was the bird. She was so happy to have a big box of fun. She was so happy to have a big box of fun to the park. She was so happy to have a big box of fun to the park. She was so happy to have a big smile on her hand. She was so happy to have a big smile on her han",
+              "sampled": "Once upon a time, there was a little girl named Lily. She loved  orgind and got lots of playground and a little. One day she was so pleased and she came out of the car and said, \"What's up!\"\n\nThe bird lifted all around the queen monster. It said, \"Wow, I can share the group and disturged the tents and the caterpillar. I want to reach other or boots. It is my pond and be too scissors.\"\n\nWhen the boy still noticed a big balloon and that the little boy sai",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They saw a big box in the sky. They sa",
+              "sampled": "Tom and Sara went to the park. They saw a brand line and the livind turtle. They say sorry and daddy. They did not like the plane. They could go.\n\n\"Tom, and a brill and you play with you.\" Mom says. She took the pond and through. \"The coolipron on your drawwash is not too selling.\" He runs to the box.\n\n\"We are sorry, you don't want to protect you.\" She says. \"Now, what are you surprises?\" Mia says. They push the birds in hard to have how",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he said to his mom and dad and the bird was so happy. He was so happy that he had to go to the park to have a big smile on his face. The bird was so happy to have a big smile on the store.Once upon a time, there was a little girl named Lily. She loved to play with her toys and play with her toys. One day, she went to the park with her mom and dad. She was so excited to see what was the bird. She wa",
+              "sampled": "The dog was very hungry, so he heard a new group of other everyday with the hole, when he had glad he could go away and showed them ice carefully's name.Once upon a time, there was a little girl named Ben. He loved to play in the park with her mom. One day, the ride marched flying around her party and asked her to the pot of the flower out of the store. It was so proud of her mom to put it on the tree, kitting small and persi",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat was so happy and said, \"I want to play with your toys. I will be careful with your ball.\"\n\nThe bird said, \"I want to play with you. I want to play with you.\"\n\nThe bird smiled and said, \"I want to play with you. I will be my friend.\"\n\nThe bird was so happy and said, \"I want to play with you. I will be my friend.\"\n\nThe bird was so happy to have a big smile on the store. The bird was so happy and sa",
+              "sampled": "One day, a small cat found a big red ball. The cat wanted to clean it in the roof and set off to show it.\n\nThe yarn was broken behind the garden and the bug was very parents. She was also brave and curious with her chairs and swam back! It was the sky for something new. The sheep was special and decided to keep the sillitate.\n\nThe doctor and said the cat was going. It was so scared of anything in its doll. The truck drew of the pot and the blanke",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 379,
+              "valid_word_fraction": 0.9894459102902374,
+              "mean_word_length": 3.0765171503957784,
+              "distinct_1": 0.17150395778364116,
+              "distinct_2": 0.30423280423280424,
+              "distinct_3": 0.376657824933687,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 322,
+              "valid_word_fraction": 0.9596273291925466,
+              "mean_word_length": 3.7857142857142856,
+              "distinct_1": 0.5403726708074534,
+              "distinct_2": 0.9252336448598131,
+              "distinct_3": 0.99375,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-capacity-tinystories-small.pt",
+            "bytes": 41370538,
+            "bytes_per_parameter": 4.041857545962953
+          },
+          "budget_factor": 1.44
+        },
+        {
+          "size_class": "medium",
+          "study": "capacity",
+          "target": "~37,4M",
+          "d_model": 640,
+          "n_layers": 8,
+          "parameter_count": 37403528,
+          "documentation": {
+            "studie": "capacity",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 6914048,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0008,
+            "warmup_schritte": 84,
+            "schritte": 844,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 640,
+              "n_layers": 8,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 37403528
+          },
+          "training": {
+            "steps_completed": 844,
+            "diverged": false,
+            "final_loss": 0.7546964287757874,
+            "final_loss_mean_tail": 0.7844599395990371,
+            "best_loss": 0.7205877304077148,
+            "final_bits_per_byte": 1.0887967951714392,
+            "tokens_per_second": 1783.588997866131,
+            "seen_tokens": 6914048,
+            "training_seconds": 3876.4805166840015,
+            "peak_memory_bytes": 3359212544,
+            "grad_norm_mean": 0.9379468560571919,
+            "grad_norm_median": 0.3600414842367172,
+            "grad_norm_max": 47.536407470703125,
+            "grad_norm_final": 0.3062748312950134,
+            "grad_clip_hit_rate": 0.1504739336492891,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.690540313720703,
+                "bits_per_byte": 8.209714290583586,
+                "learning_rate": 9.523809523809525e-06,
+                "grad_norm": 44.384857177734375,
+                "tokens_per_second": 1780.391010434739
+              },
+              {
+                "step": 140,
+                "loss": 1.4583005905151367,
+                "bits_per_byte": 2.1038830300616347,
+                "learning_rate": 0.0007903975750092821,
+                "grad_norm": 0.9556125402450562,
+                "tokens_per_second": 1784.6679651988006
+              },
+              {
+                "step": 280,
+                "loss": 1.0401363372802734,
+                "bits_per_byte": 1.5005995356426607,
+                "learning_rate": 0.0006881672272826837,
+                "grad_norm": 0.4766935408115387,
+                "tokens_per_second": 1784.5070597204283
+              },
+              {
+                "step": 420,
+                "loss": 0.9505611658096313,
+                "bits_per_byte": 1.3713698799751868,
+                "learning_rate": 0.0005051169923595597,
+                "grad_norm": 0.31903430819511414,
+                "tokens_per_second": 1784.9239320548093
+              },
+              {
+                "step": 560,
+                "loss": 0.7974966764450073,
+                "bits_per_byte": 1.1505445002326422,
+                "learning_rate": 0.0003008602990547173,
+                "grad_norm": 0.3148764371871948,
+                "tokens_per_second": 1784.6720935357769
+              },
+              {
+                "step": 700,
+                "loss": 0.8067014813423157,
+                "bits_per_byte": 1.1638242266103396,
+                "learning_rate": 0.0001419168207867128,
+                "grad_norm": 0.3226436674594879,
+                "tokens_per_second": 1784.2955504895488
+              },
+              {
+                "step": 840,
+                "loss": 0.759687066078186,
+                "bits_per_byte": 1.0959967628584852,
+                "learning_rate": 8.004921020271117e-05,
+                "grad_norm": 0.29024526476860046,
+                "tokens_per_second": 1783.5919555642413
+              },
+              {
+                "step": 844,
+                "loss": 0.7546964287757874,
+                "bits_per_byte": 1.0887967951714392,
+                "learning_rate": 8e-05,
+                "grad_norm": 0.3062748312950134,
+                "tokens_per_second": 1783.5890543583137
+              }
+            ],
+            "config": {
+              "steps": 844,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.0008,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 84,
+              "log_every": 140,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 6914048
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 0.7773482650518417,
+              "perplexity": 2.175695242205812,
+              "bits_per_byte": 1.1214764870339315,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.7002163529396057,
+              "perplexity": 14.882951346846836,
+              "bits_per_byte": 3.895588741713252,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.755096435546875,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 563.0388068321639,
+            "streaming_ms_per_token": 3.8539665000030254,
+            "peak_memory_bytes": 343949312,
+            "process_rss_bytes": 2909519872,
+            "plain_tokens_per_second": 558.547791916406,
+            "summary_tokens_per_second": 551.920524892796,
+            "trace_tokens_per_second": 58.760143985714144,
+            "summary_overhead_percent": 1.1865174510620635,
+            "trace_overhead_percent": 89.47983595385722
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.7907787561416626,
+                  "fast_absmax": 0.9982231855392456,
+                  "fast_dead_fraction": 0.0015625000232830644,
+                  "context_rms": 0.7417160272598267,
+                  "context_absmax": 0.9981061220169067,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.3158126473426819,
+                  "semantic_absmax": 0.4688349962234497,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.5694734454154968,
+                  "fast_absmax": 0.9943599700927734,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.542971670627594,
+                  "context_absmax": 0.9951003789901733,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.05886005610227585,
+                  "semantic_absmax": 0.11369801312685013,
+                  "semantic_dead_fraction": 0.0031999999191612005
+                },
+                {
+                  "fast_rms": 0.6048773527145386,
+                  "fast_absmax": 0.9989246129989624,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5511628985404968,
+                  "context_absmax": 0.9988245368003845,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.08978592604398727,
+                  "semantic_absmax": 0.18896985054016113,
+                  "semantic_dead_fraction": 0.003999999724328518
+                },
+                {
+                  "fast_rms": 0.6229797601699829,
+                  "fast_absmax": 0.9963157176971436,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5787609219551086,
+                  "context_absmax": 0.9987978935241699,
+                  "context_dead_fraction": 0.0015625000232830644,
+                  "semantic_rms": 0.099067822098732,
+                  "semantic_absmax": 0.18851616978645325,
+                  "semantic_dead_fraction": 0.004799999762326479
+                },
+                {
+                  "fast_rms": 0.6322920918464661,
+                  "fast_absmax": 0.9987269639968872,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5825822353363037,
+                  "context_absmax": 0.9997959733009338,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.14007283747196198,
+                  "semantic_absmax": 0.2546706199645996,
+                  "semantic_dead_fraction": 0.0031999999191612005
+                },
+                {
+                  "fast_rms": 0.5984225869178772,
+                  "fast_absmax": 0.9907943606376648,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.6357965469360352,
+                  "context_absmax": 0.9998779296875,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.1547052264213562,
+                  "semantic_absmax": 0.3325408101081848,
+                  "semantic_dead_fraction": 0.0031999999191612005
+                },
+                {
+                  "fast_rms": 0.5616387724876404,
+                  "fast_absmax": 0.9889277815818787,
+                  "fast_dead_fraction": 0.0007812500116415322,
+                  "context_rms": 0.5944570302963257,
+                  "context_absmax": 0.9995935559272766,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.1232234388589859,
+                  "semantic_absmax": 0.21344101428985596,
+                  "semantic_dead_fraction": 0.0031999999191612005
+                },
+                {
+                  "fast_rms": 0.568911612033844,
+                  "fast_absmax": 0.9887639284133911,
+                  "fast_dead_fraction": 0.0015625000232830644,
+                  "context_rms": 0.5964648723602295,
+                  "context_absmax": 0.9999729990959167,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.1405087113380432,
+                  "semantic_absmax": 0.23184259235858917,
+                  "semantic_dead_fraction": 0.0031999999191612005
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9943795651197433,
+                "semantic_dead_fraction": 0.003099999885307625,
+                "context_rms": 0.60298902541399,
+                "semantic_absmax": 0.24906425829976797,
+                "fast_rms": 0.6186717972159386,
+                "context_dead_fraction": 0.0006835937601863407,
+                "fast_dead_fraction": 0.0004882812572759576,
+                "semantic_rms": 0.14025458320975304,
+                "context_absmax": 0.9987586736679077
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 0.781233549118042,
+                "perplexity": 2.184164879081462,
+                "bits_per_byte": 1.1270817670886837,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 6.349649608135223,
+                  "delta_loss": 5.568416059017181,
+                  "delta_bits_per_byte": 8.033526233950553,
+                  "relative_increase": 7.127722644916534
+                },
+                {
+                  "state": "context",
+                  "loss": 1.488122120499611,
+                  "delta_loss": 0.7068885713815689,
+                  "delta_bits_per_byte": 1.0198246363932735,
+                  "relative_increase": 0.9048364246256406
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.0038403645157814,
+                  "delta_loss": 0.2226068153977394,
+                  "delta_bits_per_byte": 0.32115374864240365,
+                  "relative_increase": 0.2849427237847721
+                }
+              ],
+              "delta_spread": 5.345809243619442,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 10.62981128692627,
+                "logit_max_difference": 24.875,
+                "prediction_change_rate": 0.8779296875,
+                "accuracy_reference": 0.7763671875,
+                "accuracy_ablated": 0.1025390625
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.271559000015259,
+                "logit_max_difference": 10.46875,
+                "prediction_change_rate": 0.390625,
+                "accuracy_reference": 0.7763671875,
+                "accuracy_ablated": 0.5341796875
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.5165876150131226,
+                "logit_max_difference": 6.5,
+                "prediction_change_rate": 0.1650390625,
+                "accuracy_reference": 0.7763671875,
+                "accuracy_ablated": 0.7138671875
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 32,
+                  "mean_activity": 0.4953272014763571,
+                  "mean_delta": 0.4101348301373946,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 32,
+                  "mean_activity": 0.7264930513700163,
+                  "mean_delta": 0.7347711650036217,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 32,
+                  "mean_activity": 0.07920502961751902,
+                  "mean_delta": 0.010632261088909134,
+                  "mean_persistence": 0.400390625,
+                  "reactivations": 444.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 96
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She loved to play outside in the park with her friends. One day, Lily's mom asked her to come out of the park. Lily was so excited to see her favorite toy car to come back. \n\nLily was so excited to see her favorite toy car to help her favorite toy. She was so excited to see the bear and the bear was so happy that she had to go to the park. She was so excited to see the bear and the bear was so happy ",
+              "sampled": "Once upon a time, there was a little girl named Lily. She loved to play with her dolls or dig in the park. One day, Lily's mom said yes and they saw a big bear in the living room with a big bookcase. Lily was very happy and scared the cars. The little girl was so excited that she couldn't believe her best.\n\n\"Look, Max! Wh, look at the cloud!\" Lily said. Mia was very angry.\n\n\"Mi, are you the bath of stick, you can play with me?\" Lily said.\n\n\"I want to tr",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big box with a big box. They were happy. They liked to play with the ball and the bear. They liked to play with the ball and the birds. They were happy and happy.\n\nOne day, they saw a big box in the sky. They were having a big box of cars. They were happy and happy. They liked to play with the ball and the birds. They were happy and happy. They liked to play with the ball and the birds and the bi",
+              "sampled": "Tom and Sara went to the park. They saw a big book in the forest. It was scared of the animals and the corner. They woring their parents were too sad.\n\nSara and Ben were playing with their toys with them. They did not know what they had think and had fun. They saw many colors and the brown things. They are happy and grateful for them. They looked at each other. They wanted to share the dog with the car.\n\n\"Mom, can we go on a board to hel",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he said to his mom and dad. He was so happy that he had a great time and he was so happy to have his friends again.Once upon a time, there was a little girl named Lily. She loved to play with her toys and her friends. One day, Lily's mom asked her to come out of the park. Lily was so excited to see her favorite toy car to come back. She said they were so proud of her friends and they were so happy ",
+              "sampled": "The dog was very hungry, so he heard a noise. He wanted to play outside and his family.\n\nSo, he found a great time all around the mud. He wanted to play with his sitting hidment before. He saw a big smull sight with a song and colorful and juicy clouds and regular clouds. \n\nThe animals could not read the hurt. The fish would wear all the stories the shot and share pictures for the king and some pieces. The cat was very upset a",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat was so happy and started to cry. The bird was so happy and thanked the bird. The bird was so happy that the bird was so happy that the bird was so happy to have the bear to be able to get the bear to the beach. The bird was so happy that the bird was so happy that the bird was so happy that the bird was so happy to have a big bear that he had a lot of fun together.Once upon a time, there was a l",
+              "sampled": "One day, a small cat found a big red ball. The cat wanted to clean up his mom and dad, but she was scared. She said, \"If you like to do this story, nodde and I stop something fun.\"\n\nSo the boy saw a group of brown and accidentally grew through the sky. He smiled and said, \"That would be careful when you have. There is a truck for you.\"\n\nThe girl closed his eyes and then gave him a millage. Suddenly, a big bird called a puppet to chow was finally ",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 348,
+              "valid_word_fraction": 0.9971264367816092,
+              "mean_word_length": 3.4971264367816093,
+              "distinct_1": 0.21839080459770116,
+              "distinct_2": 0.45821325648414984,
+              "distinct_3": 0.5838150289017341,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 320,
+              "valid_word_fraction": 0.96875,
+              "mean_word_length": 3.796875,
+              "distinct_1": 0.54375,
+              "distinct_2": 0.9184952978056427,
+              "distinct_3": 0.9874213836477987,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-capacity-tinystories-medium.pt",
+            "bytes": 150316646,
+            "bytes_per_parameter": 4.018782559762812
+          },
+          "budget_factor": 1.7279999999999998
+        },
+        {
+          "size_class": "large",
+          "study": "capacity",
+          "target": "~90,5M",
+          "d_model": 896,
+          "n_layers": 10,
+          "parameter_count": 90548874,
+          "documentation": {
+            "studie": "capacity",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 8290304,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 8,
+            "gradient_accumulation": 2,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0006,
+            "warmup_schritte": 101,
+            "schritte": 1012,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 896,
+              "n_layers": 10,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 90548874
+          },
+          "training": {
+            "steps_completed": 1012,
+            "diverged": false,
+            "final_loss": 0.7356594204902649,
+            "final_loss_mean_tail": 0.7288422331213951,
+            "best_loss": 0.6683992445468903,
+            "final_bits_per_byte": 1.0613321977245538,
+            "tokens_per_second": 704.7881084161854,
+            "seen_tokens": 8290304,
+            "training_seconds": 11762.831836976002,
+            "peak_memory_bytes": 3999306752,
+            "grad_norm_mean": 1.0558776776251115,
+            "grad_norm_median": 0.3677181452512741,
+            "grad_norm_max": 80.50592803955078,
+            "grad_norm_final": 0.29800260066986084,
+            "grad_clip_hit_rate": 0.1541501976284585,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.596611022949219,
+                "bits_per_byte": 8.074202968593347,
+                "learning_rate": 5.94059405940594e-06,
+                "grad_norm": 80.50592803955078,
+                "tokens_per_second": 743.0985965116057
+              },
+              {
+                "step": 168,
+                "loss": 1.4091855883598328,
+                "bits_per_byte": 2.033025060018927,
+                "learning_rate": 0.0005928251394080373,
+                "grad_norm": 1.0080195665359497,
+                "tokens_per_second": 722.7259311366643
+              },
+              {
+                "step": 336,
+                "loss": 0.9850219488143921,
+                "bits_per_byte": 1.4210862807213058,
+                "learning_rate": 0.0005160863661361017,
+                "grad_norm": 0.45667895674705505,
+                "tokens_per_second": 715.8146798911571
+              },
+              {
+                "step": 504,
+                "loss": 0.9355897307395935,
+                "bits_per_byte": 1.3497706648446521,
+                "learning_rate": 0.00037861602196348715,
+                "grad_norm": 0.3981591463088989,
+                "tokens_per_second": 714.9612393005689
+              },
+              {
+                "step": 672,
+                "loss": 0.7369469702243805,
+                "bits_per_byte": 1.0631897393408603,
+                "learning_rate": 0.00022527924197351118,
+                "grad_norm": 0.3008262813091278,
+                "tokens_per_second": 712.9738621790216
+              },
+              {
+                "step": 840,
+                "loss": 0.745078057050705,
+                "bits_per_byte": 1.0749204179822363,
+                "learning_rate": 0.000106119367432949,
+                "grad_norm": 0.3095082938671112,
+                "tokens_per_second": 707.8114037637076
+              },
+              {
+                "step": 1008,
+                "loss": 0.7760332226753235,
+                "bits_per_byte": 1.11957928191877,
+                "learning_rate": 6.0025686791247004e-05,
+                "grad_norm": 0.33697009086608887,
+                "tokens_per_second": 704.8964621753317
+              },
+              {
+                "step": 1012,
+                "loss": 0.7356594204902649,
+                "bits_per_byte": 1.0613321977245538,
+                "learning_rate": 5.9999999999999995e-05,
+                "grad_norm": 0.29800260066986084,
+                "tokens_per_second": 704.7881173886864
+              }
+            ],
+            "config": {
+              "steps": 1012,
+              "batch_size": 8,
+              "sequence_length": 512,
+              "learning_rate": 0.0006,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 101,
+              "log_every": 168,
+              "seed": 4,
+              "gradient_accumulation": 2,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 8290304
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 0.7301786616444588,
+              "perplexity": 2.0754513781081156,
+              "bits_per_byte": 1.053425134117401,
+              "tokens": 65536
+            },
+            "cross_corpus": {
+              "loss": 2.710047960281372,
+              "perplexity": 15.029996340443274,
+              "bits_per_byte": 3.909772752869186,
+              "tokens": 65536
+            },
+            "top1": {
+              "top1_accuracy": 0.76666259765625,
+              "tokens": 32768
+            }
+          },
+          "inference": {
+            "tokens_per_second": 444.4798394954087,
+            "streaming_ms_per_token": 4.840916609396118,
+            "peak_memory_bytes": 780036096,
+            "process_rss_bytes": 3057901568,
+            "plain_tokens_per_second": 443.83484319521756,
+            "summary_tokens_per_second": 436.8510491978802,
+            "trace_tokens_per_second": 45.652011319238106,
+            "summary_overhead_percent": 1.573511882722023,
+            "trace_overhead_percent": 89.71418940645036
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.8479480147361755,
+                  "fast_absmax": 0.9999529123306274,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.777777910232544,
+                  "context_absmax": 0.9996113181114197,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.34978851675987244,
+                  "semantic_absmax": 0.5819662809371948,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.629195511341095,
+                  "fast_absmax": 0.9975271821022034,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5874965786933899,
+                  "context_absmax": 0.9987330436706543,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.07056314498186111,
+                  "semantic_absmax": 0.13962897658348083,
+                  "semantic_dead_fraction": 0.008323424495756626
+                },
+                {
+                  "fast_rms": 0.6147850751876831,
+                  "fast_absmax": 0.9947419166564941,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5769393444061279,
+                  "context_absmax": 0.9962966442108154,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.0886632576584816,
+                  "semantic_absmax": 0.16141144931316376,
+                  "semantic_dead_fraction": 0.002972651505842805
+                },
+                {
+                  "fast_rms": 0.6432263255119324,
+                  "fast_absmax": 0.9979069232940674,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5701295137405396,
+                  "context_absmax": 0.9974275827407837,
+                  "context_dead_fraction": 0.001674107275903225,
+                  "semantic_rms": 0.1021653413772583,
+                  "semantic_absmax": 0.1757034957408905,
+                  "semantic_dead_fraction": 0.002972651505842805
+                },
+                {
+                  "fast_rms": 0.6256313920021057,
+                  "fast_absmax": 0.9970357418060303,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5669811367988586,
+                  "context_absmax": 0.9969507455825806,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.12730637192726135,
+                  "semantic_absmax": 0.22621876001358032,
+                  "semantic_dead_fraction": 0.003567181993275881
+                },
+                {
+                  "fast_rms": 0.6551069021224976,
+                  "fast_absmax": 0.9997138977050781,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.6199365854263306,
+                  "context_absmax": 0.9994346499443054,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.09906043857336044,
+                  "semantic_absmax": 0.22484643757343292,
+                  "semantic_dead_fraction": 0.00594530301168561
+                },
+                {
+                  "fast_rms": 0.6384937167167664,
+                  "fast_absmax": 0.9997689127922058,
+                  "fast_dead_fraction": 0.001674107275903225,
+                  "context_rms": 0.5872436165809631,
+                  "context_absmax": 0.9997032284736633,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.11054898053407669,
+                  "semantic_absmax": 0.19026939570903778,
+                  "semantic_dead_fraction": 0.002972651505842805
+                },
+                {
+                  "fast_rms": 0.6155528426170349,
+                  "fast_absmax": 0.9982743263244629,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.6154587268829346,
+                  "context_absmax": 0.9997652769088745,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.10220054537057877,
+                  "semantic_absmax": 0.1539662629365921,
+                  "semantic_dead_fraction": 0.003567181993275881
+                },
+                {
+                  "fast_rms": 0.6074328422546387,
+                  "fast_absmax": 0.9989340901374817,
+                  "fast_dead_fraction": 0.0011160714784637094,
+                  "context_rms": 0.6046428084373474,
+                  "context_absmax": 0.9995182752609253,
+                  "context_dead_fraction": 0.0022321429569274187,
+                  "semantic_rms": 0.16046003997325897,
+                  "semantic_absmax": 0.2358337938785553,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.6009107232093811,
+                  "fast_absmax": 0.9949105978012085,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.6476093530654907,
+                  "context_absmax": 0.9999977946281433,
+                  "context_dead_fraction": 0.001674107275903225,
+                  "semantic_rms": 0.13527944684028625,
+                  "semantic_absmax": 0.26595625281333923,
+                  "semantic_dead_fraction": 0.0023781212512403727
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9978766500949859,
+                "semantic_dead_fraction": 0.0032699167262762786,
+                "context_rms": 0.6154215574264527,
+                "semantic_absmax": 0.23558011054992675,
+                "fast_rms": 0.647828334569931,
+                "context_dead_fraction": 0.0010602679161820562,
+                "fast_dead_fraction": 0.0006138393189758062,
+                "semantic_rms": 0.1346036083996296,
+                "context_absmax": 0.9987438559532166
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 0.7248787432909012,
+                "perplexity": 2.0644807526465834,
+                "bits_per_byte": 1.0457789681916072,
+                "tokens": 32768
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.774838536977768,
+                  "delta_loss": 2.0499597936868668,
+                  "delta_bits_per_byte": 2.9574668283738053,
+                  "relative_increase": 2.8280037353284575
+                },
+                {
+                  "state": "context",
+                  "loss": 1.2219225466251373,
+                  "delta_loss": 0.49704380333423615,
+                  "delta_bits_per_byte": 0.7170826301748916,
+                  "relative_increase": 0.6856923422498091
+                },
+                {
+                  "state": "semantic",
+                  "loss": 0.9805222302675247,
+                  "delta_loss": 0.25564348697662354,
+                  "delta_bits_per_byte": 0.368815590896737,
+                  "relative_increase": 0.3526706905709762
+                }
+              ],
+              "delta_spread": 1.7943163067102432,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 4.000822067260742,
+                "logit_max_difference": 15.421875,
+                "prediction_change_rate": 0.69140625,
+                "accuracy_reference": 0.8046875,
+                "accuracy_ablated": 0.283203125
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.4670491218566895,
+                "logit_max_difference": 9.6875,
+                "prediction_change_rate": 0.318359375,
+                "accuracy_reference": 0.8046875,
+                "accuracy_ablated": 0.6201171875
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.606865644454956,
+                "logit_max_difference": 9.125,
+                "prediction_change_rate": 0.18359375,
+                "accuracy_reference": 0.8046875,
+                "accuracy_ablated": 0.7138671875
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 40,
+                  "mean_activity": 0.5119301051683578,
+                  "mean_delta": 0.4009221733969753,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 40,
+                  "mean_activity": 0.761349853817228,
+                  "mean_delta": 0.7616814971464919,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 40,
+                  "mean_activity": 0.08134564327202959,
+                  "mean_delta": 0.014033631889490828,
+                  "mean_persistence": 2.95673828125,
+                  "reactivations": 274.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 120
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She loved to play with her toys and play with her toys. One day, she went to the park with her mom. They were very happy and said, \"Let's go to the park together!\" Lily said, \"Yes, please!\" They played with the ball and the ball and the ball were happy. They had a big ball and a big ball. They were happy and had a great time. They had a lot of fun together.Once upon a time, there was a little girl n",
+              "sampled": "Once upon a time, there was a little girl named Lily. She loved to play with her dolls and put it on her little girl. One day, she went to play with her friends with her mom's cold. Suddenly, she saw the sky and a farmer. \n\nLila felt scared and they said, \"I am sorry, Lily. I want to go to the park. When she finished make, she said to the squirrel, \"I lost my shiny table!\" she asked her mom, \"Mom, you can play with my mask momething you sad.\" Her mom an",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big box of cars and a big box. They wanted to see what was inside. They saw a big box of colors and some boxes. They were very happy.\n\nThe box was so happy. They had a big box of cookies. They were happy to see the box and the box. They were happy and proud. They had a lot of fun. They had a lot of fun. They had a lot of fun. They had a lot of fun. They had a lot of fun. They had a lot of fun. Th",
+              "sampled": "Tom and Sara went to the park. They saw a bright bird in the sky. It was so big and quiet. It bent danced and saw the bird shout. They were amazed.\n\n\"Who could be your friend?\" Mom said. \"Maybe we can take something dangerous. They are so inside. We like to draw and be careful.\"\n\n\"Maybe it is a funny wheat,\" Tom said. \"I don't want to protect you.\"\n\nThe man smiled. \"You are sorry, Mom. You saved me and didn't listen. You have to have hur",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he decided to take a bath. He was so happy that he could see the battery of the battery and he was so happy. He was so happy that he had a big bag of fun that he had been able to stay away from the bathroom.Once upon a time, there was a little boy named Timmy. Timmy loved to play with his toys and play with his toys. One day, Timmy's mom told him to be careful when he was a big boy. Timmy was sad b",
+              "sampled": "The dog was very hungry, so he heard a noise. He knew that he had a great time because he had gone near the countryside. Tom felt much better and he knew that his story was magic home. The monkey felt uncomfortable and he was scared at me, but he said was now happy too. The toy was a big pond with no matter what the people were waiting too. The knight churched away. He promised to know how to dig the best back. From then on, h",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat was very happy and started to cry. The cat was so happy that the cat was still angry. The cat was so happy that the cat was still angry. The cat was so happy that the cat was still angry. The cat was so happy that the cat was still angry and scared. The cat was so happy that the cat was still angry and scared. The cat was so happy that the cat was still angry and scared. The cat was so happy that",
+              "sampled": "One day, a small cat found a big red ball. The cat wanted to clean it up, but it was too small. The cat chased it and it would be too fast. The tune took the cat and ran to the cat. The cat was so warm and warm.\n\nThe cat saw the cat and the cat cat drove. The cat liked the cat. The cat said, \"Hi, you can stay in the cat. I don't have any fun!\"\n\nSo the cat went outside and saw the cat saying to him. The cat was too fast and decided to bake it. He ",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 350,
+              "valid_word_fraction": 0.9942857142857143,
+              "mean_word_length": 3.4371428571428573,
+              "distinct_1": 0.25142857142857145,
+              "distinct_2": 0.4699140401146132,
+              "distinct_3": 0.5977011494252874,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 331,
+              "valid_word_fraction": 0.9879154078549849,
+              "mean_word_length": 3.6012084592145017,
+              "distinct_1": 0.486404833836858,
+              "distinct_2": 0.8666666666666667,
+              "distinct_3": 0.9726443768996961,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-capacity-tinystories-large.pt",
+            "bytes": 363171927,
+            "bytes_per_parameter": 4.010783469267658
+          },
+          "budget_factor": 2.0736
+        }
+      ]
+    },
+    "quantization": {
+      "size_class": "medium",
+      "source_checkpoint": "runs/milestone4/m4-fixed-tinystories-medium.pt",
+      "reference": {
+        "loss": 0.9419639483094215,
+        "perplexity": 2.5650140297847255,
+        "bits_per_byte": 1.3589667169221904,
+        "tokens": 8192
+      },
+      "variants": [
+        {
+          "variant": "unquantisiert (fp32)",
+          "checkpoint_bytes": 150316407,
+          "checkpoint_ratio": 1.000000625347962,
+          "load_seconds": 0.31579646799946204,
+          "inference_tokens_per_second": 583.7029136430839,
+          "peak_memory_bytes": 329891840,
+          "process_rss_bytes": 1678159872,
+          "validation_loss": 0.9419639483094215,
+          "validation_bits_per_byte": 1.3589667169221904,
+          "bits_per_byte_delta": 0.0,
+          "logit_rms_difference": 0.0,
+          "logit_max_difference": 0.0,
+          "prediction_change_rate": 0.0
+        },
+        {
+          "variant": "INT8 weight-only (Gruppe 10)",
+          "checkpoint_bytes": 52796340,
+          "checkpoint_ratio": 0.3512349321660118,
+          "load_seconds": 0.27635342700159526,
+          "inference_tokens_per_second": 595.458670253132,
+          "peak_memory_bytes": 437985280,
+          "process_rss_bytes": 1851502592,
+          "validation_loss": 0.941950760781765,
+          "validation_bits_per_byte": 1.3589476913414387,
+          "bits_per_byte_delta": -1.902558075173033e-05,
+          "logit_rms_difference": 0.016616761684417725,
+          "logit_max_difference": 0.0625,
+          "prediction_change_rate": 0.001953125
+        },
+        {
+          "variant": "INT4 weight-only (Gruppe 10)",
+          "checkpoint_bytes": 34039220,
+          "checkpoint_ratio": 0.22645060486548788,
+          "load_seconds": 0.27833226599977934,
+          "inference_tokens_per_second": 595.5968171764865,
+          "peak_memory_bytes": 399744512,
+          "process_rss_bytes": 1828474880,
+          "validation_loss": 0.9438667856156826,
+          "validation_bits_per_byte": 1.3617119308675518,
+          "bits_per_byte_delta": 0.0027452139453614244,
+          "logit_rms_difference": 0.12525783479213715,
+          "logit_max_difference": 0.6875,
+          "prediction_change_rate": 0.029296875
+        }
+      ]
+    },
+    "fixed": {
+      "token_budget": 4000000,
+      "effective_batch_size": 16,
+      "corpus": "tinystories",
+      "classes": [
+        {
+          "size_class": "tiny",
+          "study": "fixed",
+          "target": "~120K",
+          "d_model": 64,
+          "n_layers": 2,
+          "parameter_count": 120002,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.003,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 64,
+              "n_layers": 2,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 120002
+          },
+          "training": {
+            "reused_checkpoint": "runs/milestone4/m4-fixed-tinystories-tiny.pt",
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": null,
+            "best_loss": null,
+            "final_bits_per_byte": null,
+            "tokens_per_second": null,
+            "seen_tokens": 3997696,
+            "training_seconds": null,
+            "peak_memory_bytes": 0,
+            "grad_norm_mean": null,
+            "grad_norm_median": null,
+            "grad_norm_max": null,
+            "grad_norm_final": null,
+            "grad_clip_hit_rate": null,
+            "curve": [],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.003,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 1.3792853131890297,
+              "perplexity": 3.9720618326295165,
+              "bits_per_byte": 1.989888081308794,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 3.1033971905708313,
+              "perplexity": 22.273490189611078,
+              "bits_per_byte": 4.477255736745279,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.5887908935546875,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 2237.6499868772717,
+            "streaming_ms_per_token": 1.1871883359049207,
+            "peak_memory_bytes": 10727936,
+            "process_rss_bytes": 1459695616,
+            "plain_tokens_per_second": 2295.2626672287083,
+            "summary_tokens_per_second": 2324.1573703615277,
+            "trace_tokens_per_second": 331.6827675928286,
+            "summary_overhead_percent": -1.2588843771726976,
+            "trace_overhead_percent": 85.549245743046
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.5084024667739868,
+                  "fast_absmax": 0.9304376840591431,
+                  "fast_dead_fraction": 0.015625,
+                  "context_rms": 0.6401630640029907,
+                  "context_absmax": 0.9794180393218994,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.24011610448360443,
+                  "semantic_absmax": 0.3445071876049042,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.5434539318084717,
+                  "fast_absmax": 0.9669288992881775,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.492897629737854,
+                  "context_absmax": 0.8965240716934204,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.1855979710817337,
+                  "semantic_absmax": 0.25521939992904663,
+                  "semantic_dead_fraction": 0.0
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9486832916736603,
+                "semantic_dead_fraction": 0.0,
+                "context_rms": 0.5665303468704224,
+                "context_dead_fraction": 0.0,
+                "semantic_rms": 0.21285703778266907,
+                "semantic_absmax": 0.2998632937669754,
+                "context_absmax": 0.9379710555076599,
+                "fast_rms": 0.5259281992912292,
+                "fast_dead_fraction": 0.0078125
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 1.370641440153122,
+                "perplexity": 3.9378757971874014,
+                "bits_per_byte": 1.977417608545816,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 4.228373467922211,
+                  "delta_loss": 2.8577320277690887,
+                  "delta_bits_per_byte": 4.122835824652025,
+                  "relative_increase": 2.084959599244158
+                },
+                {
+                  "state": "context",
+                  "loss": 2.9630715548992157,
+                  "delta_loss": 1.5924301147460938,
+                  "delta_bits_per_byte": 2.2973910295064326,
+                  "relative_increase": 1.1618137815592344
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.5655809342861176,
+                  "delta_loss": 0.1949394941329956,
+                  "delta_bits_per_byte": 0.28123824145907594,
+                  "relative_increase": 0.14222501116792283
+                }
+              ],
+              "delta_spread": 2.662792533636093,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 3.0354580879211426,
+                "logit_max_difference": 11.4921875,
+                "prediction_change_rate": 0.849609375,
+                "accuracy_reference": 0.61328125,
+                "accuracy_ablated": 0.1162109375
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.7117412090301514,
+                "logit_max_difference": 11.484375,
+                "prediction_change_rate": 0.630859375,
+                "accuracy_reference": 0.61328125,
+                "accuracy_ablated": 0.267578125
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.2798502445220947,
+                "logit_max_difference": 6.21875,
+                "prediction_change_rate": 0.2158203125,
+                "accuracy_reference": 0.61328125,
+                "accuracy_ablated": 0.5634765625
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 8,
+                  "mean_activity": 0.4940039651228291,
+                  "mean_delta": 0.519069379697612,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 8,
+                  "mean_activity": 0.6157399852003439,
+                  "mean_delta": 0.6345436002739007,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 8,
+                  "mean_activity": 0.11106257792370328,
+                  "mean_delta": 0.00925805740401131,
+                  "mean_persistence": 0.12744140625,
+                  "reactivations": 162.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 24
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She was a little girl named Timmy was a little girl not her for the care. They was a little girl not her for her for a big to the bird and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look a big to be a big too was so happy. The said the bird and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I loo",
+              "sampled": "Once upon a time, there was a little girl named Lily. She was so scaried to go rearing or in on the too. Whis said, \"You was to make it boy. \n\nThe loved of be bear to lots in the frowurs in and cuscule it with the find the quccad. He is foun and he said smecam. Lies, Timmy, a big thiy and had her mom stood and the gaul and somether the befanly of him their and him find. The spicked there were crear and he cared in. \n\nDo like me care to to pautin it what",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big to the bird and said, \"I look and said, \"I like the bird and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look a big to be a big too was a big to the bird and said, \"I look and said, \"I look and said, \"I look and said, \"I look a big be bear and said, \"I look and said, \"I look a big be bear and said, \"I look and said, \"I look a big be bear ",
+              "sampled": "Tom and Sara went to the park. They saw a brabbe this careful. They was so hunt preant and get do the pite exciter. Their a big speciful spime flish of she saw a big they helt down it had of she liked to go mom. He fire want to move he woldar not his from away. She with the found the brop and groud the face and the longer way happy. You with i said a time there will a prawing and he leaded it big her some of the fiil cired some.\n\nThe hop",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he saw a big to play and said, \"I look and said, \"I look a big to the bird and said, \"I look a big to the bird and said, \"I look and said, \"I look a big to the bird and said, \"I look and said, \"I look a big to the bird and said, \"I look and said, \"I look a big to the bird and said, \"I look and said, \"I look a big to be a big friends. They was so happy and said, \"I look and said, \"I look and said, \"I",
+              "sampled": "The dog was very hungry, so he heard and a groud out of play and the shard and bear he wonder glared her cared and amazided to them ich parent. From had store whis to boy wam so be alwh couldn't day shune.\n\nHe shell and had it car to do end.Once upon a helre, there was who if the tays and want want to dlef little joy. He liked to like in the drance of the tree was branging caa liver to juse going to be, starteds and he she su",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat a big to the bird and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look a big to be a big too was so happy. They said the bird and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look and said, \"I look a big some to be a big toy show and said, \"I look and said, \"I look and said, \"I look and sa",
+              "sampled": "One day, a small cat found a big red ball. The cat from and scared and see a bird agine the grook home. They pit very flagos. One day, they can and nade a greached to and girl and fasked be angirous good. They went other saw things for the buell was so happy to bird turied to help on the toold helped. She saw had enome that he was voing on the shold her how capped. I was didn't smiled and lot find told hole. He decaked hucked to the lears but she",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 377,
+              "valid_word_fraction": 0.9946949602122016,
+              "mean_word_length": 2.923076923076923,
+              "distinct_1": 0.08753315649867374,
+              "distinct_2": 0.15159574468085107,
+              "distinct_3": 0.20533333333333334,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 340,
+              "valid_word_fraction": 0.8147058823529412,
+              "mean_word_length": 3.6029411764705883,
+              "distinct_1": 0.5176470588235295,
+              "distinct_2": 0.9380530973451328,
+              "distinct_3": 1.0,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-tinystories-tiny.pt",
+            "bytes": 559934,
+            "bytes_per_parameter": 4.666038899351677
+          }
+        },
+        {
+          "size_class": "xs",
+          "study": "fixed",
+          "target": "~1,24M",
+          "d_model": 160,
+          "n_layers": 4,
+          "parameter_count": 1240804,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.002,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 160,
+              "n_layers": 4,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 1240804
+          },
+          "training": {
+            "reused_checkpoint": "runs/milestone4/m4-fixed-tinystories-xs.pt",
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": null,
+            "best_loss": null,
+            "final_bits_per_byte": null,
+            "tokens_per_second": null,
+            "seen_tokens": 3997696,
+            "training_seconds": null,
+            "peak_memory_bytes": 0,
+            "grad_norm_mean": null,
+            "grad_norm_median": null,
+            "grad_norm_max": null,
+            "grad_norm_final": null,
+            "grad_clip_hit_rate": null,
+            "curve": [],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.002,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 1.085772193968296,
+              "perplexity": 2.9617259628768147,
+              "bits_per_byte": 1.5664381597731905,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.952741861343384,
+              "perplexity": 19.15841148727448,
+              "bits_per_byte": 4.2599060403853475,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.6685791015625,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 1150.8976046743844,
+            "streaming_ms_per_token": 2.1134773515427696,
+            "peak_memory_bytes": 17670656,
+            "process_rss_bytes": 1726865408,
+            "plain_tokens_per_second": 1129.2898213270023,
+            "summary_tokens_per_second": 1139.0493196215534,
+            "trace_tokens_per_second": 169.47300427445026,
+            "summary_overhead_percent": -0.8642155547884833,
+            "trace_overhead_percent": 84.99295742564061
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.6464412808418274,
+                  "fast_absmax": 0.9721792936325073,
+                  "fast_dead_fraction": 0.0031250000465661287,
+                  "context_rms": 0.680485725402832,
+                  "context_absmax": 0.9905813932418823,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.3897795081138611,
+                  "semantic_absmax": 0.5414996147155762,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.4908854365348816,
+                  "fast_absmax": 0.9764363169670105,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5704410076141357,
+                  "context_absmax": 0.9888787865638733,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.1815730482339859,
+                  "semantic_absmax": 0.2852129340171814,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.5417546629905701,
+                  "fast_absmax": 0.9897686839103699,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.582275390625,
+                  "context_absmax": 0.9978901147842407,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.14577707648277283,
+                  "semantic_absmax": 0.20751453936100006,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.5419624447822571,
+                  "fast_absmax": 0.9943336844444275,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.515535831451416,
+                  "context_absmax": 0.9938380718231201,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.12132256478071213,
+                  "semantic_absmax": 0.21499845385551453,
+                  "semantic_dead_fraction": 0.010416666977107525
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9831794947385788,
+                "semantic_dead_fraction": 0.0026041667442768812,
+                "context_rms": 0.587184488773346,
+                "context_dead_fraction": 0.0,
+                "semantic_rms": 0.20961304940283298,
+                "semantic_absmax": 0.31230638548731804,
+                "context_absmax": 0.9927970916032791,
+                "fast_rms": 0.555260956287384,
+                "fast_dead_fraction": 0.0007812500116415322
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 1.0786174833774567,
+                "perplexity": 2.940611295501572,
+                "bits_per_byte": 1.5561160942847907,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 3.261871725320816,
+                  "delta_loss": 2.1832542419433594,
+                  "delta_bits_per_byte": 3.1497700678514775,
+                  "relative_increase": 2.0241228012612704
+                },
+                {
+                  "state": "context",
+                  "loss": 2.6246889233589172,
+                  "delta_loss": 1.5460714399814606,
+                  "delta_bits_per_byte": 2.230509599321312,
+                  "relative_increase": 1.4333825140125425
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.651478111743927,
+                  "delta_loss": 0.5728606283664703,
+                  "delta_bits_per_byte": 0.8264631876648421,
+                  "relative_increase": 0.5311063812656565
+                }
+              ],
+              "delta_spread": 1.610393613576889,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 3.583745241165161,
+                "logit_max_difference": 13.2578125,
+                "prediction_change_rate": 0.7978515625,
+                "accuracy_reference": 0.6943359375,
+                "accuracy_ablated": 0.1650390625
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.071387529373169,
+                "logit_max_difference": 11.234375,
+                "prediction_change_rate": 0.6005859375,
+                "accuracy_reference": 0.6943359375,
+                "accuracy_ablated": 0.3388671875
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.8798896074295044,
+                "logit_max_difference": 8.203125,
+                "prediction_change_rate": 0.3720703125,
+                "accuracy_reference": 0.6943359375,
+                "accuracy_ablated": 0.5263671875
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 16,
+                  "mean_activity": 0.5045740953893982,
+                  "mean_delta": 0.4993786327468115,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 16,
+                  "mean_activity": 0.6432228786212364,
+                  "mean_delta": 0.6617661542404676,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 16,
+                  "mean_activity": 0.11827775754060624,
+                  "mean_delta": 0.018051682429533145,
+                  "mean_persistence": 3.707275390625,
+                  "reactivations": 83.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 48
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She was so happy and he was so happy and said, \"I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play with your friends. I want to play ",
+              "sampled": "Once upon a time, there was a little girl named Lily. She was so scared, but she didn't red a grabbit safe.Once upon a time there was a big rabbit can both was sitting behind a lead until it was very life. She was a water quey new building so exploring smelling. The bird was scared again. She was a sheep careful and laughed and explore her loud of find.Once upon a time, there was a little game of a little boy named Dad. \n\nSuddenly the king liked to ad",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big box and said, \"I want to the ball and say the bird and said, \"You are a big big both who wanted to play with the ball. It is a big box and said, \"You are a big big both who wanted to play with you. I want to play with the ball. It is a big box and said, \"You are a big big beautiful for you are friends. I want to play with you are friends. I want to play with you are friends. I want to play wi",
+              "sampled": "Tom and Sara went to the park. They saw a branch this in the store. They had not adventure the dog. They ran back towards and drept of pretty. They are sang and says, \"Don't tell my the fister!\" \n\nSuddenly smiled on her mom and showed them around her family thought with them out to go. She thanked the seages into the new day on the girl with it.\n\nThe trees looked around away, and then he didn't get creature on the inscister. One day, he ",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he was so happy and said, \"I want to go to the park and said, \"You are you can be careful and say you can be careful. I will go to the ball and said, \"You are you are so much fun. You are so much fun this me.\"\n\nThe bird said, \"I want to the ball and say, \"You are you can be careful. You are a big box and said, \"You are you are sorry. You are so much a big boat and say that you can be careful. You ar",
+              "sampled": "The dog was very hungry, so he heard a new grandma noticed feach of the big hole, she said forgot the sugge counts all adventure around her. She saw her friends inster and tmiled him in the fasturful duinstire. She said no remember and met than she showed her mom to the whole hear the vouch day. He was as from that the pointed were happy and had to the tree and said he wanted a liver porect.\n\nSuddenly wake ant off and put its ",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat was so happy and said, \"I want to the ball and said, \"I want to the ball and said, \"You are you can be careful and say that you can be friends. I want to play with you are to the ball. It is a big box and said, \"I want to the ball and said, \"You are you are so much fun. You are so much fun. You are so much fun. You are so much fun. You are so much fun. You are so much a big boat and say that you ",
+              "sampled": "One day, a small cat found a big red ball. The cat wanted to like it. He took Lily. She tried to should cla. Mittens well over bed, out outside and never done came from the sprain.\n\nSara was so happy and started so happy that his mum, they saw a was looking fun. \n\nMom had a sheep to play to what does. She saw a big smile and said on a big wind who done any wage. He is not see if he had careful had told him.\n\n\"We'le go wet on your mom was fun.\"\n\nH",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 362,
+              "valid_word_fraction": 0.994475138121547,
+              "mean_word_length": 3.2403314917127073,
+              "distinct_1": 0.12154696132596685,
+              "distinct_2": 0.21606648199445982,
+              "distinct_3": 0.30277777777777776,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 320,
+              "valid_word_fraction": 0.934375,
+              "mean_word_length": 3.840625,
+              "distinct_1": 0.546875,
+              "distinct_2": 0.9184952978056427,
+              "distinct_3": 0.9811320754716981,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-tinystories-xs.pt",
+            "bytes": 5150440,
+            "bytes_per_parameter": 4.150889262123591
+          }
+        },
+        {
+          "size_class": "small",
+          "study": "fixed",
+          "target": "~10,2M",
+          "d_model": 384,
+          "n_layers": 6,
+          "parameter_count": 10235526,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0012,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 384,
+              "n_layers": 6,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 10235526
+          },
+          "training": {
+            "reused_checkpoint": "runs/milestone4/m4-fixed-tinystories-small.pt",
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": null,
+            "best_loss": null,
+            "final_bits_per_byte": null,
+            "tokens_per_second": null,
+            "seen_tokens": 3997696,
+            "training_seconds": null,
+            "peak_memory_bytes": 0,
+            "grad_norm_mean": null,
+            "grad_norm_median": null,
+            "grad_norm_max": null,
+            "grad_norm_final": null,
+            "grad_clip_hit_rate": null,
+            "curve": [],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.0012,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 0.9450226239860058,
+              "perplexity": 2.572871586540644,
+              "bits_per_byte": 1.363379453152486,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.840469241142273,
+              "perplexity": 17.123798843148844,
+              "bits_per_byte": 4.097930887993594,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.70892333984375,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 723.8146547792969,
+            "streaming_ms_per_token": 3.0449846718738627,
+            "peak_memory_bytes": 58994688,
+            "process_rss_bytes": 1809432576,
+            "plain_tokens_per_second": 726.4797945277218,
+            "summary_tokens_per_second": 719.0766844154568,
+            "trace_tokens_per_second": 79.19918607592159,
+            "summary_overhead_percent": 1.0190386805014495,
+            "trace_overhead_percent": 89.09822590077563
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.7480882406234741,
+                  "fast_absmax": 0.9994925260543823,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.7470280528068542,
+                  "context_absmax": 0.9993480443954468,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.28202536702156067,
+                  "semantic_absmax": 0.4148317873477936,
+                  "semantic_dead_fraction": 0.0013850415125489235
+                },
+                {
+                  "fast_rms": 0.5009673833847046,
+                  "fast_absmax": 0.9595789909362793,
+                  "fast_dead_fraction": 0.0013020833721384406,
+                  "context_rms": 0.5133937001228333,
+                  "context_absmax": 0.9983097314834595,
+                  "context_dead_fraction": 0.0013020833721384406,
+                  "semantic_rms": 0.04999617859721184,
+                  "semantic_absmax": 0.10627498477697372,
+                  "semantic_dead_fraction": 0.016620498150587082
+                },
+                {
+                  "fast_rms": 0.5574614405632019,
+                  "fast_absmax": 0.9897732138633728,
+                  "fast_dead_fraction": 0.0026041667442768812,
+                  "context_rms": 0.5211396217346191,
+                  "context_absmax": 0.9955500364303589,
+                  "context_dead_fraction": 0.00390625,
+                  "semantic_rms": 0.04993385821580887,
+                  "semantic_absmax": 0.10507135093212128,
+                  "semantic_dead_fraction": 0.0069252075627446175
+                },
+                {
+                  "fast_rms": 0.5896418690681458,
+                  "fast_absmax": 0.9976136088371277,
+                  "fast_dead_fraction": 0.0013020833721384406,
+                  "context_rms": 0.6469370722770691,
+                  "context_absmax": 0.9993571639060974,
+                  "context_dead_fraction": 0.0026041667442768812,
+                  "semantic_rms": 0.12961682677268982,
+                  "semantic_absmax": 0.23454409837722778,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.504935622215271,
+                  "fast_absmax": 0.9817758202552795,
+                  "fast_dead_fraction": 0.0013020833721384406,
+                  "context_rms": 0.5607526302337646,
+                  "context_absmax": 0.9986109733581543,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.12970446050167084,
+                  "semantic_absmax": 0.21745602786540985,
+                  "semantic_dead_fraction": 0.002770083025097847
+                },
+                {
+                  "fast_rms": 0.5801247358322144,
+                  "fast_absmax": 0.9883235692977905,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5417080521583557,
+                  "context_absmax": 0.9987219572067261,
+                  "context_dead_fraction": 0.0026041667442768812,
+                  "semantic_rms": 0.12322117388248444,
+                  "semantic_absmax": 0.2156575620174408,
+                  "semantic_dead_fraction": 0.002770083025097847
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9860929548740387,
+                "semantic_dead_fraction": 0.005078485546012719,
+                "context_rms": 0.5884931882222494,
+                "context_dead_fraction": 0.0017361111434487004,
+                "semantic_rms": 0.1274163108319044,
+                "semantic_absmax": 0.21563930188616118,
+                "context_absmax": 0.9983163177967072,
+                "fast_rms": 0.5802032152811686,
+                "fast_dead_fraction": 0.001085069476782034
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 0.9438535496592522,
+                "perplexity": 2.5698654659543667,
+                "bits_per_byte": 1.361692835418848,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.5140897929668427,
+                  "delta_loss": 1.5702362433075905,
+                  "delta_bits_per_byte": 2.265372041243977,
+                  "relative_increase": 1.6636439454770007
+                },
+                {
+                  "state": "context",
+                  "loss": 1.7655234634876251,
+                  "delta_loss": 0.821669913828373,
+                  "delta_bits_per_byte": 1.1854191099278557,
+                  "relative_increase": 0.8705480994641704
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.1538535803556442,
+                  "delta_loss": 0.21000003069639206,
+                  "delta_bits_per_byte": 0.302966002872215,
+                  "relative_increase": 0.2224921766435119
+                }
+              ],
+              "delta_spread": 1.3602362126111984,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 2.1119163036346436,
+                "logit_max_difference": 11.7578125,
+                "prediction_change_rate": 0.6630859375,
+                "accuracy_reference": 0.732421875,
+                "accuracy_ablated": 0.3154296875
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 1.6543418169021606,
+                "logit_max_difference": 9.6875,
+                "prediction_change_rate": 0.43359375,
+                "accuracy_reference": 0.732421875,
+                "accuracy_ablated": 0.49609375
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.1313952207565308,
+                "logit_max_difference": 6.3984375,
+                "prediction_change_rate": 0.181640625,
+                "accuracy_reference": 0.732421875,
+                "accuracy_ablated": 0.6640625
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 24,
+                  "mean_activity": 0.478072374176918,
+                  "mean_delta": 0.4256900268374011,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 24,
+                  "mean_activity": 0.6654624076759016,
+                  "mean_delta": 0.6756755836734859,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 24,
+                  "mean_activity": 0.0811369290663347,
+                  "mean_delta": 0.01260526860775387,
+                  "mean_persistence": 0.8595377604166666,
+                  "reactivations": 255.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 72
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She loved to play with her friends. One day, she was so excited to see her friends and said, \"You are so good friends. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are a good friend. You are ",
+              "sampled": "Once upon a time, there was a little girl named Lily. She loved to get a big pirk to be a big girl and a little girl. She was very proud of the button on her face and lonely. One day, Lily wanted to stop out of a rain. Then she was so happy and the stomma got flowers again. \n\nLily's mom smiled and asked her to the garden for the card of her house. They could play down the helping and grateful and just needed to explore the mom's. From that day on, Tim d",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big box of the store and the bird was so happy. They had a big stick and the bird was the bird and the bird was the bird. They were happy to have fun to the park and the bird was the bird and the bird was the bird. The bird was so happy that the bird was so happy that he was so happy that he was so happy that he had to go to the store and the bird was so happy that he was so happy that he had to ",
+              "sampled": "Tom and Sara went to the park. They saw a branch with the food fast together. They are already for the corners away. This above the chair wild fly around the plane. They put their dinosaur and the buttom of made some anymore.\n\nToday felt a promise and so much much fun. They worried the speat and the sky again. They looked at the sky in the forest and the stars. They all are sorry. They do not listen. They see a big stom of shiny and the ",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he said that he was so happy that he had to go home. He was so happy that he had to go home to his friends who was so happy that he was so happy that he had to go home. He was so happy that he had to go home to his friends and he was so happy that he had to go home.Once upon a time, there was a little girl named Lily. She loved to play with her friends. One day, she was so excited to see the box an",
+              "sampled": "The dog was very hungry, so he heard a new ground and could dand the shirt who was flying his glass. They had feel all asleep the muich called his trumble to help it up and made balach. \n\nLily was so hung three he wanted to stick with the park. The sun when he did not understood and hugged him to hide the fish than the pot and really rup away.Once upon a time there was a little girl named Lily. She loved to the man and she sa",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat was so happy and said, \"I want to play with me. I want to be careful and start to be careful. I want to be careful and start to be careful. I want to be careful and start to be careful. I want to be careful and start to be careful. It was a big box and said, \"I want to be careful and start to be careful. I want to be careful and start to be careful. I want to be careful and start to be careful. I",
+              "sampled": "One day, a small cat found a big red ball. The cat wanted to clean to her mom around the swing. The store was very garden. The bear old man came up and had a rest.\n\nThe tree was hurt. It was this owner from the bushet. The man was go, the could go home with her fixing him.\n\nThe notice people was done, and the man was walking some of care! She said to the family saw that the ball was dractior and his lather. He thought and they were very excited m",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 360,
+              "valid_word_fraction": 1.0,
+              "mean_word_length": 3.3305555555555557,
+              "distinct_1": 0.15555555555555556,
+              "distinct_2": 0.2924791086350975,
+              "distinct_3": 0.3715083798882682,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 327,
+              "valid_word_fraction": 0.9571865443425076,
+              "mean_word_length": 3.770642201834862,
+              "distinct_1": 0.5290519877675841,
+              "distinct_2": 0.9233128834355828,
+              "distinct_3": 0.9938461538461538,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-tinystories-small.pt",
+            "bytes": 41370277,
+            "bytes_per_parameter": 4.041832046540647
+          }
+        },
+        {
+          "size_class": "medium",
+          "study": "fixed",
+          "target": "~37,4M",
+          "d_model": 640,
+          "n_layers": 8,
+          "parameter_count": 37403528,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0008,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 640,
+              "n_layers": 8,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 37403528
+          },
+          "training": {
+            "reused_checkpoint": "runs/milestone4/m4-fixed-tinystories-medium.pt",
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": null,
+            "best_loss": null,
+            "final_bits_per_byte": null,
+            "tokens_per_second": null,
+            "seen_tokens": 3997696,
+            "training_seconds": null,
+            "peak_memory_bytes": 0,
+            "grad_norm_mean": null,
+            "grad_norm_median": null,
+            "grad_norm_max": null,
+            "grad_norm_final": null,
+            "grad_clip_hit_rate": null,
+            "curve": [],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.0008,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 0.8997292928397655,
+              "perplexity": 2.458937369098061,
+              "bits_per_byte": 1.2980349889224638,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.8305871188640594,
+              "perplexity": 16.955412745445656,
+              "bits_per_byte": 4.083673999189357,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.7209930419921875,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 549.1890275254069,
+            "streaming_ms_per_token": 4.078781617181448,
+            "peak_memory_bytes": 175176704,
+            "process_rss_bytes": 1929162752,
+            "plain_tokens_per_second": 544.0989310805766,
+            "summary_tokens_per_second": 532.9956887073608,
+            "trace_tokens_per_second": 57.429739926552585,
+            "summary_overhead_percent": 2.0406660882727246,
+            "trace_overhead_percent": 89.4449820343338
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.7885997295379639,
+                  "fast_absmax": 0.9963034987449646,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.7685667276382446,
+                  "context_absmax": 0.9992505311965942,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.4510846734046936,
+                  "semantic_absmax": 0.6406220197677612,
+                  "semantic_dead_fraction": 0.0007999999797903001
+                },
+                {
+                  "fast_rms": 0.5698035359382629,
+                  "fast_absmax": 0.9943928718566895,
+                  "fast_dead_fraction": 0.00390625,
+                  "context_rms": 0.528438925743103,
+                  "context_absmax": 0.9980459809303284,
+                  "context_dead_fraction": 0.0023437500931322575,
+                  "semantic_rms": 0.06202862411737442,
+                  "semantic_absmax": 0.12220644950866699,
+                  "semantic_dead_fraction": 0.012799999676644802
+                },
+                {
+                  "fast_rms": 0.5922623872756958,
+                  "fast_absmax": 0.9921484589576721,
+                  "fast_dead_fraction": 0.0023437500931322575,
+                  "context_rms": 0.5417555570602417,
+                  "context_absmax": 0.9982945919036865,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.09016817063093185,
+                  "semantic_absmax": 0.19616377353668213,
+                  "semantic_dead_fraction": 0.003999999724328518
+                },
+                {
+                  "fast_rms": 0.6023198962211609,
+                  "fast_absmax": 0.9933571815490723,
+                  "fast_dead_fraction": 0.0007812500116415322,
+                  "context_rms": 0.5851080417633057,
+                  "context_absmax": 0.9997367858886719,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.1326865702867508,
+                  "semantic_absmax": 0.24892641603946686,
+                  "semantic_dead_fraction": 0.0015999999595806003
+                },
+                {
+                  "fast_rms": 0.5616001486778259,
+                  "fast_absmax": 0.9927319288253784,
+                  "fast_dead_fraction": 0.0031250000465661287,
+                  "context_rms": 0.5567756295204163,
+                  "context_absmax": 0.994849443435669,
+                  "context_dead_fraction": 0.0023437500931322575,
+                  "semantic_rms": 0.08811624348163605,
+                  "semantic_absmax": 0.16185873746871948,
+                  "semantic_dead_fraction": 0.00559999980032444
+                },
+                {
+                  "fast_rms": 0.6037315726280212,
+                  "fast_absmax": 0.9993717074394226,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5491036772727966,
+                  "context_absmax": 0.9952740669250488,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.1628643125295639,
+                  "semantic_absmax": 0.2785736918449402,
+                  "semantic_dead_fraction": 0.0031999999191612005
+                },
+                {
+                  "fast_rms": 0.5508018732070923,
+                  "fast_absmax": 0.992766797542572,
+                  "fast_dead_fraction": 0.0015625000232830644,
+                  "context_rms": 0.5941859483718872,
+                  "context_absmax": 0.9989924430847168,
+                  "context_dead_fraction": 0.0015625000232830644,
+                  "semantic_rms": 0.14873850345611572,
+                  "semantic_absmax": 0.2531643807888031,
+                  "semantic_dead_fraction": 0.0015999999595806003
+                },
+                {
+                  "fast_rms": 0.5730003714561462,
+                  "fast_absmax": 0.9902434945106506,
+                  "fast_dead_fraction": 0.0007812500116415322,
+                  "context_rms": 0.6074460744857788,
+                  "context_absmax": 0.9999307990074158,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.10407733172178268,
+                  "semantic_absmax": 0.17961974442005157,
+                  "semantic_dead_fraction": 0.0031999999191612005
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9939144924283028,
+                "semantic_dead_fraction": 0.004099999867321458,
+                "context_rms": 0.5914225727319717,
+                "context_dead_fraction": 0.0009765625291038305,
+                "semantic_rms": 0.15497055370360613,
+                "semantic_absmax": 0.26014190167188644,
+                "context_absmax": 0.9980468302965164,
+                "fast_rms": 0.6052649393677711,
+                "fast_dead_fraction": 0.0015625000232830644
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 0.9005838632583618,
+                "perplexity": 2.461039602360116,
+                "bits_per_byte": 1.299267873427463,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.3390789926052094,
+                  "delta_loss": 1.4384951293468475,
+                  "delta_bits_per_byte": 2.075309789451625,
+                  "relative_increase": 1.5972916993452373
+                },
+                {
+                  "state": "context",
+                  "loss": 1.5413502156734467,
+                  "delta_loss": 0.6407663524150848,
+                  "delta_bits_per_byte": 0.9244304389977527,
+                  "relative_increase": 0.7115010367793589
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.1928456723690033,
+                  "delta_loss": 0.2922618091106415,
+                  "delta_bits_per_byte": 0.4216446626451593,
+                  "relative_increase": 0.32452481221817836
+                }
+              ],
+              "delta_spread": 1.146233320236206,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 2.8187828063964844,
+                "logit_max_difference": 10.98046875,
+                "prediction_change_rate": 0.5986328125,
+                "accuracy_reference": 0.7314453125,
+                "accuracy_ablated": 0.35546875
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.000993013381958,
+                "logit_max_difference": 9.55078125,
+                "prediction_change_rate": 0.3740234375,
+                "accuracy_reference": 0.7314453125,
+                "accuracy_ablated": 0.5400390625
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.279240608215332,
+                "logit_max_difference": 6.984375,
+                "prediction_change_rate": 0.201171875,
+                "accuracy_reference": 0.7314453125,
+                "accuracy_ablated": 0.64453125
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 32,
+                  "mean_activity": 0.48119014484027506,
+                  "mean_delta": 0.4142980712585995,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 32,
+                  "mean_activity": 0.6977179835843346,
+                  "mean_delta": 0.7109622158750426,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 32,
+                  "mean_activity": 0.08605899026185908,
+                  "mean_delta": 0.012913830346646615,
+                  "mean_persistence": 2.5501708984375,
+                  "reactivations": 275.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 96
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She loved to play with her friends and they were playing in the park. One day, Lily's mom saw a big storm in the sky. She was so happy that she had to see the big bird and said, \"That's a big box of the story is that it's okay. I want to see the bird for you to the store and the birds were so happy. The bird was so happy that he had a big storm with his friends. The bird was so happy that he had to b",
+              "sampled": "Once upon a time, there was a little girl named Lily. She loved to play with her dad because it was too happy. She was happy that she was always strong and exploring, lonely one. One day, Lily's mommy lit up all or a tree.\n\nLila felt scared and the stampking very excited. She said, \"What do you have for mine!\" The laughter showed the steep old of himself. Suddenly, the other signer splashed the box and reached the bird and mame the little bit was silvin",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big box of the story in the sky. They saw a big big bird with a big bird. The bird was so happy that he had to be careful and the birds were so happy.Once upon a time, there was a little girl named Lily. She loved to play with her friends and the birds were very happy. One day, Lily's mom said they were all the birds were so happy. She was so happy that her mom was so happy that her family was s",
+              "sampled": "Tom and Sara went to the park. They saw a branch with the food fall together. They all already day, and the dog was woring their park. They were scared of the baskets.Once upon a time, there was a little boy named Benny. One day, the food asked the morning the paper to the park. He wanted to go to the park and the little girl was very swim and helped her glove in her friends.\n\nOne day, a big big mean clothes with its moment and he looke",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he saw a big storm in the sky. He was so happy that he had to see the beautiful things to help him. He was so happy that he had to be careful and the birds were so happy.Once upon a time, there was a little girl named Lily. She loved to play with her friends and the birds were very happy. One day, Lily's mom saw a big special picture of the store. She was so happy that her mom was so happy that her",
+              "sampled": "The dog was very hungry, so he heard a new ground snowlip all as the shirt show the leaves. He looked around and saw a long time with his family so he was cool. The bubbles made before he was safeful fun. \n\nHe seemed so noisy to her mommy, \"Let's show we come to the tours or fly!\" Jamie said, \"Mommy, Lily. You have to leave. I want to cry. Come with you the park and say you can make it first. Pizzy said, \"Goodbye, you curie sa",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat was so happy and said, \"Thank you, mom. I want to see the bird for you. I want to be a special toy to be a strange beautiful things. I want to see the bird for you to the store.\"\n\nThe bird was so happy that he had a big story in the sky. He was so happy that he had a big storm with his friends and the bird was so happy that he had to be careful and the bird was so happy that he had to go to the p",
+              "sampled": "One day, a small cat found a big red ball. The cat wanted to clean up his mom and replied what the car. The doctor was flying a bit of the crab and the old barket around the princess. It was this owner spot and exciting his friends were so scared. The ducks felt so excited to help his perfect ride it.\n\nAnna was so excited to see how carefully she found a big girl return. Lily's mom had called a big slide back, the next day the next was too bad. \n",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 356,
+              "valid_word_fraction": 0.9943820224719101,
+              "mean_word_length": 3.398876404494382,
+              "distinct_1": 0.20224719101123595,
+              "distinct_2": 0.39436619718309857,
+              "distinct_3": 0.5141242937853108,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 316,
+              "valid_word_fraction": 0.9620253164556962,
+              "mean_word_length": 3.8955696202531644,
+              "distinct_1": 0.5284810126582279,
+              "distinct_2": 0.9206349206349206,
+              "distinct_3": 0.9904458598726115,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-tinystories-medium.pt",
+            "bytes": 150316313,
+            "bytes_per_parameter": 4.018773656859321
+          }
+        },
+        {
+          "size_class": "large",
+          "study": "fixed",
+          "target": "~90,5M",
+          "d_model": 896,
+          "n_layers": 10,
+          "parameter_count": 90548874,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "tinystories",
+            "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+            "lizenz": "CDLA-Sharing-1.0",
+            "quelle": "https://huggingface.co/datasets/roneneldan/TinyStories",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "data/train-00000-of-00004-2d5a1467fff1081b.parquet"
+            ],
+            "korpus_tokens_gesamt": 478332312,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 19240340,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 8,
+            "gradient_accumulation": 2,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0006,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 896,
+              "n_layers": 10,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 90548874
+          },
+          "training": {
+            "reused_checkpoint": "runs/milestone4/m4-fixed-tinystories-large.pt",
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": null,
+            "best_loss": null,
+            "final_bits_per_byte": null,
+            "tokens_per_second": null,
+            "seen_tokens": 3997696,
+            "training_seconds": null,
+            "peak_memory_bytes": 0,
+            "grad_norm_mean": null,
+            "grad_norm_median": null,
+            "grad_norm_max": null,
+            "grad_norm_final": null,
+            "grad_clip_hit_rate": null,
+            "curve": [],
+            "config": {
+              "steps": 488,
+              "batch_size": 8,
+              "sequence_length": 512,
+              "learning_rate": 0.0006,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 2,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 0.8749622665345669,
+              "perplexity": 2.3987847777968696,
+              "bits_per_byte": 1.2623037228943872,
+              "tokens": 65536
+            },
+            "cross_corpus": {
+              "loss": 2.8491638004779816,
+              "perplexity": 17.27333184803621,
+              "bits_per_byte": 4.110474485629936,
+              "tokens": 65536
+            },
+            "top1": {
+              "top1_accuracy": 0.724212646484375,
+              "tokens": 32768
+            }
+          },
+          "inference": {
+            "tokens_per_second": 440.9073188060656,
+            "streaming_ms_per_token": 4.804853734356129,
+            "peak_memory_bytes": 401471488,
+            "process_rss_bytes": 2151583744,
+            "plain_tokens_per_second": 456.05523056945225,
+            "summary_tokens_per_second": 444.5756500894086,
+            "trace_tokens_per_second": 46.13391440091918,
+            "summary_overhead_percent": 2.5171469836470672,
+            "trace_overhead_percent": 89.88413873834664
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.8015339970588684,
+                  "fast_absmax": 0.9999339580535889,
+                  "fast_dead_fraction": 0.0011160714784637094,
+                  "context_rms": 0.7724999189376831,
+                  "context_absmax": 0.9997056722640991,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.26273152232170105,
+                  "semantic_absmax": 0.40112486481666565,
+                  "semantic_dead_fraction": 0.0011890606256201863
+                },
+                {
+                  "fast_rms": 0.5798838138580322,
+                  "fast_absmax": 0.9957154989242554,
+                  "fast_dead_fraction": 0.001674107275903225,
+                  "context_rms": 0.5316324234008789,
+                  "context_absmax": 0.9996492862701416,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.032819658517837524,
+                  "semantic_absmax": 0.08435694128274918,
+                  "semantic_dead_fraction": 0.025564802810549736
+                },
+                {
+                  "fast_rms": 0.6035003066062927,
+                  "fast_absmax": 0.9973971247673035,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.52904212474823,
+                  "context_absmax": 0.995017409324646,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.06628056615591049,
+                  "semantic_absmax": 0.1450149118900299,
+                  "semantic_dead_fraction": 0.00594530301168561
+                },
+                {
+                  "fast_rms": 0.5711674690246582,
+                  "fast_absmax": 0.9982285499572754,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5419007539749146,
+                  "context_absmax": 0.9941586852073669,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.09295501559972763,
+                  "semantic_absmax": 0.1536482572555542,
+                  "semantic_dead_fraction": 0.0017835909966379404
+                },
+                {
+                  "fast_rms": 0.585205078125,
+                  "fast_absmax": 0.996154248714447,
+                  "fast_dead_fraction": 0.001674107275903225,
+                  "context_rms": 0.5159363150596619,
+                  "context_absmax": 0.9926655292510986,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.08543168008327484,
+                  "semantic_absmax": 0.17120268940925598,
+                  "semantic_dead_fraction": 0.007134363986551762
+                },
+                {
+                  "fast_rms": 0.6481040716171265,
+                  "fast_absmax": 0.9974070191383362,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5903361439704895,
+                  "context_absmax": 0.9994958639144897,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.09216716140508652,
+                  "semantic_absmax": 0.2066572606563568,
+                  "semantic_dead_fraction": 0.00594530301168561
+                },
+                {
+                  "fast_rms": 0.6482684016227722,
+                  "fast_absmax": 0.9995778799057007,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5799517035484314,
+                  "context_absmax": 0.999687671661377,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.10332178324460983,
+                  "semantic_absmax": 0.17870166897773743,
+                  "semantic_dead_fraction": 0.004161712247878313
+                },
+                {
+                  "fast_rms": 0.6065991520881653,
+                  "fast_absmax": 0.9977015256881714,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5842068791389465,
+                  "context_absmax": 0.9996048808097839,
+                  "context_dead_fraction": 0.001674107275903225,
+                  "semantic_rms": 0.12512627243995667,
+                  "semantic_absmax": 0.19402296841144562,
+                  "semantic_dead_fraction": 0.006539833266288042
+                },
+                {
+                  "fast_rms": 0.5475088953971863,
+                  "fast_absmax": 0.9984471797943115,
+                  "fast_dead_fraction": 0.0011160714784637094,
+                  "context_rms": 0.5198857188224792,
+                  "context_absmax": 0.9999170899391174,
+                  "context_dead_fraction": 0.0027901786379516125,
+                  "semantic_rms": 0.07533764094114304,
+                  "semantic_absmax": 0.17029055953025818,
+                  "semantic_dead_fraction": 0.006539833266288042
+                },
+                {
+                  "fast_rms": 0.5509762167930603,
+                  "fast_absmax": 0.9983724355697632,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.6666579246520996,
+                  "context_absmax": 0.9999496936798096,
+                  "context_dead_fraction": 0.0022321429569274187,
+                  "semantic_rms": 0.0733354315161705,
+                  "semantic_absmax": 0.1552492380142212,
+                  "semantic_dead_fraction": 0.007728894241154194
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9978935420513153,
+                "semantic_dead_fraction": 0.007253269746433944,
+                "context_rms": 0.5832049906253814,
+                "context_dead_fraction": 0.0011160714784637094,
+                "semantic_rms": 0.10095067322254181,
+                "semantic_absmax": 0.1860269360244274,
+                "context_absmax": 0.997985178232193,
+                "fast_rms": 0.6142747402191162,
+                "fast_dead_fraction": 0.0007812500465661287
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 0.8658825680613518,
+                "perplexity": 2.37710311574374,
+                "bits_per_byte": 1.2492044869343126,
+                "tokens": 32768
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.255764424800873,
+                  "delta_loss": 1.389881856739521,
+                  "delta_bits_per_byte": 2.0051756621396515,
+                  "relative_increase": 1.6051620716321449
+                },
+                {
+                  "state": "context",
+                  "loss": 1.5388222336769104,
+                  "delta_loss": 0.6729396656155586,
+                  "delta_bits_per_byte": 0.9708467184010439,
+                  "relative_increase": 0.7771719750892107
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.0236983001232147,
+                  "delta_loss": 0.15781573206186295,
+                  "delta_bits_per_byte": 0.2276799740199109,
+                  "relative_increase": 0.18225997136678812
+                }
+              ],
+              "delta_spread": 1.232066124677658,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 2.7116005420684814,
+                "logit_max_difference": 12.28515625,
+                "prediction_change_rate": 0.64453125,
+                "accuracy_reference": 0.7548828125,
+                "accuracy_ablated": 0.328125
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.6108884811401367,
+                "logit_max_difference": 10.4765625,
+                "prediction_change_rate": 0.3603515625,
+                "accuracy_reference": 0.7548828125,
+                "accuracy_ablated": 0.54296875
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.2570077180862427,
+                "logit_max_difference": 5.625,
+                "prediction_change_rate": 0.1572265625,
+                "accuracy_reference": 0.7548828125,
+                "accuracy_ablated": 0.6875
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 40,
+                  "mean_activity": 0.4788053393927112,
+                  "mean_delta": 0.398640269281168,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 40,
+                  "mean_activity": 0.7105314886229462,
+                  "mean_delta": 0.7162069108278957,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 40,
+                  "mean_activity": 0.05928678113286697,
+                  "mean_delta": 0.0061662719717738845,
+                  "mean_persistence": 0.19169921875,
+                  "reactivations": 312.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 120
+            }
+          },
+          "generation": [
+            {
+              "prompt": "Once upon a time, there was a little girl named Lily. She",
+              "greedy": "Once upon a time, there was a little girl named Lily. She loved to play outside in the park. One day, she went to the park with her friends. She was so excited to see the birds and started to cry. She was so happy to have a special party to see the bird with her friends. She was so happy to have a special party to see the beach with her friends. She was so happy that she had to see the bird and started to cry. She was so happy that she had to stay to th",
+              "sampled": "Once upon a time, there was a little girl named Lily. She loved to play with her dad before so she could like things. One day, she saw a big, car trying out of the car and saw a leashut up back. The dillow danced and the knight was so closer and he was ranging.\n\nBen and Ben decided to dance to his best for the other black, brave and the shadow of the blocks. They didn't want to see the man and keep the beach. They were all many cars of coal all of the d",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "Tom and Sara went to the park. They saw a",
+              "greedy": "Tom and Sara went to the park. They saw a big box of the store. They were happy and said, \"You are a good friend. They are so proud of you. They are so proud of you.\"\n\nThey said, \"You are a good friend. They are so proud of you. They are so proud of you. They are so proud of you. They are so proud of you. They are so proud of you. They are so proud of you. They are so proud of you. They are so proud of you. They are so proud of you. They",
+              "sampled": "Tom and Sara went to the park. They saw a branch with the food family and a big pad. The dear beautiful trains away, bright and spent places.\n\nThe farmer could run, and special spot. It was so big and the cake with a second and other toys inside. It made a worm and with them out.\n\nThe rope thanked Ben's arm and the little girl was very sad. She had a nice glove in the park. She found a dog in the park, the top was inside her boat. They h",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "The dog was very hungry, so he",
+              "greedy": "The dog was very hungry, so he saw a big box of the store. He was so happy to have a special party to help him. He was so happy to have a special treat and the bird was so happy to have fun.Once upon a time, there was a little girl named Lily. She loved to play outside in the park. One day, she went to the park with her friends. She was so excited to see the bird and said, \"I want to play with you too.\" \n\nLily said, \"Yes, I d",
+              "sampled": "The dog was very hungry, so he heard a new ground and could dance. Then the hole was excited. Joe was so happy and always got to bruice her. Soon one day, the boy started to see the sign stopped after until the girl never said goodbye, and thanked her wah frog, truck music. She was so happy and wanted to help her. He was just enough because he told him to do something special a legt. \n\nThe spider thought it was small and crash",
+              "temperature": 0.8
+            },
+            {
+              "prompt": "One day, a small cat found a big red ball. The cat",
+              "greedy": "One day, a small cat found a big red ball. The cat was so excited to see the bird and started to cry. The bird was so excited to see the bird and started to cry. The bird was so happy and said, \"Thank you for the bird. I want to see the bird and started to cry. It was a big box of the story. It was a big box of the story. It was a big box of the store. It was a big box of colorful party. The bird was so excited to see the bird and the bird was so",
+              "sampled": "One day, a small cat found a big red ball. The cat wanted to clean up it. \"I don't bite the humber,\" said Lily.\n\n\"I know, Tommy. I would use it?\"\n\nLucy had a big mom. \"It was things to do you.\" Tom said, \"Come our friend, it is a princess. It is walking for you.\"\n\nLily felt sad and said, \"Now no. You are so fairy. You are very mom! I will not see the cat.\"\n\nThe strain nodded and hugged each other. \"Maybe they, they are yummy your mom was fun.\"\n\nH",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 356,
+              "valid_word_fraction": 1.0,
+              "mean_word_length": 3.342696629213483,
+              "distinct_1": 0.19382022471910113,
+              "distinct_2": 0.3436619718309859,
+              "distinct_3": 0.423728813559322,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 327,
+              "valid_word_fraction": 0.9694189602446484,
+              "mean_word_length": 3.6788990825688073,
+              "distinct_1": 0.5290519877675841,
+              "distinct_2": 0.9171779141104295,
+              "distinct_3": 0.9876923076923076,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-tinystories-large.pt",
+            "bytes": 363171522,
+            "bytes_per_parameter": 4.010778996545004
+          }
+        }
+      ]
+    },
+    "benchmark": {
+      "models": [
+        {
+          "size_class": "tiny",
+          "parameter_count": 120002,
+          "micro_batch": 16,
+          "gradient_accumulation": 1,
+          "tokens_per_step": 8192,
+          "seconds_per_step": 1.1446799328332418,
+          "training_tokens_per_second": 7156.585666461071,
+          "peak_memory_bytes": 128045056,
+          "diverged": false,
+          "hours_for_2000000": 0.07762857617412935,
+          "hours_for_4000000": 0.1552571523482587,
+          "hours_for_8000000": 0.3105143046965174,
+          "hours_for_16000000": 0.6210286093930348
+        },
+        {
+          "size_class": "xs",
+          "parameter_count": 1240804,
+          "micro_batch": 16,
+          "gradient_accumulation": 1,
+          "tokens_per_step": 8192,
+          "seconds_per_step": 2.279376358833057,
+          "training_tokens_per_second": 3593.9655021226736,
+          "peak_memory_bytes": 423258112,
+          "diverged": false,
+          "hours_for_2000000": 0.15458010245992412,
+          "hours_for_4000000": 0.30916020491984825,
+          "hours_for_8000000": 0.6183204098396965,
+          "hours_for_16000000": 1.236640819679393
+        },
+        {
+          "size_class": "small",
+          "parameter_count": 10235526,
+          "micro_batch": 16,
+          "gradient_accumulation": 1,
+          "tokens_per_step": 8192,
+          "seconds_per_step": 3.4616664686667113,
+          "training_tokens_per_second": 2366.490265353385,
+          "peak_memory_bytes": 1469891584,
+          "diverged": false,
+          "hours_for_2000000": 0.23475928200050936,
+          "hours_for_4000000": 0.4695185640010187,
+          "hours_for_8000000": 0.9390371280020374,
+          "hours_for_16000000": 1.8780742560040748
+        },
+        {
+          "size_class": "medium",
+          "parameter_count": 37403528,
+          "micro_batch": 16,
+          "gradient_accumulation": 1,
+          "tokens_per_step": 8192,
+          "seconds_per_step": 4.803063619167612,
+          "training_tokens_per_second": 1705.5780746497176,
+          "peak_memory_bytes": 3360852992,
+          "diverged": false,
+          "hours_for_2000000": 0.3257285983050952,
+          "hours_for_4000000": 0.6514571966101904,
+          "hours_for_8000000": 1.3029143932203808,
+          "hours_for_16000000": 2.6058287864407617
+        },
+        {
+          "size_class": "large",
+          "parameter_count": 90548874,
+          "micro_batch": 8,
+          "gradient_accumulation": 2,
+          "tokens_per_step": 8192,
+          "seconds_per_step": 11.70523465683315,
+          "training_tokens_per_second": 699.8578191867146,
+          "peak_memory_bytes": 3999596544,
+          "diverged": false,
+          "hours_for_2000000": 0.7938120291363628,
+          "hours_for_4000000": 1.5876240582727257,
+          "hours_for_8000000": 3.1752481165454514,
+          "hours_for_16000000": 6.350496233090903
+        }
+      ],
+      "recommended_token_budget": 1000000,
+      "budget_hours": 0.4
+    },
+    "profile": {
+      "models": [
+        {
+          "size_class": "tiny",
+          "parameter_count": 120002,
+          "d_model": 64,
+          "n_layers": 2,
+          "profile_length": 128,
+          "wall_seconds": 0.05520083999726921,
+          "cpu_time_ms": 79.61346900000035,
+          "gpu_time_ms": 21.47135399999941,
+          "aten_calls": 34646,
+          "calls_per_token": 270.671875,
+          "gpu_utilisation_ratio": 0.38896788529054266,
+          "gpu_over_cpu": 0.26969499344387715,
+          "top_operations": [
+            {
+              "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 7, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+              "calls": 1024,
+              "cpu_ms": 0.0,
+              "gpu_ms": 1.9984180000002585
+            },
+            {
+              "name": "aten::add",
+              "calls": 1543,
+              "cpu_ms": 7.607796999999981,
+              "gpu_ms": 1.7249809999999683
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "calls": 1539,
+              "cpu_ms": 0.0,
+              "gpu_ms": 1.718068999999962
+            },
+            {
+              "name": "aten::tanh",
+              "calls": 1280,
+              "cpu_ms": 4.98419400000044,
+              "gpu_ms": 1.6201569999997336
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+              "calls": 1280,
+              "cpu_ms": 0.0,
+              "gpu_ms": 1.6201569999997336
+            },
+            {
+              "name": "aten::mul",
+              "calls": 1281,
+              "cpu_ms": 5.999734999999786,
+              "gpu_ms": 1.5512960000000346
+            },
+            {
+              "name": "aten::mm",
+              "calls": 770,
+              "cpu_ms": 7.8084720000000765,
+              "gpu_ms": 1.4369420000002928
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+              "calls": 768,
+              "cpu_ms": 0.0,
+              "gpu_ms": 0.9871590000000097
+            },
+            {
+              "name": "aten::sum",
+              "calls": 256,
+              "cpu_ms": 2.0372759999998493,
+              "gpu_ms": 0.8180949999999148
+            },
+            {
+              "name": "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)",
+              "calls": 256,
+              "cpu_ms": 0.0,
+              "gpu_ms": 0.8180949999999148
+            }
+          ]
+        },
+        {
+          "size_class": "xs",
+          "parameter_count": 1240804,
+          "d_model": 160,
+          "n_layers": 4,
+          "profile_length": 128,
+          "wall_seconds": 0.15077557200129377,
+          "cpu_time_ms": 160.84110500000085,
+          "gpu_time_ms": 50.01977499999798,
+          "aten_calls": 69154,
+          "calls_per_token": 540.265625,
+          "gpu_utilisation_ratio": 0.3317498606443275,
+          "gpu_over_cpu": 0.31098875502004114,
+          "top_operations": [
+            {
+              "name": "aten::add",
+              "calls": 3085,
+              "cpu_ms": 15.635212000000072,
+              "gpu_ms": 3.9365120000005067
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "calls": 3077,
+              "cpu_ms": 0.0,
+              "gpu_ms": 3.920128000000483
+            },
+            {
+              "name": "aten::mul",
+              "calls": 2561,
+              "cpu_ms": 12.421096999999897,
+              "gpu_ms": 3.76294999999995
+            },
+            {
+              "name": "aten::tanh",
+              "calls": 2560,
+              "cpu_ms": 10.287496000000694,
+              "gpu_ms": 3.6853549999995394
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+              "calls": 2560,
+              "cpu_ms": 0.0,
+              "gpu_ms": 3.6853549999995394
+            },
+            {
+              "name": "aten::mm",
+              "calls": 1538,
+              "cpu_ms": 15.81223400000019,
+              "gpu_ms": 3.3192919999996335
+            },
+            {
+              "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+              "calls": 1536,
+              "cpu_ms": 0.0,
+              "gpu_ms": 3.3064919999996385
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+              "calls": 1536,
+              "cpu_ms": 0.0,
+              "gpu_ms": 2.4883349999997972
+            },
+            {
+              "name": "aten::sum",
+              "calls": 512,
+              "cpu_ms": 3.9975970000002543,
+              "gpu_ms": 1.9206839999997947
+            },
+            {
+              "name": "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4> >(at::native::ReduceOp<float, at::native::func_wrapper_t<float, at::native::sum_functor<float, float, float>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, float, 4, 4>)",
+              "calls": 512,
+              "cpu_ms": 0.0,
+              "gpu_ms": 1.9206839999997947
+            }
+          ]
+        },
+        {
+          "size_class": "small",
+          "parameter_count": 10235526,
+          "d_model": 384,
+          "n_layers": 6,
+          "profile_length": 128,
+          "wall_seconds": 0.23680960699857678,
+          "cpu_time_ms": 251.86266099999807,
+          "gpu_time_ms": 102.91825599999689,
+          "aten_calls": 111355,
+          "calls_per_token": 869.9609375,
+          "gpu_utilisation_ratio": 0.43460338161287276,
+          "gpu_over_cpu": 0.408628478677106,
+          "top_operations": [
+            {
+              "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 6, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+              "calls": 3072,
+              "cpu_ms": 0.0,
+              "gpu_ms": 15.23151899999904
+            },
+            {
+              "name": "aten::mm",
+              "calls": 2306,
+              "cpu_ms": 25.47289299999956,
+              "gpu_ms": 13.010003999999892
+            },
+            {
+              "name": "aten::addmm",
+              "calls": 775,
+              "cpu_ms": 11.204391000000433,
+              "gpu_ms": 7.976936999999336
+            },
+            {
+              "name": "aten::add",
+              "calls": 4627,
+              "cpu_ms": 23.591189000000103,
+              "gpu_ms": 5.986079000000903
+            },
+            {
+              "name": "aten::mul",
+              "calls": 3841,
+              "cpu_ms": 18.532936999999016,
+              "gpu_ms": 5.789220999999061
+            },
+            {
+              "name": "aten::tanh",
+              "calls": 3840,
+              "cpu_ms": 15.279933999998192,
+              "gpu_ms": 5.5551049999991475
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+              "calls": 3840,
+              "cpu_ms": 0.0,
+              "gpu_ms": 5.5551049999991475
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "calls": 3847,
+              "cpu_ms": 0.0,
+              "gpu_ms": 5.114290000001018
+            },
+            {
+              "name": "void cublasLt::splitKreduce_kernel<32, 16, int, float, float, float, float, false, float, float, float, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, float const*, float*, float*, float const*, float const*, float const*, float const*, float*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)",
+              "calls": 3074,
+              "cpu_ms": 0.0,
+              "gpu_ms": 4.492507999999929
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+              "calls": 2304,
+              "cpu_ms": 0.0,
+              "gpu_ms": 3.7740089999987827
+            }
+          ]
+        },
+        {
+          "size_class": "medium",
+          "parameter_count": 37403528,
+          "d_model": 640,
+          "n_layers": 8,
+          "profile_length": 128,
+          "wall_seconds": 0.3280027809960302,
+          "cpu_time_ms": 345.56479899999744,
+          "gpu_time_ms": 166.67242400000478,
+          "aten_calls": 142278,
+          "calls_per_token": 1111.546875,
+          "gpu_utilisation_ratio": 0.5081433257787591,
+          "gpu_over_cpu": 0.482318871836266,
+          "top_operations": [
+            {
+              "name": "aten::addmm",
+              "calls": 1033,
+              "cpu_ms": 15.780499000002026,
+              "gpu_ms": 21.85469499999988
+            },
+            {
+              "name": "aten::mm",
+              "calls": 3074,
+              "cpu_ms": 33.42019699999727,
+              "gpu_ms": 19.510408000000623
+            },
+            {
+              "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 9, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+              "calls": 3072,
+              "cpu_ms": 0.0,
+              "gpu_ms": 19.479528000000585
+            },
+            {
+              "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 7, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+              "calls": 1024,
+              "cpu_ms": 0.0,
+              "gpu_ms": 18.26658199999946
+            },
+            {
+              "name": "aten::add",
+              "calls": 6169,
+              "cpu_ms": 33.033506000000294,
+              "gpu_ms": 8.354377999998611
+            },
+            {
+              "name": "aten::mul",
+              "calls": 5121,
+              "cpu_ms": 26.590082000001747,
+              "gpu_ms": 7.8380350000004295
+            },
+            {
+              "name": "aten::tanh",
+              "calls": 5120,
+              "cpu_ms": 21.63517699999895,
+              "gpu_ms": 7.801701999999788
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+              "calls": 5120,
+              "cpu_ms": 0.0,
+              "gpu_ms": 7.801701999999788
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "calls": 5129,
+              "cpu_ms": 0.0,
+              "gpu_ms": 7.169992999999628
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+              "calls": 3072,
+              "cpu_ms": 0.0,
+              "gpu_ms": 5.076432000000651
+            }
+          ]
+        },
+        {
+          "size_class": "large",
+          "parameter_count": 90548874,
+          "d_model": 896,
+          "n_layers": 10,
+          "profile_length": 128,
+          "wall_seconds": 0.369666878003045,
+          "cpu_time_ms": 398.01157300000233,
+          "gpu_time_ms": 246.7842910000031,
+          "aten_calls": 172694,
+          "calls_per_token": 1349.171875,
+          "gpu_utilisation_ratio": 0.6675856174433087,
+          "gpu_over_cpu": 0.6200430031214235,
+          "top_operations": [
+            {
+              "name": "aten::mm",
+              "calls": 3842,
+              "cpu_ms": 39.235079000000596,
+              "gpu_ms": 38.893446999999725
+            },
+            {
+              "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 9, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+              "calls": 3840,
+              "cpu_ms": 0.0,
+              "gpu_ms": 38.84755699999977
+            },
+            {
+              "name": "aten::addmm",
+              "calls": 1291,
+              "cpu_ms": 16.821987000000416,
+              "gpu_ms": 35.586566000000914
+            },
+            {
+              "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, float, float, float, float, false, true, true, false, 7, false, cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float> >(cublasGemvParamsEx<int, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float const>, cublasGemvTensorStridedBatched<float>, float>)",
+              "calls": 1280,
+              "cpu_ms": 0.0,
+              "gpu_ms": 34.495839000000956
+            },
+            {
+              "name": "aten::add",
+              "calls": 7711,
+              "cpu_ms": 38.82714399999741,
+              "gpu_ms": 9.679254999998234
+            },
+            {
+              "name": "aten::tanh",
+              "calls": 6400,
+              "cpu_ms": 25.380102000005074,
+              "gpu_ms": 9.143981999998159
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul> >(int, at::native::tanh_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>)",
+              "calls": 6400,
+              "cpu_ms": 0.0,
+              "gpu_ms": 9.143981999998159
+            },
+            {
+              "name": "aten::mul",
+              "calls": 6401,
+              "cpu_ms": 30.953473000000855,
+              "gpu_ms": 9.037930000000923
+            },
+            {
+              "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<float>, std::array<char*, 3ul>)",
+              "calls": 6411,
+              "cpu_ms": 0.0,
+              "gpu_ms": 8.296840999999818
+            },
+            {
+              "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})",
+              "calls": 3840,
+              "cpu_ms": 0.0,
+              "gpu_ms": 5.809665999999919
+            }
+          ]
+        }
+      ],
+      "transition": {
+        "from": "small",
+        "to": "medium",
+        "from_ratio": 0.43460338161287276,
+        "to_ratio": 0.5081433257787591
+      }
+    },
+    "sequence": {
+      "models": [
+        {
+          "size_class": "tiny",
+          "parameter_count": 120002,
+          "lengths": [
+            {
+              "length": 1024,
+              "tokens_per_second": 1747.3496946065177,
+              "seconds_per_sequence": 0.5860303768391322,
+              "peak_memory_bytes": 21742080
+            },
+            {
+              "length": 4096,
+              "tokens_per_second": 1687.1402767814106,
+              "seconds_per_sequence": 2.427776786773188,
+              "peak_memory_bytes": 32251904
+            },
+            {
+              "length": 8192,
+              "tokens_per_second": 1708.3203126473943,
+              "seconds_per_sequence": 4.795353622708383,
+              "peak_memory_bytes": 44875776
+            },
+            {
+              "length": 16384,
+              "tokens_per_second": 1668.6331145111442,
+              "seconds_per_sequence": 9.818815087341704,
+              "peak_memory_bytes": 72204800
+            },
+            {
+              "length": 32768,
+              "tokens_per_second": 1691.1129675541579,
+              "seconds_per_sequence": 19.376588453101437,
+              "peak_memory_bytes": 126853632
+            }
+          ],
+          "latency_windows": [
+            {
+              "window_start": 0,
+              "window_end": 1024,
+              "ms_per_token": 1.5430365087851783
+            },
+            {
+              "window_start": 4096,
+              "window_end": 5120,
+              "ms_per_token": 1.5207242626971151
+            },
+            {
+              "window_start": 16384,
+              "window_end": 17408,
+              "ms_per_token": 1.5113382363267647
+            },
+            {
+              "window_start": 65536,
+              "window_end": 66560,
+              "ms_per_token": 1.5141528877009591
+            }
+          ],
+          "latency_change_percent": -1.871868936332488,
+          "constant": true
+        },
+        {
+          "size_class": "small",
+          "parameter_count": 10235526,
+          "lengths": [
+            {
+              "length": 1024,
+              "tokens_per_second": 523.2838454532309,
+              "seconds_per_sequence": 1.9568729455293707,
+              "peak_memory_bytes": 79139328
+            },
+            {
+              "length": 4096,
+              "tokens_per_second": 503.43961311998754,
+              "seconds_per_sequence": 8.13603040614084,
+              "peak_memory_bytes": 135450112
+            },
+            {
+              "length": 8192,
+              "tokens_per_second": 493.391144569401,
+              "seconds_per_sequence": 16.603459730006776,
+              "peak_memory_bytes": 210980352
+            },
+            {
+              "length": 16384,
+              "tokens_per_second": 495.2533299212886,
+              "seconds_per_sequence": 33.08205924148746,
+              "peak_memory_bytes": 362040832
+            },
+            {
+              "length": 32768,
+              "tokens_per_second": 493.8342537093215,
+              "seconds_per_sequence": 66.35424690343119,
+              "peak_memory_bytes": 664161792
+            }
+          ],
+          "latency_windows": [
+            {
+              "window_start": 0,
+              "window_end": 1024,
+              "ms_per_token": 3.9875349199220977
+            },
+            {
+              "window_start": 4096,
+              "window_end": 5120,
+              "ms_per_token": 3.918145877925383
+            },
+            {
+              "window_start": 16384,
+              "window_end": 17408,
+              "ms_per_token": 3.9192357656290255
+            },
+            {
+              "window_start": 65536,
+              "window_end": 66560,
+              "ms_per_token": 4.191438532231473
+            }
+          ],
+          "latency_change_percent": 5.113525433737354,
+          "constant": true
+        },
+        {
+          "size_class": "large",
+          "parameter_count": 90548874,
+          "lengths": [
+            {
+              "length": 1024,
+              "tokens_per_second": 329.5750653721438,
+              "seconds_per_sequence": 3.1070311670688366,
+              "peak_memory_bytes": 433220096
+            },
+            {
+              "length": 4096,
+              "tokens_per_second": 329.10600500239354,
+              "seconds_per_sequence": 12.445837929849413,
+              "peak_memory_bytes": 564438016
+            },
+            {
+              "length": 8192,
+              "tokens_per_second": 334.50770811225505,
+              "seconds_per_sequence": 24.489719672620833,
+              "peak_memory_bytes": 740631552
+            },
+            {
+              "length": 16384,
+              "tokens_per_second": 328.14998165707345,
+              "seconds_per_sequence": 49.92838919955135,
+              "peak_memory_bytes": 1093018624
+            },
+            {
+              "length": 32768,
+              "tokens_per_second": 315.7805344852227,
+              "seconds_per_sequence": 103.76827074986605,
+              "peak_memory_bytes": 1797792768
+            }
+          ],
+          "latency_windows": [
+            {
+              "window_start": 0,
+              "window_end": 1024,
+              "ms_per_token": 6.6551999287156605
+            },
+            {
+              "window_start": 4096,
+              "window_end": 5120,
+              "ms_per_token": 6.521081279302621
+            },
+            {
+              "window_start": 16384,
+              "window_end": 17408,
+              "ms_per_token": 6.302312056646997
+            },
+            {
+              "window_start": 65536,
+              "window_end": 66560,
+              "ms_per_token": 6.4168662724597425
+            }
+          ],
+          "latency_change_percent": -3.581164485045185,
+          "constant": true
+        }
+      ],
+      "positions": [
+        0,
+        4096,
+        16384,
+        65536
+      ],
+      "window_steps": 1024
+    }
+  }
+}

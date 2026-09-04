@@ -1,0 +1,378 @@
+{
+  "device": {
+    "backend": "cuda",
+    "device": "cuda",
+    "name": "NVIDIA GeForce RTX 3070",
+    "precision": "float32",
+    "amp": false,
+    "compile_available": true,
+    "total_memory_bytes": 8220901376,
+    "pytorch_version": "2.13.0+cu130",
+    "cuda_version": "13.0",
+    "rocm_version": null,
+    "optimizations": []
+  },
+  "results": [
+    {
+      "name": "linear_klein_state [1x64]→73",
+      "group": "linear_klein_state",
+      "dtype": "float32",
+      "microseconds": 8.558587499010173,
+      "microseconds_min": 8.480537499053753,
+      "microseconds_max": 8.917865000057645,
+      "spread_percent": 5.1098093120444315,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_klein_state [1x64]→73",
+      "group": "linear_klein_state",
+      "dtype": "bfloat16",
+      "microseconds": 8.970040000804147,
+      "microseconds_min": 8.855062501424982,
+      "microseconds_max": 9.397217500008992,
+      "spread_percent": 6.044064447153045,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_klein_state [1x64]→73",
+      "group": "linear_klein_state",
+      "dtype": "float16",
+      "microseconds": 8.591337500547525,
+      "microseconds_min": 8.506737501647876,
+      "microseconds_max": 8.745940001517738,
+      "spread_percent": 2.7842288800156823,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_klein_integrator [1x192]→64",
+      "group": "linear_klein_integrator",
+      "dtype": "float32",
+      "microseconds": 10.698344999582332,
+      "microseconds_min": 10.218344998520479,
+      "microseconds_max": 12.160305000179505,
+      "spread_percent": 18.15196651196836,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_klein_integrator [1x192]→64",
+      "group": "linear_klein_integrator",
+      "dtype": "bfloat16",
+      "microseconds": 8.9485650005372,
+      "microseconds_min": 8.804515000520041,
+      "microseconds_max": 9.247217501524574,
+      "spread_percent": 4.947189867626332,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_klein_integrator [1x192]→64",
+      "group": "linear_klein_integrator",
+      "dtype": "float16",
+      "microseconds": 8.759237500726158,
+      "microseconds_min": 8.606740000232094,
+      "microseconds_max": 9.245490000466816,
+      "spread_percent": 7.292301415297493,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_sequenz_input [128x64]→320",
+      "group": "linear_sequenz_input",
+      "dtype": "float32",
+      "microseconds": 9.051565000390838,
+      "microseconds_min": 8.788812499460619,
+      "microseconds_max": 9.725542499836592,
+      "spread_percent": 10.348818136261814,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_sequenz_input [128x64]→320",
+      "group": "linear_sequenz_input",
+      "dtype": "bfloat16",
+      "microseconds": 9.38339000185806,
+      "microseconds_min": 9.244390000731073,
+      "microseconds_max": 9.491867499491491,
+      "spread_percent": 2.6373996893597442,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_sequenz_input [128x64]→320",
+      "group": "linear_sequenz_input",
+      "dtype": "float16",
+      "microseconds": 9.744092499204271,
+      "microseconds_min": 9.484540000812558,
+      "microseconds_max": 10.001369998917653,
+      "spread_percent": 5.304034194536851,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_gross [128x256]→1024",
+      "group": "linear_gross",
+      "dtype": "float32",
+      "microseconds": 14.050412501092069,
+      "microseconds_min": 13.246982500731974,
+      "microseconds_max": 14.18736250116126,
+      "spread_percent": 6.692899588223442,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_gross [128x256]→1024",
+      "group": "linear_gross",
+      "dtype": "bfloat16",
+      "microseconds": 8.932890000323823,
+      "microseconds_min": 8.776312499776395,
+      "microseconds_max": 9.804194999105675,
+      "spread_percent": 11.506718422504013,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "linear_gross [128x256]→1024",
+      "group": "linear_gross",
+      "dtype": "float16",
+      "microseconds": 9.120589998019568,
+      "microseconds_min": 8.688865000294754,
+      "microseconds_max": 9.572942499289638,
+      "spread_percent": 9.693205145575575,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "state_update lerp(tanh(v+s), g) [1x64]",
+      "group": "state_update",
+      "dtype": "float32",
+      "microseconds": 13.229882499672385,
+      "microseconds_min": 13.180209998608916,
+      "microseconds_max": 13.42823499953738,
+      "spread_percent": 1.874733210477164,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "state_update lerp(tanh(v+s), g) [1x64]",
+      "group": "state_update",
+      "dtype": "bfloat16",
+      "microseconds": 13.619909998396906,
+      "microseconds_min": 13.244707499779906,
+      "microseconds_max": 16.85522500110892,
+      "spread_percent": 26.50911424344199,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "state_update lerp(tanh(v+s), g) [1x64]",
+      "group": "state_update",
+      "dtype": "float16",
+      "microseconds": 13.321710000582243,
+      "microseconds_min": 13.136982499872829,
+      "microseconds_max": 13.512560001345264,
+      "spread_percent": 2.819288976085051,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "gate silu(a)*sigmoid(b) [1x64]",
+      "group": "elementwise_gate",
+      "dtype": "float32",
+      "microseconds": 13.219759998719383,
+      "microseconds_min": 13.125682501140545,
+      "microseconds_max": 13.880609999432636,
+      "spread_percent": 5.710599121052285,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "gate silu(a)*sigmoid(b) [1x64]",
+      "group": "elementwise_gate",
+      "dtype": "bfloat16",
+      "microseconds": 13.274407499466179,
+      "microseconds_min": 12.988657499590772,
+      "microseconds_max": 13.440810000702186,
+      "spread_percent": 3.406197234261466,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "gate silu(a)*sigmoid(b) [1x64]",
+      "group": "elementwise_gate",
+      "dtype": "float16",
+      "microseconds": 13.33260750016052,
+      "microseconds_min": 13.207034999140888,
+      "microseconds_max": 13.605260000986164,
+      "spread_percent": 2.986850110456499,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "cast float32→bfloat16 [128x64]",
+      "group": "cast",
+      "dtype": "bfloat16",
+      "microseconds": 8.027035000850447,
+      "microseconds_min": 7.935134999570437,
+      "microseconds_max": 8.848140000736748,
+      "spread_percent": 11.374125079429461,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "cast float32→float16 [128x64]",
+      "group": "cast",
+      "dtype": "float16",
+      "microseconds": 8.00343500031886,
+      "microseconds_min": 7.928734999040898,
+      "microseconds_max": 8.100960001229396,
+      "spread_percent": 2.151888560119948,
+      "repetitions": 400,
+      "note": ""
+    },
+    {
+      "name": "dequantisieren int8 [320x64]→float32",
+      "group": "dequantize_int8",
+      "dtype": "float32",
+      "microseconds": 15.36796999971557,
+      "microseconds_min": 15.213370006676996,
+      "microseconds_max": 19.076180005868082,
+      "spread_percent": 25.135460306485363,
+      "repetitions": 100,
+      "note": ""
+    },
+    {
+      "name": "dequantisieren int8 [320x64]→bfloat16",
+      "group": "dequantize_int8",
+      "dtype": "bfloat16",
+      "microseconds": 23.589209995407145,
+      "microseconds_min": 22.97050000379386,
+      "microseconds_max": 29.70272999846202,
+      "spread_percent": 28.539446619784787,
+      "repetitions": 100,
+      "note": ""
+    },
+    {
+      "name": "dequantisieren int8 [320x64]→float16",
+      "group": "dequantize_int8",
+      "dtype": "float16",
+      "microseconds": 25.350610003442853,
+      "microseconds_min": 23.21240000128455,
+      "microseconds_max": 37.31196999979147,
+      "spread_percent": 55.6182671604039,
+      "repetitions": 100,
+      "note": ""
+    },
+    {
+      "name": "dequantisieren int4 [320x64]→float32",
+      "group": "dequantize_int4",
+      "dtype": "float32",
+      "microseconds": 98.745940003937,
+      "microseconds_min": 97.09933000522142,
+      "microseconds_max": 106.9012800053315,
+      "spread_percent": 9.92643343080159,
+      "repetitions": 100,
+      "note": ""
+    },
+    {
+      "name": "dequantisieren int4 [320x64]→bfloat16",
+      "group": "dequantize_int4",
+      "dtype": "bfloat16",
+      "microseconds": 108.18187999575457,
+      "microseconds_min": 105.07716000574874,
+      "microseconds_max": 109.69429000397213,
+      "spread_percent": 4.267932853824118,
+      "repetitions": 100,
+      "note": ""
+    },
+    {
+      "name": "dequantisieren int4 [320x64]→float16",
+      "group": "dequantize_int4",
+      "dtype": "float16",
+      "microseconds": 117.18732000190357,
+      "microseconds_min": 111.36948999592278,
+      "microseconds_max": 121.3217300028191,
+      "spread_percent": 8.492591183700297,
+      "repetitions": 100,
+      "note": ""
+    },
+    {
+      "name": "weight_linear none [1x64]→320",
+      "group": "weight_linear",
+      "dtype": "none",
+      "microseconds": 15.981775000000198,
+      "microseconds_min": 15.036670001791208,
+      "microseconds_max": 17.186324998874625,
+      "spread_percent": 13.450664879735761,
+      "repetitions": 200,
+      "note": "dichte FP32-Referenz"
+    },
+    {
+      "name": "weight_linear int8 [1x64]→320",
+      "group": "weight_linear",
+      "dtype": "int8",
+      "microseconds": 43.66449500139424,
+      "microseconds_min": 41.586829997868335,
+      "microseconds_max": 46.21025500000542,
+      "spread_percent": 10.588522784906713,
+      "repetitions": 200,
+      "note": "ohne Dequantisierungs-Cache"
+    },
+    {
+      "name": "weight_linear int4 [1x64]→320",
+      "group": "weight_linear",
+      "dtype": "int4",
+      "microseconds": 138.17471000038495,
+      "microseconds_min": 134.786695002731,
+      "microseconds_max": 145.08909000142012,
+      "spread_percent": 7.456064136961404,
+      "repetitions": 200,
+      "note": "ohne Dequantisierungs-Cache"
+    },
+    {
+      "name": "weight_linear int8 [1x64]→320",
+      "group": "weight_linear",
+      "dtype": "int8_cached",
+      "microseconds": 13.748615001532016,
+      "microseconds_min": 13.422205001916154,
+      "microseconds_max": 14.469409998127958,
+      "spread_percent": 7.616803555086188,
+      "repetitions": 200,
+      "note": "mit Dequantisierungs-Cache (Speichervorteil entfällt zur Laufzeit)"
+    }
+  ],
+  "recommendation": {
+    "compute": "float32",
+    "states": "float32",
+    "notes": [
+      "Kein reduziertes Format schlägt float32 im Tokenpfad deutlich: bester Kandidat float16 mit 3.7 % bei 11.0 % Messrauschen. Die Formen sind so klein, dass der Dispatch-Overhead dominiert.",
+      "int8 ohne Cache kostet das 2.73-fache eines dichten Linear.",
+      "int8_cached mit Cache kostet das 0.86-fache eines dichten Linear.",
+      "int4 ohne Cache kostet das 8.65-fache eines dichten Linear.",
+      "Weight-Only-Quantisierung dequantisiert vor dem Matmul zurück; ihr Gewinn liegt im Speicherbedarf, nicht automatisch in der Rechenzeit.",
+      "FP8-Compute nicht verfügbar: Compute Capability 8.6 besitzt keine FP8-Tensorkerne (benötigt 8.9 oder neuer)"
+    ]
+  },
+  "auto_policy": {
+    "profile": "auto",
+    "compute": "float32",
+    "activations": "float32",
+    "fast_state": "float32",
+    "context_state": "float32",
+    "semantic_state": "float32",
+    "weights": {},
+    "weight_group_size": 0,
+    "dequantization_cache": true,
+    "selection_notes": [
+      "Kein reduziertes Format schlägt float32 im Tokenpfad deutlich: bester Kandidat float16 mit 3.7 % bei 11.0 % Messrauschen. Die Formen sind so klein, dass der Dispatch-Overhead dominiert.",
+      "int8 ohne Cache kostet das 2.73-fache eines dichten Linear.",
+      "int8_cached mit Cache kostet das 0.86-fache eines dichten Linear.",
+      "int4 ohne Cache kostet das 8.65-fache eines dichten Linear.",
+      "Weight-Only-Quantisierung dequantisiert vor dem Matmul zurück; ihr Gewinn liegt im Speicherbedarf, nicht automatisch in der Rechenzeit.",
+      "FP8-Compute nicht verfügbar: Compute Capability 8.6 besitzt keine FP8-Tensorkerne (benötigt 8.9 oder neuer)"
+    ]
+  }
+}

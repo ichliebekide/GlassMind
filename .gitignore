@@ -1,0 +1,27 @@
+# Virtuelle Umgebung
+.venv/
+__pycache__/
+*.py[cod]
+
+# Abgeleitete Daten: aus den gepinnten Hugging-Face-Revisionen jederzeit
+# reproduzierbar mit `python -c "from glassmind.data.corpus import prepare_corpus; ..."`.
+# Rund 2 GB, gehören nicht in die Versionsverwaltung.
+data/cache/
+
+# Trainingsartefakte: Checkpoints und Traces, rund 1,9 GB. Reproduzierbar über
+# scripts/scaling_study.py bzw. scripts/visual_demo.py.
+# Hinweis: 'runs/' allein würde Git daran hindern, überhaupt in das
+# Verzeichnis zu schauen – Ausnahmen darin blieben dann wirkungslos.
+# Deshalb 'runs/*' und stufenweise wieder freigeben.
+runs/*
+!runs/milestone4_5/
+runs/milestone4_5/*
+!runs/milestone4_5/inspector-screenshot.png
+
+# Eigene Sicherungskopien der Messdateien
+benchmarks/backup/
+
+# Build-Artefakte von setuptools
+*.egg-info/
+build/
+dist/

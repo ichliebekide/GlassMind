@@ -1,0 +1,56 @@
+{
+  "fp32 (Referenz)": {
+    "recall1024": 0.90625,
+    "recall4096": 0.6640625,
+    "copy1024": 0.99609375,
+    "copy4096": 0.875
+  },
+  "Gewichte+Compute bf16": {
+    "recall1024": 0.9921875,
+    "recall4096": 0.984375,
+    "copy1024": 1.0,
+    "copy4096": 1.0
+  },
+  "Gewichte+Compute fp16": {
+    "recall1024": 0.8984375,
+    "recall4096": 0.8984375,
+    "copy1024": 0.99609375,
+    "copy4096": 0.91796875
+  },
+  "balanced (compute bf16)": {
+    "recall1024": 0.9921875,
+    "recall4096": 0.984375,
+    "copy1024": 1.0,
+    "copy4096": 1.0
+  },
+  "fast (compute bf16)": {
+    "recall1024": 0.9921875,
+    "recall4096": 0.984375,
+    "copy1024": 1.0,
+    "copy4096": 1.0
+  },
+  "alle Gewichte int8": {
+    "recall1024": 0.90625,
+    "recall4096": 0.65625,
+    "copy1024": 0.99609375,
+    "copy4096": 0.8671875
+  },
+  "alle Gewichte int4": {
+    "recall1024": 0.8515625,
+    "recall4096": 0.6171875,
+    "copy1024": 1.0,
+    "copy4096": 0.8984375
+  },
+  "alle Gewichte float8_e4m3": {
+    "recall1024": 0.8984375,
+    "recall4096": 0.671875,
+    "copy1024": 0.99609375,
+    "copy4096": 0.87890625
+  },
+  "gemischt (emb/head int8, proj int4, states bf16)": {
+    "recall1024": 1.0,
+    "recall4096": 0.984375,
+    "copy1024": 1.0,
+    "copy4096": 1.0
+  }
+}

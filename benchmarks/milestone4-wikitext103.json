@@ -1,0 +1,2396 @@
+{
+  "created": "2026-09-03T23:24:26.244231+00:00",
+  "milestone": "4",
+  "corpus": "wikitext103",
+  "environment": {
+    "seed": 4,
+    "git_commit": null,
+    "python": "3.13.7",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "pytorch": "2.13.0+cu130",
+    "cuda": "13.0",
+    "rocm": null,
+    "device": {
+      "backend": "cuda",
+      "device": "cuda",
+      "name": "NVIDIA GeForce RTX 3070",
+      "precision": "bfloat16",
+      "amp": true,
+      "compile_available": true,
+      "total_memory_bytes": 8220901376,
+      "pytorch_version": "2.13.0+cu130",
+      "cuda_version": "13.0",
+      "rocm_version": null,
+      "optimizations": [
+        "AMP"
+      ]
+    },
+    "process_id": 220458
+  },
+  "corpora": {
+    "train": {
+      "spec": {
+        "name": "wikitext103",
+        "split": "train",
+        "repo_id": "Salesforce/wikitext",
+        "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+        "files": [
+          "wikitext-103-raw-v1/train-00000-of-00002.parquet",
+          "wikitext-103-raw-v1/train-00001-of-00002.parquet"
+        ],
+        "text_column": "text",
+        "license": "CC BY-SA 3.0 / GFDL",
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext",
+        "join": "line",
+        "description": "Bereinigte Wikipedia-Artikel, der klassische Maßstab für Sprachmodell-Perplexity. Gewählt als *harter* Gegenpol zu TinyStories: echte Enzyklopädiesprache mit Eigennamen, Zahlen und Markup-Resten. Die Rohvariante (``raw``) wird verwendet, weil sie nicht vorab durch ein Wortvokabular gefiltert ist und damit zu einem Byte-Tokenizer passt."
+      },
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "tokenizer": {
+        "kind": "byte",
+        "version": 1,
+        "vocab_size": 260,
+        "pad_id": 0,
+        "bos_id": 1,
+        "eos_id": 2,
+        "unk_id": 3
+      },
+      "tokens": 539295549,
+      "documents": 1165029,
+      "characters": 538294333,
+      "raw_bytes": 539295549,
+      "source_bytes": 314076578,
+      "cache_bytes": 1078591098,
+      "max_tokens": null,
+      "token_dtype": "uint16"
+    },
+    "validation": {
+      "spec": {
+        "name": "wikitext103",
+        "split": "validation",
+        "repo_id": "Salesforce/wikitext",
+        "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+        "files": [
+          "wikitext-103-raw-v1/validation-00000-of-00001.parquet"
+        ],
+        "text_column": "text",
+        "license": "CC BY-SA 3.0 / GFDL",
+        "url": "https://huggingface.co/datasets/Salesforce/wikitext",
+        "join": "line",
+        "description": "Offizieller Validierungssplit von WikiText-103."
+      },
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "tokenizer": {
+        "kind": "byte",
+        "version": 1,
+        "vocab_size": 260,
+        "pad_id": 0,
+        "bos_id": 1,
+        "eos_id": 2,
+        "unk_id": 3
+      },
+      "tokens": 1144248,
+      "documents": 2461,
+      "characters": 1142150,
+      "raw_bytes": 1144248,
+      "source_bytes": 657209,
+      "cache_bytes": 2288496,
+      "max_tokens": null,
+      "token_dtype": "uint16"
+    },
+    "cross_validation": {
+      "spec": {
+        "name": "tinystories",
+        "split": "validation",
+        "repo_id": "roneneldan/TinyStories",
+        "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+        "files": [
+          "data/validation-00000-of-00001-869c898b519ad725.parquet"
+        ],
+        "text_column": "text",
+        "license": "CDLA-Sharing-1.0",
+        "url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+        "join": "document",
+        "description": "Offizieller Validierungssplit von TinyStories."
+      },
+      "revision": "f54c09fd23315a6f9c86f9dc80f725de7d8f9c64",
+      "tokenizer": {
+        "kind": "byte",
+        "version": 1,
+        "vocab_size": 260,
+        "pad_id": 0,
+        "bos_id": 1,
+        "eos_id": 2,
+        "unk_id": 3
+      },
+      "tokens": 19240340,
+      "documents": 21990,
+      "characters": 19190318,
+      "raw_bytes": 19218350,
+      "source_bytes": 9989127,
+      "cache_bytes": 38480680,
+      "max_tokens": null,
+      "token_dtype": "uint16"
+    }
+  },
+  "vocabulary_words": 35585,
+  "size_classes": [
+    {
+      "name": "tiny",
+      "target": "~120K",
+      "d_model": 64,
+      "n_layers": 2,
+      "learning_rate": 0.003,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "xs",
+      "target": "~1,24M",
+      "d_model": 160,
+      "n_layers": 4,
+      "learning_rate": 0.002,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "small",
+      "target": "~10,2M",
+      "d_model": 384,
+      "n_layers": 6,
+      "learning_rate": 0.0012,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "medium",
+      "target": "~37,4M",
+      "d_model": 640,
+      "n_layers": 8,
+      "learning_rate": 0.0008,
+      "sequence_length": 512,
+      "micro_batch_size": 16,
+      "gradient_accumulation": 1,
+      "effective_batch_size": 16
+    },
+    {
+      "name": "large",
+      "target": "~90,5M",
+      "d_model": 896,
+      "n_layers": 10,
+      "learning_rate": 0.0006,
+      "sequence_length": 512,
+      "micro_batch_size": 8,
+      "gradient_accumulation": 2,
+      "effective_batch_size": 16
+    }
+  ],
+  "settings": {
+    "device": "auto",
+    "seed": 4,
+    "corpus": "wikitext103",
+    "token_budget": 4000000,
+    "capacity_factor": 2.0,
+    "classes": [
+      "tiny",
+      "xs",
+      "small",
+      "medium",
+      "large"
+    ],
+    "capacity_classes": [
+      "tiny",
+      "xs",
+      "small",
+      "medium",
+      "large"
+    ],
+    "sequence_classes": [
+      "tiny",
+      "small"
+    ],
+    "precision_classes": [
+      "tiny",
+      "small",
+      "medium",
+      "large"
+    ],
+    "profile_classes": [
+      "tiny",
+      "xs",
+      "small",
+      "medium",
+      "large"
+    ],
+    "quantization_class": "medium",
+    "trace_class": "small",
+    "group_size": 64,
+    "profile_length": 128,
+    "benchmark_steps": 8,
+    "budget_hours": 0.5,
+    "budget_candidates": [
+      2000000,
+      4000000,
+      8000000,
+      16000000
+    ],
+    "lengths": [
+      1024,
+      4096,
+      8192,
+      16384,
+      32768
+    ],
+    "latency_positions": [
+      0,
+      4096,
+      16384,
+      65536
+    ],
+    "latency_steps": 1024,
+    "eval_batches": 16,
+    "ablation_batches": 8,
+    "generate_tokens": 400,
+    "trace_tokens": 64,
+    "checkpoint_dir": "runs/milestone4",
+    "trace_dir": "runs/milestone4/traces",
+    "merge": false,
+    "sections": [
+      "fixed"
+    ]
+  },
+  "sections": {
+    "fixed": {
+      "token_budget": 4000000,
+      "effective_batch_size": 16,
+      "corpus": "wikitext103",
+      "classes": [
+        {
+          "size_class": "tiny",
+          "study": "fixed",
+          "target": "~120K",
+          "d_model": 64,
+          "n_layers": 2,
+          "parameter_count": 120002,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "wikitext103",
+            "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+            "lizenz": "CC BY-SA 3.0 / GFDL",
+            "quelle": "https://huggingface.co/datasets/Salesforce/wikitext",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "wikitext-103-raw-v1/train-00000-of-00002.parquet",
+              "wikitext-103-raw-v1/train-00001-of-00002.parquet"
+            ],
+            "korpus_tokens_gesamt": 539295549,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 1144248,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.003,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 64,
+              "n_layers": 2,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 120002
+          },
+          "training": {
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": 1.8794729709625244,
+            "final_loss_mean_tail": 1.8787728071212768,
+            "best_loss": 1.7955749034881592,
+            "final_bits_per_byte": 2.711506334692481,
+            "tokens_per_second": 7564.390598356847,
+            "seen_tokens": 3997696,
+            "training_seconds": 528.4888383300022,
+            "peak_memory_bytes": 129728512,
+            "grad_norm_mean": 0.6407042919490181,
+            "grad_norm_median": 0.4608799070119858,
+            "grad_norm_max": 13.891657829284668,
+            "grad_norm_final": 0.5149127244949341,
+            "grad_clip_hit_rate": 0.06967213114754098,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.495560646057129,
+                "bits_per_byte": 7.928418090971168,
+                "learning_rate": 6.25e-05,
+                "grad_norm": 13.891657829284668,
+                "tokens_per_second": 5407.740729984991
+              },
+              {
+                "step": 81,
+                "loss": 2.572114944458008,
+                "bits_per_byte": 3.7107774749659597,
+                "learning_rate": 0.0029626993925368633,
+                "grad_norm": 0.44682633876800537,
+                "tokens_per_second": 7547.419893928066
+              },
+              {
+                "step": 162,
+                "loss": 2.095672607421875,
+                "bits_per_byte": 3.0234164780543824,
+                "learning_rate": 0.002576945425093248,
+                "grad_norm": 0.421550989151001,
+                "tokens_per_second": 7564.513381739015
+              },
+              {
+                "step": 243,
+                "loss": 1.9973024129867554,
+                "bits_per_byte": 2.8814982863715524,
+                "learning_rate": 0.0018896968149433096,
+                "grad_norm": 0.4723834991455078,
+                "tokens_per_second": 7541.001186452739
+              },
+              {
+                "step": 324,
+                "loss": 1.9863084554672241,
+                "bits_per_byte": 2.8656373583783807,
+                "learning_rate": 0.0011244853564715215,
+                "grad_norm": 0.5873178839683533,
+                "tokens_per_second": 7551.53140563341
+              },
+              {
+                "step": 405,
+                "loss": 1.8555526733398438,
+                "bits_per_byte": 2.6769966399356515,
+                "learning_rate": 0.0005302007351127395,
+                "grad_norm": 0.4460439383983612,
+                "tokens_per_second": 7558.563674718293
+              },
+              {
+                "step": 486,
+                "loss": 1.8967523574829102,
+                "bits_per_byte": 2.736435219935045,
+                "learning_rate": 0.0003001376419372651,
+                "grad_norm": 0.45504507422447205,
+                "tokens_per_second": 7565.019763117808
+              },
+              {
+                "step": 488,
+                "loss": 1.8794729709625244,
+                "bits_per_byte": 2.711506334692481,
+                "learning_rate": 0.00030000000000000003,
+                "grad_norm": 0.5149127244949341,
+                "tokens_per_second": 7564.399757313699
+              }
+            ],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.003,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 1.8627831041812897,
+              "perplexity": 6.441639601261704,
+              "bits_per_byte": 2.687427946654096,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.429683580994606,
+              "perplexity": 11.355288482402587,
+              "bits_per_byte": 3.5052924532302563,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.4623565673828125,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 2384.0182013109943,
+            "streaming_ms_per_token": 1.1355802109278557,
+            "peak_memory_bytes": 19734016,
+            "process_rss_bytes": 2157809664,
+            "plain_tokens_per_second": 2380.0738063814297,
+            "summary_tokens_per_second": 2339.829350588702,
+            "trace_tokens_per_second": 345.17680340165856,
+            "summary_overhead_percent": 1.6908910843363323,
+            "trace_overhead_percent": 85.49722271317074
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.47625666856765747,
+                  "fast_absmax": 0.9546950459480286,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5695110559463501,
+                  "context_absmax": 0.9984471201896667,
+                  "context_dead_fraction": 0.0078125,
+                  "semantic_rms": 0.22944776713848114,
+                  "semantic_absmax": 0.35384878516197205,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.5125749111175537,
+                  "fast_absmax": 0.9449570775032043,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.47641608119010925,
+                  "context_absmax": 0.9439590573310852,
+                  "context_dead_fraction": 0.0078125,
+                  "semantic_rms": 0.17938022315502167,
+                  "semantic_absmax": 0.26200228929519653,
+                  "semantic_dead_fraction": 0.0
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9498260617256165,
+                "fast_rms": 0.4944157898426056,
+                "semantic_absmax": 0.3079255372285843,
+                "context_absmax": 0.971203088760376,
+                "context_rms": 0.5229635685682297,
+                "context_dead_fraction": 0.0078125,
+                "semantic_dead_fraction": 0.0,
+                "semantic_rms": 0.2044139951467514,
+                "fast_dead_fraction": 0.0
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 1.8525879830121994,
+                "perplexity": 6.376299943813696,
+                "bits_per_byte": 2.672719495902187,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 4.586645424365997,
+                  "delta_loss": 2.734057441353798,
+                  "delta_bits_per_byte": 3.944411112146692,
+                  "relative_increase": 1.4758043701160044
+                },
+                {
+                  "state": "context",
+                  "loss": 2.941832959651947,
+                  "delta_loss": 1.0892449766397476,
+                  "delta_bits_per_byte": 1.5714483261113785,
+                  "relative_increase": 0.5879585674893018
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.968132734298706,
+                  "delta_loss": 0.11554475128650665,
+                  "delta_bits_per_byte": 0.1666958396817919,
+                  "relative_increase": 0.06236937319362164
+                }
+              ],
+              "delta_spread": 2.6185126900672913,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 3.540592670440674,
+                "logit_max_difference": 15.328125,
+                "prediction_change_rate": 0.9072265625,
+                "accuracy_reference": 0.4638671875,
+                "accuracy_ablated": 0.0712890625
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 1.9764108657836914,
+                "logit_max_difference": 10.0,
+                "prediction_change_rate": 0.7119140625,
+                "accuracy_reference": 0.4638671875,
+                "accuracy_ablated": 0.248046875
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 0.9329261779785156,
+                "logit_max_difference": 5.95703125,
+                "prediction_change_rate": 0.224609375,
+                "accuracy_reference": 0.4638671875,
+                "accuracy_ablated": 0.4296875
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 8,
+                  "mean_activity": 0.5029279534992382,
+                  "mean_delta": 0.5373861646330624,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 8,
+                  "mean_activity": 0.6026550682698144,
+                  "mean_delta": 0.6059969831840135,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 8,
+                  "mean_activity": 0.10521504288252433,
+                  "mean_delta": 0.006135683426265359,
+                  "mean_persistence": 0.02685546875,
+                  "reactivations": 47.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 24
+            }
+          },
+          "generation": [
+            {
+              "prompt": " The city of Bremen is located in",
+              "greedy": " The city of Bremen is located in the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear of the sear , and the sear of the sear , and the sear ",
+              "sampled": " The city of Bremen is located in Elblou wore other godred in corride , the torm Willanding Intrent on Sist suuted proce sercenies and been to ley his tame as unsurabally in ustles coasly or foult the coarmans of the sone were first was theen and \" 2011 . Mitient stom the sound the comelons and to , brogered the elfant boee Gove . In explife tame , he pical , Jarutate ack of Roin , and Nomer , Decleem may to Leleaka at wa is alte",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " In 1912 , the company began producing",
+              "greedy": " In 1912 , the company began producing the sear of the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of ",
+              "sampled": " In 1912 , the company began producing of the his bead for the dight in himary dinal are ewn abear , the dist rear oiter than pasic respineted was prodets of sear . \n As posised in the offerved of the offection . In mativation of the takar a contimility woum in the comene of The Harris at a recours was vour the for Neddua & Gou . In Horch idains . Where large , while as be an offear dopination of the post and . She mase , be naided , ",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The species was first described by",
+              "greedy": " The species was first described by the sear of the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear of the sear , and the sear of the sear , and the sear of the sear , a",
+              "sampled": " The species was first described by Fembor on a grout on other evears . Mern after the Dulengs of the regaver comber , fame as other first , calment and nome treat of the Oriphn mison his includuins tof reduings 00 . \n Sanzs , in the Deryman enecend and sust he regeriated mut her fitar , on cuppedion , not the fility creopes of Mewer Fall in Mustrike ( On Sctureter and propoving coa mark cour in 1961 command kiblet ,sm and pusings ",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The album received mixed reviews from",
+              "greedy": " The album received mixed reviews from the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear , and the sear of the sear of the sear , and the sear of the sear ",
+              "sampled": " The album received mixed reviews from from Ayres tember of the Groriare Felts and Sewing Asclad ) , \" \n = = \n F. ] miter Forth command at the Arzic , arsoating a remausation by a Eillow Lock , was feaced was simething been the surry was recumes ( splixing his quated of it post connided a @-@ soutter in omerst idphous of castion , and the Deany when three and dypuring the recoed to his told howas , the nad weunt Yy Wene wreaded these ",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 358,
+              "valid_word_fraction": 1.0,
+              "mean_word_length": 3.153631284916201,
+              "distinct_1": 0.013966480446927373,
+              "distinct_2": 0.022408963585434174,
+              "distinct_3": 0.03089887640449438,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 278,
+              "valid_word_fraction": 0.5575539568345323,
+              "mean_word_length": 4.374100719424461,
+              "distinct_1": 0.6510791366906474,
+              "distinct_2": 0.9638989169675091,
+              "distinct_3": 1.0,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-wikitext103-tiny.pt",
+            "bytes": 559934,
+            "bytes_per_parameter": 4.666038899351677
+          }
+        },
+        {
+          "size_class": "xs",
+          "study": "fixed",
+          "target": "~1,24M",
+          "d_model": 160,
+          "n_layers": 4,
+          "parameter_count": 1240804,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "wikitext103",
+            "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+            "lizenz": "CC BY-SA 3.0 / GFDL",
+            "quelle": "https://huggingface.co/datasets/Salesforce/wikitext",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "wikitext-103-raw-v1/train-00000-of-00002.parquet",
+              "wikitext-103-raw-v1/train-00001-of-00002.parquet"
+            ],
+            "korpus_tokens_gesamt": 539295549,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 1144248,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.002,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 160,
+              "n_layers": 4,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 1240804
+          },
+          "training": {
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": 1.6564700603485107,
+            "final_loss_mean_tail": 1.645020419359207,
+            "best_loss": 1.5432851314544678,
+            "final_bits_per_byte": 2.3897811414458383,
+            "tokens_per_second": 3762.4211594948342,
+            "seen_tokens": 3997696,
+            "training_seconds": 1062.532829402,
+            "peak_memory_bytes": 422885376,
+            "grad_norm_mean": 0.7301133510763528,
+            "grad_norm_median": 0.5174306035041809,
+            "grad_norm_max": 10.341995239257812,
+            "grad_norm_final": 0.5174162983894348,
+            "grad_clip_hit_rate": 0.0860655737704918,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.458362579345703,
+                "bits_per_byte": 7.874752624595938,
+                "learning_rate": 4.1666666666666665e-05,
+                "grad_norm": 6.502988338470459,
+                "tokens_per_second": 3739.806312078157
+              },
+              {
+                "step": 81,
+                "loss": 2.3885884284973145,
+                "bits_per_byte": 3.446004680517838,
+                "learning_rate": 0.001975132928357909,
+                "grad_norm": 1.0022343397140503,
+                "tokens_per_second": 3768.9100458914954
+              },
+              {
+                "step": 162,
+                "loss": 1.947685718536377,
+                "bits_per_byte": 2.8099165273426885,
+                "learning_rate": 0.0017179636167288322,
+                "grad_norm": 0.6661972999572754,
+                "tokens_per_second": 3756.060901152327
+              },
+              {
+                "step": 243,
+                "loss": 1.828646183013916,
+                "bits_per_byte": 2.6381787797747087,
+                "learning_rate": 0.0012597978766288732,
+                "grad_norm": 0.47480612993240356,
+                "tokens_per_second": 3760.4893168667168
+              },
+              {
+                "step": 324,
+                "loss": 1.7905304431915283,
+                "bits_per_byte": 2.5831893909531356,
+                "learning_rate": 0.0007496569043143477,
+                "grad_norm": 0.450155645608902,
+                "tokens_per_second": 3757.1854831743694
+              },
+              {
+                "step": 405,
+                "loss": 1.6252813339233398,
+                "bits_per_byte": 2.344785320500602,
+                "learning_rate": 0.00035346715674182633,
+                "grad_norm": 0.45612871646881104,
+                "tokens_per_second": 3760.4221503995536
+              },
+              {
+                "step": 486,
+                "loss": 1.6423463821411133,
+                "bits_per_byte": 2.3694049809369147,
+                "learning_rate": 0.00020009176129151006,
+                "grad_norm": 0.5151271224021912,
+                "tokens_per_second": 3762.2909908745396
+              },
+              {
+                "step": 488,
+                "loss": 1.6564700603485107,
+                "bits_per_byte": 2.3897811414458383,
+                "learning_rate": 0.0002,
+                "grad_norm": 0.5174162983894348,
+                "tokens_per_second": 3762.4240270426053
+              }
+            ],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.002,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 1.6173258125782013,
+              "perplexity": 5.03959545793083,
+              "bits_per_byte": 2.333307929308284,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.2576443254947662,
+              "perplexity": 9.560541096317179,
+              "bits_per_byte": 3.2570922724824083,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.5332489013671875,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 1188.5829789089735,
+            "streaming_ms_per_token": 1.9959178671911104,
+            "peak_memory_bytes": 31628288,
+            "process_rss_bytes": 2501062656,
+            "plain_tokens_per_second": 1184.2982536215616,
+            "summary_tokens_per_second": 1167.5223467801789,
+            "trace_tokens_per_second": 176.2586337046406,
+            "summary_overhead_percent": 1.4165271957534586,
+            "trace_overhead_percent": 85.11704014038312
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.6318839192390442,
+                  "fast_absmax": 0.9927018284797668,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.6818565726280212,
+                  "context_absmax": 0.9993631839752197,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.5046983361244202,
+                  "semantic_absmax": 0.7249765396118164,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.4954483211040497,
+                  "fast_absmax": 0.9538586735725403,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.567988932132721,
+                  "context_absmax": 0.988182008266449,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.049491290003061295,
+                  "semantic_absmax": 0.10660344362258911,
+                  "semantic_dead_fraction": 0.02777777798473835
+                },
+                {
+                  "fast_rms": 0.4953140914440155,
+                  "fast_absmax": 0.9554101824760437,
+                  "fast_dead_fraction": 0.0031250000465661287,
+                  "context_rms": 0.5765565037727356,
+                  "context_absmax": 0.9778216481208801,
+                  "context_dead_fraction": 0.0031250000465661287,
+                  "semantic_rms": 0.13639919459819794,
+                  "semantic_absmax": 0.18974342942237854,
+                  "semantic_dead_fraction": 0.0034722222480922937
+                },
+                {
+                  "fast_rms": 0.5197133421897888,
+                  "fast_absmax": 0.9812367558479309,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5819389820098877,
+                  "context_absmax": 0.9990825057029724,
+                  "context_dead_fraction": 0.0031250000465661287,
+                  "semantic_rms": 0.13269153237342834,
+                  "semantic_absmax": 0.22233141958713531,
+                  "semantic_dead_fraction": 0.0069444444961845875
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9708018600940704,
+                "fast_rms": 0.5355899184942245,
+                "semantic_absmax": 0.31091370806097984,
+                "context_absmax": 0.9911123365163803,
+                "context_rms": 0.6020852476358414,
+                "context_dead_fraction": 0.0015625000232830644,
+                "semantic_dead_fraction": 0.009548611182253808,
+                "semantic_rms": 0.20582008827477694,
+                "fast_dead_fraction": 0.0007812500116415322
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 1.6053586602210999,
+                "perplexity": 4.979645283172535,
+                "bits_per_byte": 2.3160429779491314,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.9946765899658203,
+                  "delta_loss": 1.3893179297447205,
+                  "delta_bits_per_byte": 2.0043620874608297,
+                  "relative_increase": 0.8654252561563875
+                },
+                {
+                  "state": "context",
+                  "loss": 2.5678665041923523,
+                  "delta_loss": 0.9625078439712524,
+                  "delta_bits_per_byte": 1.388605293314054,
+                  "relative_increase": 0.5995593806051353
+                },
+                {
+                  "state": "semantic",
+                  "loss": 2.0084543973207474,
+                  "delta_loss": 0.4030957370996475,
+                  "delta_bits_per_byte": 0.5815442209171429,
+                  "relative_increase": 0.25109388144088046
+                }
+              ],
+              "delta_spread": 0.9862221926450729,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 1.9756261110305786,
+                "logit_max_difference": 11.84375,
+                "prediction_change_rate": 0.6962890625,
+                "accuracy_reference": 0.5263671875,
+                "accuracy_ablated": 0.220703125
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 1.658663272857666,
+                "logit_max_difference": 8.78125,
+                "prediction_change_rate": 0.5791015625,
+                "accuracy_reference": 0.5263671875,
+                "accuracy_ablated": 0.3125
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.194065809249878,
+                "logit_max_difference": 6.53125,
+                "prediction_change_rate": 0.40234375,
+                "accuracy_reference": 0.5263671875,
+                "accuracy_ablated": 0.427734375
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 16,
+                  "mean_activity": 0.5023583532561133,
+                  "mean_delta": 0.4949136251652817,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 16,
+                  "mean_activity": 0.6377745383297224,
+                  "mean_delta": 0.6506637714592216,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 16,
+                  "mean_activity": 0.11191035992594996,
+                  "mean_delta": 0.018446645403635387,
+                  "mean_persistence": 5.87841796875,
+                  "reactivations": 56.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 48
+            }
+          },
+          "generation": [
+            {
+              "prompt": " The city of Bremen is located in",
+              "greedy": " The city of Bremen is located in the season . The series of the season of the season , and the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the s",
+              "sampled": " The city of Bremen is located in pression geing more drout for in deside of Maralia and Lian March . Phiss succeeded a cutry oxent even , which years that he unsurning be a let it with that fourth are canget of a sur one weak . It was formed and \" had a distregated by early in the come of the larth over the processant poice of the Capes in the Souths , and serged to the  orieting . He Nomer 's made memed to a leaka at way a mead",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " In 1912 , the company began producing",
+              "greedy": " In 1912 , the company began producing the series of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the sea",
+              "sampled": " In 1912 , the company began producing resublition in the stated the such of president eventences to the propical ofite @-@ nept of westimes . In the active as a company position in Nanot Oroward , the Jame Count daim throughout the comparant of the Alvew to the with the Earter Formanitation on Briter Fealing National Sub & 188 . In Hoic , Can 1946 , the south continuate stands for head it with the countrol is will in early . \n The mo",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The species was first described by",
+              "greedy": " The species was first described by the season of the season , and the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the season of the ",
+              "sampled": " The species was first described by Fembor . \n The position of Hadaes ( Mese Quesh 's song . The two formed recorded by a Hald of Rowell in the Beyth 's proble 's poonsity of hismost before composed tof @-@ inducted — sazs , in the Depart mentually consuse has egentric tours . The an official was to red meashful short of the Rakiz was a ruporation while moture as a gep for the coa @-@ reporting government , it was small approvisi",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The album received mixed reviews from",
+              "greedy": " The album received mixed reviews from the state of the state of the series . \n = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ",
+              "sampled": " The album received mixed reviews from Around 's liew . The enery Loverbic first took have schat per vortics ( anly matches . The mothlent to the restarls and the related are by a gistor Loan , was featured con metcines . \n = = Purk = = \n Vouring the Niper Induary , world the torning does @-@ southern in maystain subs of cartial grasheld has poselation with with Marica and acceared into the holding to the speciod years of the first of",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 264,
+              "valid_word_fraction": 1.0,
+              "mean_word_length": 3.659090909090909,
+              "distinct_1": 0.030303030303030304,
+              "distinct_2": 0.057034220532319393,
+              "distinct_3": 0.08396946564885496,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 278,
+              "valid_word_fraction": 0.697841726618705,
+              "mean_word_length": 4.392086330935252,
+              "distinct_1": 0.6223021582733813,
+              "distinct_2": 0.9350180505415162,
+              "distinct_3": 1.0,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-wikitext103-xs.pt",
+            "bytes": 5150440,
+            "bytes_per_parameter": 4.150889262123591
+          }
+        },
+        {
+          "size_class": "small",
+          "study": "fixed",
+          "target": "~10,2M",
+          "d_model": 384,
+          "n_layers": 6,
+          "parameter_count": 10235526,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "wikitext103",
+            "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+            "lizenz": "CC BY-SA 3.0 / GFDL",
+            "quelle": "https://huggingface.co/datasets/Salesforce/wikitext",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "wikitext-103-raw-v1/train-00000-of-00002.parquet",
+              "wikitext-103-raw-v1/train-00001-of-00002.parquet"
+            ],
+            "korpus_tokens_gesamt": 539295549,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 1144248,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0012,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 384,
+              "n_layers": 6,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 10235526
+          },
+          "training": {
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": 1.4966273307800293,
+            "final_loss_mean_tail": 1.4803585290908814,
+            "best_loss": 1.3682184219360352,
+            "final_bits_per_byte": 2.1591768281752346,
+            "tokens_per_second": 2439.8398408028825,
+            "seen_tokens": 3997696,
+            "training_seconds": 1638.507550022001,
+            "peak_memory_bytes": 1469846528,
+            "grad_norm_mean": 0.9823225274926326,
+            "grad_norm_median": 0.5392800271511078,
+            "grad_norm_max": 20.93599510192871,
+            "grad_norm_final": 0.4280990660190582,
+            "grad_clip_hit_rate": 0.16188524590163936,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.570815563201904,
+                "bits_per_byte": 8.036987986738445,
+                "learning_rate": 2.4999999999999998e-05,
+                "grad_norm": 18.155136108398438,
+                "tokens_per_second": 2566.660562762897
+              },
+              {
+                "step": 81,
+                "loss": 2.3190431594848633,
+                "bits_per_byte": 3.3456720657962857,
+                "learning_rate": 0.0011850797570147453,
+                "grad_norm": 0.7814239859580994,
+                "tokens_per_second": 2434.8495548669935
+              },
+              {
+                "step": 162,
+                "loss": 1.8090590238571167,
+                "bits_per_byte": 2.609920482394091,
+                "learning_rate": 0.0010307781700372991,
+                "grad_norm": 0.7143837809562683,
+                "tokens_per_second": 2436.83918663055
+              },
+              {
+                "step": 243,
+                "loss": 1.6826624870300293,
+                "bits_per_byte": 2.427568825528113,
+                "learning_rate": 0.0007558787259773238,
+                "grad_norm": 0.509830117225647,
+                "tokens_per_second": 2438.866713068246
+              },
+              {
+                "step": 324,
+                "loss": 1.6287423372268677,
+                "bits_per_byte": 2.3497784928031016,
+                "learning_rate": 0.0004497941425886086,
+                "grad_norm": 0.43899300694465637,
+                "tokens_per_second": 2440.546311125289
+              },
+              {
+                "step": 405,
+                "loss": 1.4635345935821533,
+                "bits_per_byte": 2.1114341003304173,
+                "learning_rate": 0.00021208029404509577,
+                "grad_norm": 0.4210914373397827,
+                "tokens_per_second": 2440.900587504615
+              },
+              {
+                "step": 486,
+                "loss": 1.4576215744018555,
+                "bits_per_byte": 2.10290341688232,
+                "learning_rate": 0.00012005505677490601,
+                "grad_norm": 0.47632646560668945,
+                "tokens_per_second": 2439.852758956535
+              },
+              {
+                "step": 488,
+                "loss": 1.4966273307800293,
+                "bits_per_byte": 2.1591768281752346,
+                "learning_rate": 0.00011999999999999999,
+                "grad_norm": 0.4280990660190582,
+                "tokens_per_second": 2439.8400456993636
+              }
+            ],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.0012,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 1.4440160021185875,
+              "perplexity": 4.237680222215775,
+              "bits_per_byte": 2.083274725220793,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.1797454953193665,
+              "perplexity": 8.844055118846688,
+              "bits_per_byte": 3.144708016497307,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.577911376953125,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 729.5772954442554,
+            "streaming_ms_per_token": 2.9733458750058617,
+            "peak_memory_bytes": 112551424,
+            "process_rss_bytes": 2590580736,
+            "plain_tokens_per_second": 728.4211155821233,
+            "summary_tokens_per_second": 717.2156429135424,
+            "trace_tokens_per_second": 80.37253586283195,
+            "summary_overhead_percent": 1.5383234270502921,
+            "trace_overhead_percent": 88.96619906486352
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.6841675639152527,
+                  "fast_absmax": 0.9996458888053894,
+                  "fast_dead_fraction": 0.0013020833721384406,
+                  "context_rms": 0.7165288329124451,
+                  "context_absmax": 0.9997915625572205,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.44562289118766785,
+                  "semantic_absmax": 0.7271454930305481,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.5553150177001953,
+                  "fast_absmax": 0.9885729551315308,
+                  "fast_dead_fraction": 0.00390625,
+                  "context_rms": 0.5293420553207397,
+                  "context_absmax": 0.9950545430183411,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.05705700442194939,
+                  "semantic_absmax": 0.11204377561807632,
+                  "semantic_dead_fraction": 0.008310249075293541
+                },
+                {
+                  "fast_rms": 0.5096244215965271,
+                  "fast_absmax": 0.981261134147644,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5109471082687378,
+                  "context_absmax": 0.9893739223480225,
+                  "context_dead_fraction": 0.0013020833721384406,
+                  "semantic_rms": 0.06844291090965271,
+                  "semantic_absmax": 0.1400989443063736,
+                  "semantic_dead_fraction": 0.005540166050195694
+                },
+                {
+                  "fast_rms": 0.5576476454734802,
+                  "fast_absmax": 0.9897745847702026,
+                  "fast_dead_fraction": 0.0026041667442768812,
+                  "context_rms": 0.6005458235740662,
+                  "context_absmax": 0.9974794387817383,
+                  "context_dead_fraction": 0.0013020833721384406,
+                  "semantic_rms": 0.06361851841211319,
+                  "semantic_absmax": 0.14929041266441345,
+                  "semantic_dead_fraction": 0.011080332100391388
+                },
+                {
+                  "fast_rms": 0.48927026987075806,
+                  "fast_absmax": 0.9728015065193176,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5565871000289917,
+                  "context_absmax": 0.9938886165618896,
+                  "context_dead_fraction": 0.0013020833721384406,
+                  "semantic_rms": 0.14148452877998352,
+                  "semantic_absmax": 0.20435830950737,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.5697154998779297,
+                  "fast_absmax": 0.9950618147850037,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.6395434141159058,
+                  "context_absmax": 0.9999130368232727,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.14127467572689056,
+                  "semantic_absmax": 0.28855347633361816,
+                  "semantic_dead_fraction": 0.008310249075293541
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9878529806931814,
+                "fast_rms": 0.5609567364056905,
+                "semantic_absmax": 0.2702484019100666,
+                "context_absmax": 0.9959168533484141,
+                "context_rms": 0.5922490557034811,
+                "context_dead_fraction": 0.0006510416860692203,
+                "semantic_dead_fraction": 0.005540166050195694,
+                "semantic_rms": 0.1529167549063762,
+                "fast_dead_fraction": 0.001302083352735887
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 1.4346759468317032,
+                "perplexity": 4.198284320996606,
+                "bits_per_byte": 2.0697998737767764,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.7770936489105225,
+                  "delta_loss": 1.3424177020788193,
+                  "delta_bits_per_byte": 1.9366993615906707,
+                  "relative_increase": 0.9356940185993747
+                },
+                {
+                  "state": "context",
+                  "loss": 2.1657119393348694,
+                  "delta_loss": 0.7310359925031662,
+                  "delta_bits_per_byte": 1.054662001095659,
+                  "relative_increase": 0.509547813997694
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.8859128504991531,
+                  "delta_loss": 0.45123690366744995,
+                  "delta_bits_per_byte": 0.6509972431871209,
+                  "relative_increase": 0.3145218295908205
+                }
+              ],
+              "delta_spread": 0.8911807984113693,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 1.8639185428619385,
+                "logit_max_difference": 10.09375,
+                "prediction_change_rate": 0.68359375,
+                "accuracy_reference": 0.5703125,
+                "accuracy_ablated": 0.23828125
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 1.7727230787277222,
+                "logit_max_difference": 8.828125,
+                "prediction_change_rate": 0.4697265625,
+                "accuracy_reference": 0.5703125,
+                "accuracy_ablated": 0.4052734375
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.303886890411377,
+                "logit_max_difference": 7.21875,
+                "prediction_change_rate": 0.330078125,
+                "accuracy_reference": 0.5703125,
+                "accuracy_ablated": 0.4638671875
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 24,
+                  "mean_activity": 0.5210209334549897,
+                  "mean_delta": 0.48289955018966185,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 24,
+                  "mean_activity": 0.6978970515706654,
+                  "mean_delta": 0.7207009747507982,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 24,
+                  "mean_activity": 0.09490391900606793,
+                  "mean_delta": 0.016667821249304993,
+                  "mean_persistence": 15.373046875,
+                  "reactivations": 30.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 72
+            }
+          },
+          "generation": [
+            {
+              "prompt": " The city of Bremen is located in",
+              "greedy": " The city of Bremen is located in the season . The start of the season of the season of the season , the state of the season of the season of the season of the season , and the state of the season of the season of the season . The second was a second of the season of the season , and the state of the season of the season of the season . The second was a second of the season of the season , and the second of the season of the seas",
+              "sampled": " The city of Bremen is located in pressure general . New development of the towards ' D. 2006 , for the Valley 's approximental board , and the system to leave the ability of storoned . \n The Coltage of an annual @-@ song weapons and three established the Mindegian passed in the US come of the Martin @-@ reported Force Royer of Act Can Gaild . He would in a series of the  organization Keseria he also played in 1833 . It was revai",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " In 1912 , the company began producing",
+              "greedy": " In 1912 , the company began producing the state of the season of the season . The start of the second was a second of the season of the season , and the state of the season of the season of the season . The second was a second of the season of the season , and the second of the season of the season of the season . The second was a second of the season of the season , and the second of the season of the season of the season . The seco",
+              "sampled": " In 1912 , the company began producing road rounds in the storm , the same area on the east of the police but was originally specifically defeated the countral . It was the role in the official of Romeo Fears , Madae Rongari . The Recoming Amorgia Native 101 : In 1946 , 1955 : \" Harry Gate Standor was considered Long Bradyment of Park in Sida , and Barials Namen Reagraw . \n = = = Regulation = = = \n The storm also scientally and the Un",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The species was first described by",
+              "greedy": " The species was first described by the state of the state of the state of the state of the season . The start of the second was a second of the season of the season , and the state of the season of the season of the season . The state of the season of the season , the second was a second of the season of the season of the season . The second was a second of the season of the season , and the second was a second of the season of th",
+              "sampled": " The species was first described by Fember on a 190 to 1997 / 2 @,@ �00 series ( 9 @.@ 5 metrophy wollowing recording a major long of their prevent vanocicians ' or his track hadmiss before more than Officer . \n An explosize to remain to man entercast shows , and generally used to law to one of the Morrid Leaseful Lotch of Group to Ocean Privor . Although motion as a gep from the Ia @-@ regarding government , it was small approach ",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The album received mixed reviews from",
+              "greedy": " The album received mixed reviews from the season . The start of the season of the season of the season , the state of the season of the season of the season , and the state of the season of the season of the season . The state of the season of the season , the state of the season of the season of the season , and the state of the season of the season of the season . The second was a second of the season of the season , and the second",
+              "sampled": " The album received mixed reviews from from Ayrian experions . For realize film humous company on You 's fifth star . The Force came , the top game became a scene run work replaced in owner , such nots and access the weeken was surple the Vix Bennus with the DAS Fature of the town of Force , he contained it its drag who schools . French of sapy was possible with Marish Chillene , as a present tapent declarate of Yy West , was first sm",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 329,
+              "valid_word_fraction": 0.9969604863221885,
+              "mean_word_length": 3.6930091185410334,
+              "distinct_1": 0.0364741641337386,
+              "distinct_2": 0.06402439024390244,
+              "distinct_3": 0.09785932721712538,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 262,
+              "valid_word_fraction": 0.8206106870229007,
+              "mean_word_length": 4.526717557251908,
+              "distinct_1": 0.6564885496183206,
+              "distinct_2": 0.9540229885057471,
+              "distinct_3": 1.0,
+              "replacement_char_rate": 0.000625,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-wikitext103-small.pt",
+            "bytes": 41370277,
+            "bytes_per_parameter": 4.041832046540647
+          }
+        },
+        {
+          "size_class": "medium",
+          "study": "fixed",
+          "target": "~37,4M",
+          "d_model": 640,
+          "n_layers": 8,
+          "parameter_count": 37403528,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "wikitext103",
+            "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+            "lizenz": "CC BY-SA 3.0 / GFDL",
+            "quelle": "https://huggingface.co/datasets/Salesforce/wikitext",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "wikitext-103-raw-v1/train-00000-of-00002.parquet",
+              "wikitext-103-raw-v1/train-00001-of-00002.parquet"
+            ],
+            "korpus_tokens_gesamt": 539295549,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 1144248,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 16,
+            "gradient_accumulation": 1,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0008,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 640,
+              "n_layers": 8,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 37403528
+          },
+          "training": {
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": 1.4489301443099976,
+            "final_loss_mean_tail": 1.4301521718502044,
+            "best_loss": 1.329514980316162,
+            "final_bits_per_byte": 2.0903643337905637,
+            "tokens_per_second": 1786.524793967838,
+            "seen_tokens": 3997696,
+            "training_seconds": 2237.6941050569985,
+            "peak_memory_bytes": 3360852992,
+            "grad_norm_mean": 1.26346557740061,
+            "grad_norm_median": 0.6043036878108978,
+            "grad_norm_max": 38.64482498168945,
+            "grad_norm_final": 0.4694485366344452,
+            "grad_clip_hit_rate": 0.24385245901639344,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.725529670715332,
+                "bits_per_byte": 8.260193262403629,
+                "learning_rate": 1.6666666666666667e-05,
+                "grad_norm": 38.64482498168945,
+                "tokens_per_second": 1818.1141420953545
+              },
+              {
+                "step": 81,
+                "loss": 2.2981066703796387,
+                "bits_per_byte": 3.3154670967905524,
+                "learning_rate": 0.0007900531713431636,
+                "grad_norm": 1.9254024028778076,
+                "tokens_per_second": 1793.017258098633
+              },
+              {
+                "step": 162,
+                "loss": 1.7629570960998535,
+                "bits_per_byte": 2.5434094598432666,
+                "learning_rate": 0.0006871854466915329,
+                "grad_norm": 0.753907322883606,
+                "tokens_per_second": 1789.189621310727
+              },
+              {
+                "step": 243,
+                "loss": 1.646867275238037,
+                "bits_per_byte": 2.375927250988236,
+                "learning_rate": 0.0005039191506515493,
+                "grad_norm": 0.5948274731636047,
+                "tokens_per_second": 1788.4252778584976
+              },
+              {
+                "step": 324,
+                "loss": 1.5906586647033691,
+                "bits_per_byte": 2.294835367314611,
+                "learning_rate": 0.0002998627617257391,
+                "grad_norm": 0.4826437830924988,
+                "tokens_per_second": 1787.3951935036603
+              },
+              {
+                "step": 405,
+                "loss": 1.4182438850402832,
+                "bits_per_byte": 2.046093419718714,
+                "learning_rate": 0.00014138686269673053,
+                "grad_norm": 0.4206477999687195,
+                "tokens_per_second": 1785.889461499862
+              },
+              {
+                "step": 486,
+                "loss": 1.411449909210205,
+                "bits_per_byte": 2.0362917844807407,
+                "learning_rate": 8.003670451660402e-05,
+                "grad_norm": 0.4984792172908783,
+                "tokens_per_second": 1786.5812466212649
+              },
+              {
+                "step": 488,
+                "loss": 1.4489301443099976,
+                "bits_per_byte": 2.0903643337905637,
+                "learning_rate": 8e-05,
+                "grad_norm": 0.4694485366344452,
+                "tokens_per_second": 1786.5248968076576
+              }
+            ],
+            "config": {
+              "steps": 488,
+              "batch_size": 16,
+              "sequence_length": 512,
+              "learning_rate": 0.0008,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 1,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 1.39369635283947,
+              "perplexity": 4.029717816709732,
+              "bits_per_byte": 2.0106788167465384,
+              "tokens": 131072
+            },
+            "cross_corpus": {
+              "loss": 2.1319146901369095,
+              "perplexity": 8.430994108388662,
+              "bits_per_byte": 3.0757027510588504,
+              "tokens": 131072
+            },
+            "top1": {
+              "top1_accuracy": 0.5913238525390625,
+              "tokens": 65536
+            }
+          },
+          "inference": {
+            "tokens_per_second": 563.1340154854499,
+            "streaming_ms_per_token": 4.032002085949671,
+            "peak_memory_bytes": 345549824,
+            "process_rss_bytes": 2682097664,
+            "plain_tokens_per_second": 561.2680450057861,
+            "summary_tokens_per_second": 555.811857837828,
+            "trace_tokens_per_second": 60.007260536296194,
+            "summary_overhead_percent": 0.9721179063208241,
+            "trace_overhead_percent": 89.30862694389138
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.7022182941436768,
+                  "fast_absmax": 0.999097466468811,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.6910260915756226,
+                  "context_absmax": 0.9999477863311768,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.46768876910209656,
+                  "semantic_absmax": 0.7210493087768555,
+                  "semantic_dead_fraction": 0.0007999999797903001
+                },
+                {
+                  "fast_rms": 0.5575385689735413,
+                  "fast_absmax": 0.9756123423576355,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5425655841827393,
+                  "context_absmax": 0.9955803155899048,
+                  "context_dead_fraction": 0.0015625000232830644,
+                  "semantic_rms": 0.04073021933436394,
+                  "semantic_absmax": 0.10293354839086533,
+                  "semantic_dead_fraction": 0.019199999049305916
+                },
+                {
+                  "fast_rms": 0.6360974907875061,
+                  "fast_absmax": 0.9991795420646667,
+                  "fast_dead_fraction": 0.0007812500116415322,
+                  "context_rms": 0.5447428226470947,
+                  "context_absmax": 0.9985981583595276,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.04694376140832901,
+                  "semantic_absmax": 0.14935630559921265,
+                  "semantic_dead_fraction": 0.024799998849630356
+                },
+                {
+                  "fast_rms": 0.5783888697624207,
+                  "fast_absmax": 0.9953193068504333,
+                  "fast_dead_fraction": 0.0015625000232830644,
+                  "context_rms": 0.5627546310424805,
+                  "context_absmax": 0.9976391792297363,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.04478361830115318,
+                  "semantic_absmax": 0.13065817952156067,
+                  "semantic_dead_fraction": 0.014399999752640724
+                },
+                {
+                  "fast_rms": 0.5710090398788452,
+                  "fast_absmax": 0.9878514409065247,
+                  "fast_dead_fraction": 0.0007812500116415322,
+                  "context_rms": 0.5385164022445679,
+                  "context_absmax": 0.9959428906440735,
+                  "context_dead_fraction": 0.0031250000465661287,
+                  "semantic_rms": 0.1407356858253479,
+                  "semantic_absmax": 0.22096490859985352,
+                  "semantic_dead_fraction": 0.0
+                },
+                {
+                  "fast_rms": 0.592598021030426,
+                  "fast_absmax": 0.9952608942985535,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.6034784317016602,
+                  "context_absmax": 0.99774169921875,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.11856023967266083,
+                  "semantic_absmax": 0.2265528291463852,
+                  "semantic_dead_fraction": 0.0015999999595806003
+                },
+                {
+                  "fast_rms": 0.5384213328361511,
+                  "fast_absmax": 0.9868679642677307,
+                  "fast_dead_fraction": 0.0007812500116415322,
+                  "context_rms": 0.5791292786598206,
+                  "context_absmax": 0.9988223314285278,
+                  "context_dead_fraction": 0.0007812500116415322,
+                  "semantic_rms": 0.09701021760702133,
+                  "semantic_absmax": 0.17863880097866058,
+                  "semantic_dead_fraction": 0.0007999999797903001
+                },
+                {
+                  "fast_rms": 0.5625787973403931,
+                  "fast_absmax": 0.9923335909843445,
+                  "fast_dead_fraction": 0.0015625000232830644,
+                  "context_rms": 0.6478375196456909,
+                  "context_absmax": 0.9999759793281555,
+                  "context_dead_fraction": 0.0015625000232830644,
+                  "semantic_rms": 0.05100955814123154,
+                  "semantic_absmax": 0.11437463760375977,
+                  "semantic_dead_fraction": 0.009599999524652958
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9914403185248375,
+                "fast_rms": 0.59235630184412,
+                "semantic_absmax": 0.23056606482714415,
+                "context_absmax": 0.9980310425162315,
+                "context_rms": 0.5887563452124596,
+                "context_dead_fraction": 0.0010742187660071068,
+                "semantic_dead_fraction": 0.008899999636923894,
+                "semantic_rms": 0.12593275867402554,
+                "fast_dead_fraction": 0.0006835937601863407
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 1.3858223259449005,
+                "perplexity": 3.9981123048643425,
+                "bits_per_byte": 1.9993189971939167,
+                "tokens": 65536
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.6380362808704376,
+                  "delta_loss": 1.252213954925537,
+                  "delta_bits_per_byte": 1.8065628629030284,
+                  "relative_increase": 0.903589104809475
+                },
+                {
+                  "state": "context",
+                  "loss": 2.1015291810035706,
+                  "delta_loss": 0.71570685505867,
+                  "delta_bits_per_byte": 1.0325467305233793,
+                  "relative_increase": 0.5164492169446592
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.7543717920780182,
+                  "delta_loss": 0.3685494661331177,
+                  "delta_bits_per_byte": 0.5317044871125238,
+                  "relative_increase": 0.2659427974519231
+                }
+              ],
+              "delta_spread": 0.8836644887924194,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 2.546142578125,
+                "logit_max_difference": 13.03125,
+                "prediction_change_rate": 0.6337890625,
+                "accuracy_reference": 0.583984375,
+                "accuracy_ablated": 0.2822265625
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.4796042442321777,
+                "logit_max_difference": 14.34375,
+                "prediction_change_rate": 0.4619140625,
+                "accuracy_reference": 0.583984375,
+                "accuracy_ablated": 0.44921875
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.4474586248397827,
+                "logit_max_difference": 7.125,
+                "prediction_change_rate": 0.310546875,
+                "accuracy_reference": 0.583984375,
+                "accuracy_ablated": 0.4755859375
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 32,
+                  "mean_activity": 0.5024777445989003,
+                  "mean_delta": 0.44474816156707675,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 32,
+                  "mean_activity": 0.713989330080949,
+                  "mean_delta": 0.7341380184443551,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 32,
+                  "mean_activity": 0.08044946973447753,
+                  "mean_delta": 0.014308735938202921,
+                  "mean_persistence": 10.41552734375,
+                  "reactivations": 89.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 96
+            }
+          },
+          "generation": [
+            {
+              "prompt": " The city of Bremen is located in",
+              "greedy": " The city of Bremen is located in the season . The second of the season of the season , and the second of the season of the season , and the second season of the season of the season , and the second season of the season of the season , and the second season of the season of the season . \n = = = = = Early = = = \n The season of the season , and the season of the season of the season , and the season of the season of the season , a",
+              "sampled": " The city of Bremen is located in pressure general . New developing a group to a live concert of the team with the paral series of 2015 , it , a year of \" 2 – survival curvicility . In 1951 , The Brock , who is assist of the smika was the same of 2011 . Micretant of the sound @-@ come of the Marion variety of the anti @-@ Governo Can Gailer and Albertic and Jaruary 2 . The Royal Campus in Behemala member of the parallel is a tr",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " In 1912 , the company began producing",
+              "greedy": " In 1912 , the company began producing the season of the season . The second of the season of the season , and the second of the season of the season , and the second of the season of the season , and the second season of the season of the season , and the second season of the season of the season . The second season , the second season , and the second season of the season , and the second season of the season , and the second season",
+              "sampled": " In 1912 , the company began producing round of its fathers favorite in the opening and one of the police built awarite . His park project to Barantson over a 1970 was stored of it 's both retain , the complicing danger various the confinsing of the Armero memorial . \n = = = The Harris \n = = = Service = = = \n = = Sense = = \n The title is of the country of all @-@ express @-@ country done , but means that he was inscipated by the episo",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The species was first described by",
+              "greedy": " The species was first described by the season . The second of the season of the season , and the second of the season of the season , and the second of the season of the season of the season , and the second season of the season of the season , and the second season of the season of the season . The second season , the second season , and the second season of the season , and the second season of the season , and the second season",
+              "sampled": " The species was first described by Femborary and reviewer commendation with the highway lengthent glarm per continue as magazine for armic . The southern manure of the tructure may who also considered the undergrave to says the impact of the Receal Kosan state regional particularly an out of conduct , not to her fortain performance was a ruport of the storm of the University of coa @-@ reported on the money killed is an anti @-@ l",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The album received mixed reviews from",
+              "greedy": " The album received mixed reviews from the season . The second of the season of the season , and the second of the season of the season , and the second season of the season of the season , and the second season of the season of the season , and the second season of the season of the season . The second season , the second season , and the second season of the season , and the second season of the season , and the second season of the",
+              "sampled": " The album received mixed reviews from Artonian schements in the read . The transmoous of the Indian vocal for a large four @-@ came , the third was the southern primary . In 1993 , \" on London was fusualty considered the district of which during the Niper Infantry on the special gardener , and Pacity Basic started a fortain on the Second , and when the image dy Marish a Classell as a present @-@ battle room until the movie and these ",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 299,
+              "valid_word_fraction": 1.0,
+              "mean_word_length": 4.023411371237458,
+              "distinct_1": 0.023411371237458192,
+              "distinct_2": 0.0436241610738255,
+              "distinct_3": 0.07407407407407407,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 265,
+              "valid_word_fraction": 0.8566037735849057,
+              "mean_word_length": 4.490566037735849,
+              "distinct_1": 0.6075471698113207,
+              "distinct_2": 0.9166666666666666,
+              "distinct_3": 1.0,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-wikitext103-medium.pt",
+            "bytes": 150316313,
+            "bytes_per_parameter": 4.018773656859321
+          }
+        },
+        {
+          "size_class": "large",
+          "study": "fixed",
+          "target": "~90,5M",
+          "d_model": 896,
+          "n_layers": 10,
+          "parameter_count": 90548874,
+          "documentation": {
+            "studie": "fixed",
+            "korpus": "wikitext103",
+            "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+            "lizenz": "CC BY-SA 3.0 / GFDL",
+            "quelle": "https://huggingface.co/datasets/Salesforce/wikitext",
+            "trainingssplit": "train",
+            "trainingsdateien": [
+              "wikitext-103-raw-v1/train-00000-of-00002.parquet",
+              "wikitext-103-raw-v1/train-00001-of-00002.parquet"
+            ],
+            "korpus_tokens_gesamt": 539295549,
+            "verwendete_trainingstokens": 3997696,
+            "validierungssplit": "validation",
+            "validierungstokens_gesamt": 1144248,
+            "tokenizer": {
+              "kind": "byte",
+              "version": 1,
+              "vocab_size": 260,
+              "pad_id": 0,
+              "bos_id": 1,
+              "eos_id": 2,
+              "unk_id": 3
+            },
+            "sequenzlaenge": 512,
+            "mikro_batchgroesse": 8,
+            "gradient_accumulation": 2,
+            "effektive_batchgroesse": 16,
+            "precision": "bfloat16",
+            "backend": "cuda",
+            "seed": 4,
+            "lernrate": 0.0006,
+            "warmup_schritte": 48,
+            "schritte": 488,
+            "modellkonfiguration": {
+              "vocab_size": 260,
+              "d_model": 896,
+              "n_layers": 10,
+              "local_kernel_size": 3,
+              "dropout": 0.0,
+              "telemetry_clusters": 4,
+              "tie_embeddings": true,
+              "activity_activation_weight": 0.35,
+              "activity_delta_weight": 0.35,
+              "activity_gate_weight": 0.15,
+              "activity_flow_weight": 0.15,
+              "activity_update_threshold": 0.02,
+              "state_interactions": true,
+              "recurrent_autocast": false,
+              "memory_slots": 0,
+              "memory_width": 64,
+              "memory_key_dim": 32,
+              "memory_read_k": 2,
+              "memory_write_k": 1,
+              "memory_layer": -1,
+              "memory_query_source": "output",
+              "memory_replacement": "lru_strength",
+              "memory_routing": "cosine_strength",
+              "memory_track_usage": false,
+              "memory_decay": 1.0
+            },
+            "parameterzahl": 90548874
+          },
+          "training": {
+            "steps_completed": 488,
+            "diverged": false,
+            "final_loss": 1.4182370901107788,
+            "final_loss_mean_tail": 1.4037961095571518,
+            "best_loss": 1.3016469478607178,
+            "final_bits_per_byte": 2.0460836167076146,
+            "tokens_per_second": 721.0508451263821,
+            "seen_tokens": 3997696,
+            "training_seconds": 5544.263663264002,
+            "peak_memory_bytes": 3999373312,
+            "grad_norm_mean": 1.5073537203009988,
+            "grad_norm_median": 0.6449943482875824,
+            "grad_norm_max": 82.2144546508789,
+            "grad_norm_final": 0.4509289860725403,
+            "grad_clip_hit_rate": 0.30327868852459017,
+            "curve": [
+              {
+                "step": 1,
+                "loss": 5.585198879241943,
+                "bits_per_byte": 8.057738725460949,
+                "learning_rate": 1.2499999999999999e-05,
+                "grad_norm": 82.2144546508789,
+                "tokens_per_second": 744.5606310556464
+              },
+              {
+                "step": 81,
+                "loss": 2.3419560194015503,
+                "bits_per_byte": 3.3787283351706736,
+                "learning_rate": 0.0005925398785073726,
+                "grad_norm": 1.3772474527359009,
+                "tokens_per_second": 723.4951947616142
+              },
+              {
+                "step": 162,
+                "loss": 1.7463690042495728,
+                "bits_per_byte": 2.5194779019930555,
+                "learning_rate": 0.0005153890850186496,
+                "grad_norm": 0.8152943849563599,
+                "tokens_per_second": 721.6509360365907
+              },
+              {
+                "step": 243,
+                "loss": 1.6305391788482666,
+                "bits_per_byte": 2.3523707872995567,
+                "learning_rate": 0.0003779393629886619,
+                "grad_norm": 0.6878771185874939,
+                "tokens_per_second": 721.5129908934842
+              },
+              {
+                "step": 324,
+                "loss": 1.5659501552581787,
+                "bits_per_byte": 2.259188523270277,
+                "learning_rate": 0.0002248970712943043,
+                "grad_norm": 0.5270962119102478,
+                "tokens_per_second": 721.2508081993552
+              },
+              {
+                "step": 405,
+                "loss": 1.3951680660247803,
+                "bits_per_byte": 2.0128020500605963,
+                "learning_rate": 0.00010604014702254788,
+                "grad_norm": 0.4203968346118927,
+                "tokens_per_second": 721.0745313679641
+              },
+              {
+                "step": 486,
+                "loss": 1.381290853023529,
+                "bits_per_byte": 1.9927814636823316,
+                "learning_rate": 6.0027528387453007e-05,
+                "grad_norm": 0.48609858751296997,
+                "tokens_per_second": 721.0270517746054
+              },
+              {
+                "step": 488,
+                "loss": 1.4182370901107788,
+                "bits_per_byte": 2.0460836167076146,
+                "learning_rate": 5.9999999999999995e-05,
+                "grad_norm": 0.4509289860725403,
+                "tokens_per_second": 721.0508620490727
+              }
+            ],
+            "config": {
+              "steps": 488,
+              "batch_size": 8,
+              "sequence_length": 512,
+              "learning_rate": 0.0006,
+              "weight_decay": 0.01,
+              "grad_clip": 1.0,
+              "warmup_steps": 48,
+              "log_every": 81,
+              "seed": 4,
+              "gradient_accumulation": 2,
+              "effective_batch_size": 16,
+              "tokens_per_step": 8192,
+              "token_budget": 3997696
+            }
+          },
+          "nan_inf": false,
+          "validation": {
+            "own_corpus": {
+              "loss": 1.3820647224783897,
+              "perplexity": 3.9831171747283203,
+              "bits_per_byte": 1.9938979213071544,
+              "tokens": 65536
+            },
+            "cross_corpus": {
+              "loss": 2.139394313097,
+              "perplexity": 8.494291189554227,
+              "bits_per_byte": 3.0864935660110926,
+              "tokens": 65536
+            },
+            "top1": {
+              "top1_accuracy": 0.5904541015625,
+              "tokens": 32768
+            }
+          },
+          "inference": {
+            "tokens_per_second": 458.318593971746,
+            "streaming_ms_per_token": 4.646546101525928,
+            "peak_memory_bytes": 776849408,
+            "process_rss_bytes": 2770788352,
+            "plain_tokens_per_second": 455.79781434259866,
+            "summary_tokens_per_second": 448.43602462224567,
+            "trace_tokens_per_second": 48.189691513291834,
+            "summary_overhead_percent": 1.6151437081748599,
+            "trace_overhead_percent": 89.42739741242589
+          },
+          "state": {
+            "statistics": {
+              "per_block": [
+                {
+                  "fast_rms": 0.7188674807548523,
+                  "fast_absmax": 0.999657928943634,
+                  "fast_dead_fraction": 0.0011160714784637094,
+                  "context_rms": 0.69300776720047,
+                  "context_absmax": 0.9999212622642517,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.45256540179252625,
+                  "semantic_absmax": 0.7137010097503662,
+                  "semantic_dead_fraction": 0.0011890606256201863
+                },
+                {
+                  "fast_rms": 0.5938729643821716,
+                  "fast_absmax": 0.9988666772842407,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.5497974157333374,
+                  "context_absmax": 0.998834490776062,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.024944184347987175,
+                  "semantic_absmax": 0.08452584594488144,
+                  "semantic_dead_fraction": 0.02437574230134487
+                },
+                {
+                  "fast_rms": 0.574154257774353,
+                  "fast_absmax": 0.9956866502761841,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5371052026748657,
+                  "context_absmax": 0.9996286034584045,
+                  "context_dead_fraction": 0.001674107275903225,
+                  "semantic_rms": 0.0507647730410099,
+                  "semantic_absmax": 0.14625076949596405,
+                  "semantic_dead_fraction": 0.01605231873691082
+                },
+                {
+                  "fast_rms": 0.5811291337013245,
+                  "fast_absmax": 0.9945480823516846,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5535935759544373,
+                  "context_absmax": 0.9977749586105347,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.07309618592262268,
+                  "semantic_absmax": 0.22984690964221954,
+                  "semantic_dead_fraction": 0.008917954750359058
+                },
+                {
+                  "fast_rms": 0.59770667552948,
+                  "fast_absmax": 0.9945932030677795,
+                  "fast_dead_fraction": 0.001674107275903225,
+                  "context_rms": 0.5339453220367432,
+                  "context_absmax": 0.9994267821311951,
+                  "context_dead_fraction": 0.0,
+                  "semantic_rms": 0.06354134529829025,
+                  "semantic_absmax": 0.1473112255334854,
+                  "semantic_dead_fraction": 0.006539833266288042
+                },
+                {
+                  "fast_rms": 0.6283939480781555,
+                  "fast_absmax": 0.9977782368659973,
+                  "fast_dead_fraction": 0.001674107275903225,
+                  "context_rms": 0.5929377675056458,
+                  "context_absmax": 0.9994222521781921,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.04120149090886116,
+                  "semantic_absmax": 0.110758937895298,
+                  "semantic_dead_fraction": 0.017835909500718117
+                },
+                {
+                  "fast_rms": 0.6391935348510742,
+                  "fast_absmax": 0.998198390007019,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.6267876625061035,
+                  "context_absmax": 0.9998815059661865,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.07248062640428543,
+                  "semantic_absmax": 0.11956298351287842,
+                  "semantic_dead_fraction": 0.017241379246115685
+                },
+                {
+                  "fast_rms": 0.5438685417175293,
+                  "fast_absmax": 0.9902956485748291,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5484333038330078,
+                  "context_absmax": 0.9966310858726501,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.06338100135326385,
+                  "semantic_absmax": 0.13345618546009064,
+                  "semantic_dead_fraction": 0.01189060602337122
+                },
+                {
+                  "fast_rms": 0.581127405166626,
+                  "fast_absmax": 0.9936169385910034,
+                  "fast_dead_fraction": 0.0005580357392318547,
+                  "context_rms": 0.5990081429481506,
+                  "context_absmax": 0.9997621178627014,
+                  "context_dead_fraction": 0.0011160714784637094,
+                  "semantic_rms": 0.05237449333071709,
+                  "semantic_absmax": 0.12784510850906372,
+                  "semantic_dead_fraction": 0.014268727973103523
+                },
+                {
+                  "fast_rms": 0.6042346358299255,
+                  "fast_absmax": 0.996255099773407,
+                  "fast_dead_fraction": 0.0,
+                  "context_rms": 0.6531550884246826,
+                  "context_absmax": 0.999990701675415,
+                  "context_dead_fraction": 0.0005580357392318547,
+                  "semantic_rms": 0.04681965708732605,
+                  "semantic_absmax": 0.1141100525856018,
+                  "semantic_dead_fraction": 0.007134363986551762
+                }
+              ],
+              "mean": {
+                "fast_absmax": 0.9959496855735779,
+                "fast_rms": 0.6062548577785491,
+                "semantic_absmax": 0.19273690283298492,
+                "context_absmax": 0.9991273760795594,
+                "context_rms": 0.5887771248817444,
+                "context_dead_fraction": 0.0007254464668221772,
+                "semantic_dead_fraction": 0.012544589641038328,
+                "semantic_rms": 0.09411691594868898,
+                "fast_dead_fraction": 0.0007254464726429433
+              }
+            },
+            "specialisation": {
+              "reference": {
+                "loss": 1.3712225556373596,
+                "perplexity": 3.9401648228178545,
+                "bits_per_byte": 1.9782559809731095,
+                "tokens": 32768
+              },
+              "ablations": [
+                {
+                  "state": "fast",
+                  "loss": 2.698846787214279,
+                  "delta_loss": 1.3276242315769196,
+                  "delta_bits_per_byte": 1.9153568950600428,
+                  "relative_increase": 0.9682047790993527
+                },
+                {
+                  "state": "context",
+                  "loss": 1.87655708193779,
+                  "delta_loss": 0.5053345263004303,
+                  "delta_bits_per_byte": 0.7290436150836042,
+                  "relative_increase": 0.3685284523820753
+                },
+                {
+                  "state": "semantic",
+                  "loss": 1.664169430732727,
+                  "delta_loss": 0.29294687509536743,
+                  "delta_bits_per_byte": 0.42263300394400516,
+                  "relative_increase": 0.21363918927019285
+                }
+              ],
+              "delta_spread": 1.0346773564815521,
+              "distinguishable": true
+            },
+            "logit_effect": [
+              {
+                "state": "fast",
+                "logit_rms_difference": 2.431971549987793,
+                "logit_max_difference": 12.28125,
+                "prediction_change_rate": 0.6630859375,
+                "accuracy_reference": 0.6025390625,
+                "accuracy_ablated": 0.283203125
+              },
+              {
+                "state": "context",
+                "logit_rms_difference": 2.109334707260132,
+                "logit_max_difference": 11.484375,
+                "prediction_change_rate": 0.3486328125,
+                "accuracy_reference": 0.6025390625,
+                "accuracy_ablated": 0.4990234375
+              },
+              {
+                "state": "semantic",
+                "logit_rms_difference": 1.2951864004135132,
+                "logit_max_difference": 10.125,
+                "prediction_change_rate": 0.259765625,
+                "accuracy_reference": 0.6025390625,
+                "accuracy_ablated": 0.5263671875
+              }
+            ],
+            "activity": {
+              "per_state": {
+                "context": {
+                  "clusters": 40,
+                  "mean_activity": 0.49191808365911127,
+                  "mean_delta": 0.4212343868930475,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "fast": {
+                  "clusters": 40,
+                  "mean_activity": 0.7209187174082036,
+                  "mean_delta": 0.7386541842395673,
+                  "mean_persistence": 128.5,
+                  "reactivations": 0.0,
+                  "updates": 0.0
+                },
+                "semantic": {
+                  "clusters": 40,
+                  "mean_activity": 0.059448629997845594,
+                  "mean_delta": 0.009693303709654311,
+                  "mean_persistence": 7.48388671875,
+                  "reactivations": 26.0,
+                  "updates": 0.0
+                }
+              },
+              "sequence_length": 256,
+              "observed_nodes": 120
+            }
+          },
+          "generation": [
+            {
+              "prompt": " The city of Bremen is located in",
+              "greedy": " The city of Bremen is located in the season . The second control of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , and the second season of the season , and the second season of the season of the season , and the second season o",
+              "sampled": " The city of Bremen is located in pressual general . New developing governor , a live cancilar , which was commissioned , they in a brough star system to leave the ability of state coastal . Mattle are can campaigns in the part missengers team between 100 Micregan Commission . The score of the large over the process of 22 expect of Capturing take , New York , Germany was rejected to be November 10 and meeting to How Gulf . Millar",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " In 1912 , the company began producing",
+              "greedy": " In 1912 , the company began producing the season of the season . The second control of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , and the second season of the season , and the second season of the season of the season , and the s",
+              "sampled": " In 1912 , the company began producing room of The Law for the Wig Star , was administreating the Montrad but Balloride Orline , who collaborated the activity of the first season in New Medio . \n = = Policy discovered throughout the end as a consistant events = = \n With 1955 The Harrisone and 1941 were ended to the New Former Ervisory in Sida State , in large , and in which suggest he distaged its south of Hero in Michers in Chicago ,",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The species was first described by",
+              "greedy": " The species was first described by the season . The second control of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , and the second season of the season of the season , and the second season of the season of the season , and the second season of the season of the ",
+              "sampled": " The species was first described by Fembra . \n There was one player soul behavior with Dilenns of the region which unknowledge of found unconsported as the base . The site of his first four company at first in the U.S. Season 's important dieen to Poscolo served against participating a taxidate national destroyers . \n Recording Meyzo Fall runs were released to previous production of Markin and September 1963 killed is an additional",
+              "temperature": 0.8
+            },
+            {
+              "prompt": " The album received mixed reviews from",
+              "greedy": " The album received mixed reviews from the season . The second control of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , the second season of the season , and the second season of the season , and the second season of the season of th",
+              "sampled": " The album received mixed reviews from process 1 @.@ 8 million and reality from 2007 . In Angland , Mecondification of the Would Campul at the AAU commits and the run was armored . Because of supported a two @-@ few months castled on 3 @.@ 0 kilometres ( 3 @.@ 9 m ) world ( 640 @.@ 5 km /� ) . The Russian was a draft of the 140 km ) of the same wage ( 2 @.@ 6 mi16 ) , a highest reason in late 21 @,@ 000 km ) until the movie at Functor",
+              "temperature": 0.8
+            }
+          ],
+          "generation_quality": {
+            "greedy": {
+              "words": 290,
+              "valid_word_fraction": 1.0,
+              "mean_word_length": 4.2172413793103445,
+              "distinct_1": 0.03103448275862069,
+              "distinct_2": 0.05536332179930796,
+              "distinct_3": 0.0763888888888889,
+              "replacement_char_rate": 0.0,
+              "printable_fraction": 1.0
+            },
+            "sampled": {
+              "words": 249,
+              "valid_word_fraction": 0.8714859437751004,
+              "mean_word_length": 4.718875502008032,
+              "distinct_1": 0.6465863453815262,
+              "distinct_2": 0.9717741935483871,
+              "distinct_3": 1.0,
+              "replacement_char_rate": 0.000625,
+              "printable_fraction": 1.0
+            }
+          },
+          "checkpoint": {
+            "path": "runs/milestone4/m4-fixed-wikitext103-large.pt",
+            "bytes": 363171522,
+            "bytes_per_parameter": 4.010778996545004
+          }
+        }
+      ]
+    }
+  }
+}

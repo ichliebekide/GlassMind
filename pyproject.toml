@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glassmind"
+version = "0.1.0"
+description = "Portables, selektiv-rekurrentes und beobachtbares Sprachmodell"
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+dependencies = ["numpy>=1.26", "torch>=2.5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+visualize = ["vispy>=0.14", "PyQt6>=6.6"]
+
+[project.scripts]
+glassmind-device-info = "glassmind.utils.device:main"
+glassmind-infer = "glassmind.inference.cli:main"
+glassmind-visualize = "glassmind.visualize.app:main"
+
+[tool.setuptools.packages.find]
+include = ["glassmind*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

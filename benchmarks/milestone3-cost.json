@@ -1,0 +1,175 @@
+{
+  "created": "2026-09-03T16:45:54.000194+00:00",
+  "milestone": "3",
+  "environment": {
+    "seed": 23,
+    "git_commit": null,
+    "python": "3.13.7",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "pytorch": "2.13.0+cu130",
+    "cuda": "13.0",
+    "rocm": null,
+    "device": {
+      "backend": "cuda",
+      "device": "cuda",
+      "name": "NVIDIA GeForce RTX 3070",
+      "precision": "bfloat16",
+      "amp": true,
+      "compile_available": true,
+      "total_memory_bytes": 8220901376,
+      "pytorch_version": "2.13.0+cu130",
+      "cuda_version": "13.0",
+      "rocm_version": null,
+      "optimizations": [
+        "AMP"
+      ]
+    },
+    "process_id": 90296
+  },
+  "settings": {
+    "device": "auto",
+    "d_model": 64,
+    "layers": 2,
+    "length": 128,
+    "slots": 64,
+    "memory_width": 64,
+    "memory_key_dim": 32,
+    "read_k": 2,
+    "write_k": 1,
+    "slot_sweep": [
+      16,
+      32,
+      64,
+      128
+    ]
+  },
+  "variants": [
+    {
+      "label": "M2.6 ohne Memory",
+      "options": {},
+      "tokens_per_second": 2350.195948872009,
+      "streaming_ms_per_token": 1.144612859363292,
+      "streaming_ms_min": 1.1398593203182372,
+      "streaming_ms_max": 1.1497142109391234,
+      "training_tokens_per_second": 7477.882257238205,
+      "peak_memory_bytes": 9446912,
+      "operations_per_token": 81.0,
+      "sparse_operations_per_token": 0.0,
+      "change_vs_baseline_percent": 0.0,
+      "parameter_count": 120002
+    },
+    {
+      "label": "M3 Memory deaktiviert",
+      "options": {
+        "disable_memory": true
+      },
+      "tokens_per_second": 2287.737029262094,
+      "streaming_ms_per_token": 1.2122349687473388,
+      "streaming_ms_min": 1.1803508359378156,
+      "streaming_ms_max": 1.2500674062607686,
+      "training_tokens_per_second": null,
+      "peak_memory_bytes": 18047488,
+      "operations_per_token": 82.25,
+      "sparse_operations_per_token": 0.0,
+      "change_vs_baseline_percent": -2.6576047686531212,
+      "parameter_count": 132551
+    },
+    {
+      "label": "M3 Memory aktiv",
+      "options": {},
+      "tokens_per_second": 880.5557907446826,
+      "streaming_ms_per_token": 2.1667332890729085,
+      "streaming_ms_min": 2.151142054685806,
+      "streaming_ms_max": 2.2425679375004393,
+      "training_tokens_per_second": 3440.680623703869,
+      "peak_memory_bytes": 18047488,
+      "operations_per_token": 133.875,
+      "sparse_operations_per_token": 12.0,
+      "change_vs_baseline_percent": -62.532664939393214,
+      "parameter_count": 132551
+    },
+    {
+      "label": "M3 nur Lesen (write aus)",
+      "options": {
+        "disable_memory_write": true
+      },
+      "tokens_per_second": 1698.5108974556163,
+      "streaming_ms_per_token": 1.6118677968677275,
+      "streaming_ms_min": 1.5848502578137413,
+      "streaming_ms_max": 1.6898519062493733,
+      "training_tokens_per_second": null,
+      "peak_memory_bytes": 18047488,
+      "operations_per_token": 112.875,
+      "sparse_operations_per_token": 2.0,
+      "change_vs_baseline_percent": -27.72896667314796,
+      "parameter_count": 132551
+    },
+    {
+      "label": "M3 nur Schreiben (read aus)",
+      "options": {
+        "disable_memory_read": true
+      },
+      "tokens_per_second": 966.9553582412026,
+      "streaming_ms_per_token": 2.1004049453097196,
+      "streaming_ms_min": 2.0769219453171672,
+      "streaming_ms_max": 2.1396976249974387,
+      "training_tokens_per_second": null,
+      "peak_memory_bytes": 18047488,
+      "operations_per_token": 120.875,
+      "sparse_operations_per_token": 10.0,
+      "change_vs_baseline_percent": -58.85639413576137,
+      "parameter_count": 132551
+    },
+    {
+      "label": "M3 mit Zugriffszählern",
+      "options": {},
+      "tokens_per_second": 667.0841891018061,
+      "streaming_ms_per_token": 2.6057213828067916,
+      "streaming_ms_min": 2.5969333750026635,
+      "streaming_ms_max": 2.6075262343709937,
+      "training_tokens_per_second": 3170.676144359214,
+      "peak_memory_bytes": 18047488,
+      "operations_per_token": 140.75,
+      "sparse_operations_per_token": 14.0,
+      "change_vs_baseline_percent": -71.61580550668648,
+      "parameter_count": 132551
+    }
+  ],
+  "observation": [
+    {
+      "mode": "summary",
+      "tokens_per_second": 892.1996372800253,
+      "overhead_percent": 1.523808950268335
+    },
+    {
+      "mode": "trace",
+      "tokens_per_second": 242.9656679468568,
+      "overhead_percent": 73.18275805603042
+    }
+  ],
+  "slot_sweep": [
+    {
+      "slots": 16,
+      "tokens_per_second": 890.6130303661994
+    },
+    {
+      "slots": 32,
+      "tokens_per_second": 905.0689741250485
+    },
+    {
+      "slots": 64,
+      "tokens_per_second": 905.8912048476375
+    },
+    {
+      "slots": 128,
+      "tokens_per_second": 907.9711047174721
+    }
+  ],
+  "bandwidth": {
+    "scoring_bytes_per_token": 8192,
+    "sparse_read_bytes_per_token": 512,
+    "sparse_write_bytes_per_token": 384,
+    "dense_read_equivalent_bytes": 16384,
+    "read_sparsity_factor": 32.0
+  }
+}

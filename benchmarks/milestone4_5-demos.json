@@ -1,0 +1,39 @@
+{
+  "created": "2026-09-03T17:46:07.058449+00:00",
+  "milestone": "4.5",
+  "demos": {
+    "tiny_memory": {
+      "path": "runs/milestone4_5/demo-tiny-memory.jsonl",
+      "bytes": 1768049,
+      "events": 192,
+      "mode": "trace",
+      "beschreibung": "Tiny-Modell mit 32 Memory-Slots. Zeigt State-Regionen, Flusskanten und die Speicherbank mit echten Lese- und Schreibzugriffen.",
+      "parameter": 29767
+    },
+    "full_units": {
+      "path": "runs/milestone4_5/demo-full-units.jsonl",
+      "bytes": 516405,
+      "events": 36,
+      "mode": "full",
+      "beschreibung": "Modus full: enthält vollständige Zustandsvektoren und schaltet damit die Detailstufe 'Units' frei. Bewusst kurz, weil dieser Modus je Token die kompletten Zustände überträgt.",
+      "parameter": 107458
+    },
+    "language": {
+      "skipped": "kein Checkpoint in runs/milestone4"
+    }
+  },
+  "screenshot": {
+    "path": "runs/milestone4_5/inspector-screenshot.png",
+    "size": [
+      1125,
+      2000,
+      3
+    ],
+    "unique_colors": 3096,
+    "non_background_pixels": 47613,
+    "drawn_nodes": 28,
+    "token": 12,
+    "passed": true
+  },
+  "hinweis": "Alle Traces stammen aus echten Modelldurchläufen."
+}
